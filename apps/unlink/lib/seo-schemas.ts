@@ -1,0 +1,318 @@
+/** @format */
+
+import { siteConfig } from "@/constants/site-config";
+import {
+  WithContext,
+  Thing,
+  Person,
+  Organization,
+  WebSite,
+  BlogPosting,
+  BreadcrumbList,
+  Service as ServiceSchema,
+  FAQPage,
+  LocalBusiness,
+} from "schema-dts";
+import { Service, CaseStudy } from "@unlink/shared/types";
+
+/**
+ * 👤 Enhanced Person Identity Schema (E-E-A-T Optimized)
+ * Used for both SEO and Authority Sync (JSON-LD)
+ */
+export const getPersonSchema = (): WithContext<Person> => {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "@id": `${siteConfig.url}/#founder`,
+    name: "Alongkorn Yomkerd",
+    alternateName: [
+      siteConfig.founder.nameTh,
+      siteConfig.founder.alias,
+      "9mza",
+      "นายเอ็มซ่ามากส์",
+      "เจ้าป่า",
+    ],
+    description: siteConfig.founder.description,
+    image: `${siteConfig.url}/branding/founder-avatar.webp`,
+    jobTitle: siteConfig.founder.role,
+    url: siteConfig.founder.url,
+    sameAs: [
+      ...siteConfig.founder.sameAs,
+      "https://github.com/9mza",
+      "https://me.aemdevweb.com",
+    ],
+    identifier: "9mza-authority-sync-v1",
+    knowsLanguage: ["th", "en"],
+    nationality: {
+      "@type": "Country",
+      name: "TH",
+    },
+    knowsAbout: [
+      "Digital Identity Management",
+      "Reputation Engineering",
+      "Cybersecurity Audit",
+      "Strategic Intelligence",
+      "Information Privacy",
+      "Financial Rehabilitation",
+      "Crisis Management",
+    ],
+    worksFor: {
+      "@type": "Organization",
+      "@id": `${siteConfig.url}/#organization`,
+    },
+  } as const;
+};
+
+/**
+ * 🏢 Enhanced Organization Schema (Institutional Authority)
+ * Used for both SEO and Authority Sync (JSON-LD)
+ */
+export const getOrganizationSchema = (): WithContext<Organization> => {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "@id": `${siteConfig.url}/#organization`,
+    name: "UNLINK",
+    legalName: "AEMDEVWEB Strategic Intelligence Unit",
+    url: siteConfig.url,
+    logo: `${siteConfig.url}/branding/logo.png`,
+    description: siteConfig.description,
+    slogan: siteConfig.company.slogan,
+    identifier: "aemdevweb-strategic-unit-001",
+    /* @identity 9mza - Refined Schema Standards */
+    founder: {
+      "@type": "Person",
+      "@id": `${siteConfig.url}/#founder`,
+    },
+    contactPoint: {
+      "@type": "ContactPoint",
+      contactType: "customer support",
+      url: siteConfig.contact.lineUrl,
+      email: siteConfig.contact.email,
+    },
+    address: {
+      "@type": "PostalAddress",
+      addressCountry: "TH",
+    },
+    areaServed: "TH",
+    sameAs: [
+      "https://www.aemdevweb.com",
+      siteConfig.links.facebook,
+      siteConfig.links.twitter,
+    ],
+    // E-E-A-T Linkage
+    publishingPrinciples: `${siteConfig.url}/editorial-policy`,
+    ethicsPolicy: `${siteConfig.url}/editorial-policy#ethics`,
+    knowsAbout: [
+      "Financial Rehabilitation",
+      "Digital Reputation Management",
+      "Strategic Intelligence",
+      "Privacy Protection",
+      "Cybersecurity Compliance",
+    ],
+  } as const;
+};
+
+/**
+ * 💻 WebSite Schema
+ */
+export const getWebSiteSchema = (): WithContext<WebSite> => {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": `${siteConfig.url}/#website`,
+    url: siteConfig.url,
+    name: siteConfig.name,
+    publisher: {
+      "@type": "Organization",
+      "@id": `${siteConfig.url}/#organization`,
+    },
+    copyrightHolder: {
+      "@type": "Organization",
+      "@id": `${siteConfig.url}/#organization`,
+    },
+  } as const;
+};
+
+/**
+ * 📝 Enhanced BlogPosting Schema
+ */
+export const getBlogPostSchema = (data: {
+  title: string;
+  description: string;
+  image: string;
+  datePublished: string;
+  authorName?: string;
+  url: string;
+}): WithContext<BlogPosting> => {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: data.title,
+    description: data.description,
+    image: data.image,
+    datePublished: data.datePublished,
+    author: {
+      "@type": "Person",
+      "@id": `${siteConfig.url}/#founder`,
+      name: data.authorName || siteConfig.founder.name,
+    },
+    publisher: {
+      "@type": "Organization",
+      "@id": `${siteConfig.url}/#organization`,
+    },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": data.url,
+    },
+  } as const;
+};
+
+/**
+ * 🧬 Breadcrumb Schema
+ */
+export const getBreadcrumbSchema = (
+  items: { name: string; item: string }[],
+): WithContext<BreadcrumbList> => {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: item.name,
+      item: `${siteConfig.url}${item.item}`,
+    })),
+  } as const;
+};
+
+/**
+ * 🛡️ Service Schema
+ */
+export const getServiceSchema = (
+  service: Service,
+): WithContext<ServiceSchema> => {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    serviceType: service.title,
+    description: service.description || service.shortDescription,
+    provider: {
+      "@type": "Organization",
+      "@id": `${siteConfig.url}/#organization`,
+    },
+    areaServed: "Worldwide",
+  } as const;
+};
+
+/**
+ * 📋 FAQ Schema
+ */
+export const getFaqSchema = (
+  faqs: { question: string; answer: string }[],
+): WithContext<FAQPage> => {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((f) => ({
+      "@type": "Question",
+      name: f.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: f.answer,
+      },
+    })),
+  } as const;
+};
+
+/**
+ * 🎯 Case Study Schema (as BlogPosting)
+ */
+export const getCaseStudySchema = (
+  study: CaseStudy,
+): WithContext<BlogPosting> => {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: study.title,
+    description: study.excerpt || study.description,
+    datePublished: study.date,
+    author: {
+      "@type": "Organization",
+      "@id": `${siteConfig.url}/#organization`,
+    },
+  } as const;
+};
+
+/**
+ * 📍 Local Business Schema
+ */
+export const getLocalBusinessSchema = (): WithContext<LocalBusiness> => {
+  return {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    name: siteConfig.name,
+    image: `${siteConfig.url}${siteConfig.ogImage}`,
+    address: {
+      "@type": "PostalAddress",
+      addressCountry: "TH",
+    },
+  } as const;
+};
+
+/**
+ * 🌐 Unified Graph Schema (SEO Authority Bridge)
+ */
+export const getGraphSchema = (): WithContext<Thing> => {
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Person",
+        "@id": `${siteConfig.founder.url}/#person`,
+        "name": siteConfig.founder.name || siteConfig.founder.nameTh,
+        "alternateName": [
+          siteConfig.founder.nickname,
+          siteConfig.founder.alias,
+          "9mza",
+          "Verify Unlink thailand",
+        ],
+        "url": siteConfig.founder.url,
+        "jobTitle": siteConfig.founder.role,
+        "worksFor": { "@id": `${siteConfig.url}/#organization` },
+        "sameAs": siteConfig.founder.sameAs,
+        "description": siteConfig.founder.description,
+      },
+      {
+        "@type": "Organization",
+        "@id": `${siteConfig.url}/#organization`,
+        "name": siteConfig.name,
+        "url": siteConfig.url,
+        "logo": {
+          "@type": "ImageObject",
+          "url": `${siteConfig.url}/branding/logo.png`,
+        },
+        "founder": { "@id": `${siteConfig.founder.url}/#person` },
+        "description": siteConfig.description,
+        "sameAs": [
+          siteConfig.links.facebook,
+          siteConfig.links.twitter,
+          siteConfig.links.line,
+        ],
+      },
+      {
+        "@type": "WebSite",
+        "@id": `${siteConfig.url}/#website`,
+        "url": siteConfig.url,
+        "name": siteConfig.name,
+        "publisher": { "@id": `${siteConfig.url}/#organization` },
+        "inLanguage": siteConfig.language,
+        "description": siteConfig.description,
+      },
+    ],
+  } as unknown as WithContext<Thing>;
+};
+
+/**
+ * 🆔 Identity Specific Schemas
+ */

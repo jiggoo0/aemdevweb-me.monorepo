@@ -1,0 +1,60 @@
+# Next Monorepo .geminiignore
+# สำหรับควบคุมขอบเขตการทำงานของ Gemini AI ภายในโปรเจกต์
+# ป้องกันการอ่านไฟล์ซ้ำซ้อน, ไฟล์ขนาดใหญ่ และความลับสำคัญ
+
+# 🚫 [Secrets & Config] - ป้องกันการอ่านข้อมูลลับโดยไม่จำเป็น
+.env
+.env.local
+.env.*.local
+.vercel/
+.git/
+.ssh/
+
+# 📦 [Dependencies & Stores] - ประหยัด Token โดยไม่อ่าน Library
+node_modules/
+**/node_modules/
+.pnpm-store/
+.pnp*
+
+# 🏗️ [Build & Cache Outputs] - ป้องกัน AI สับสนกับโค้ดที่ Gen มาแล้ว
+.next/
+**/ .next/
+dist/
+**/dist/
+build/
+**/build/
+out/
+**/out/
+.turbo/
+.swc/
+*.tsbuildinfo
+
+# 🖼️ [Media & Binaries] - ไม่อ่านไฟล์ที่ไม่ใช่ Text
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.svg
+*.ico
+*.webp
+*.mp4
+*.pdf
+*.zip
+*.tar.gz
+*.tgz
+*.docx
+
+# 📝 [Logs & Temporary]
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+tmp/
+**/tmp/
+
+# 🛠️ [Tooling Specific]
+.vscode/
+.idea/
+.DS_Store
+*.swp

@@ -1,0 +1,575 @@
+.
+├── Projectstructure.txt
+├── apps
+│   ├── me
+│   │   ├── Projectstructure.txt
+│   │   ├── README.md
+│   │   ├── app
+│   │   │   ├── about
+│   │   │   │   └── page.tsx
+│   │   │   ├── blog
+│   │   │   │   ├── [slug]
+│   │   │   │   │   └── page.tsx
+│   │   │   │   └── page.tsx
+│   │   │   ├── contact
+│   │   │   │   └── page.tsx
+│   │   │   ├── favicon.ico
+│   │   │   ├── globals.css
+│   │   │   ├── layout.tsx
+│   │   │   ├── page.tsx
+│   │   │   ├── privacy
+│   │   │   │   └── page.tsx
+│   │   │   ├── projects
+│   │   │   │   ├── [slug]
+│   │   │   │   │   └── page.tsx
+│   │   │   │   └── page.tsx
+│   │   │   ├── robots.ts
+│   │   │   └── sitemap.ts
+│   │   ├── components
+│   │   │   ├── CookieBanner.tsx
+│   │   │   ├── layout
+│   │   │   │   ├── Container.tsx
+│   │   │   │   ├── Footer.tsx
+│   │   │   │   ├── Navbar.tsx
+│   │   │   │   └── SafeAnalytics.tsx
+│   │   │   ├── profile
+│   │   │   │   ├── Hero.tsx
+│   │   │   │   └── VerifySection.tsx
+│   │   │   ├── providers
+│   │   │   │   └── theme-provider.tsx
+│   │   │   ├── shared
+│   │   │   │   ├── BlogCard.tsx
+│   │   │   │   ├── ProjectCard.tsx
+│   │   │   │   └── SocialLinks.tsx
+│   │   │   └── ui
+│   │   │       ├── button.tsx
+│   │   │       ├── card.tsx
+│   │   │       └── theme-toggle.tsx
+│   │   ├── components.json
+│   │   ├── constants
+│   │   │   └── site-config.ts
+│   │   ├── content
+│   │   │   ├── blog
+│   │   │   │   ├── behind-the-code-identity-hub-guide.mdx
+│   │   │   │   ├── professional-integrity-digital-trust.mdx
+│   │   │   │   ├── searchgpt-optimization-entity-seo.mdx
+│   │   │   │   ├── self-belief-and-ai-adaptation.mdx
+│   │   │   │   ├── semantic-seo-nextjs-identity.mdx
+│   │   │   │   ├── seo-google-love-technical-guide.mdx
+│   │   │   │   ├── sme-family-business-seo.mdx
+│   │   │   │   ├── technical-seo-tips.mdx
+│   │   │   │   ├── what-is-seo-organic.mdx
+│   │   │   │   └── why-need-website-vs-facebook.mdx
+│   │   │   ├── projects
+│   │   │   │   ├── aem-dev.mdx
+│   │   │   │   └── unlink-th.mdx
+│   │   │   └── sources
+│   │   │       └── 2
+│   │   │           ├── 2.md
+│   │   │           ├── digital-identity-eeat-google-presence.webp
+│   │   │           └── nextjs-speed-optimization-025s-performance.webp
+│   │   ├── docs
+│   │   ├── eslint.config.mjs
+│   │   ├── knip.json
+│   │   ├── knip_output.txt
+│   │   ├── lib
+│   │   │   ├── blog.ts
+│   │   │   ├── projects.ts
+│   │   │   ├── seo-schemas.ts
+│   │   │   ├── shared-source
+│   │   │   └── utils.ts
+│   │   ├── mdx-components.tsx
+│   │   ├── next-env.d.ts
+│   │   ├── next.config.ts
+│   │   ├── package.json
+│   │   ├── pnpm-lock.yaml
+│   │   ├── postcss.config.mjs
+│   │   ├── public
+│   │   │   ├── 3e8d9f1a2b3c4d5e6f7a8b9c0d1e2f3a.txt
+│   │   │   ├── grid.svg
+│   │   │   └── images
+│   │   │       ├── blog
+│   │   │       │   ├── adapt-to-ai-vs-stone-age.webp
+│   │   │       │   ├── aemdevweb.webp
+│   │   │       │   ├── architects-mind-16x9.webp
+│   │   │       │   ├── digital-identity-eeat-google-presence.webp
+│   │   │       │   ├── faith-in-struggle-finding-hope.webp
+│   │   │       │   ├── next16-tailwind-4x3.webp
+│   │   │       │   ├── nextjs-speed-optimization-025s-performance.webp
+│   │   │       │   └── police-report.webp
+│   │   │       ├── case
+│   │   │       │   └── case100.webp
+│   │   │       ├── grid.svg
+│   │   │       ├── infrastructure-core-16x9.webp
+│   │   │       ├── infrastructure-core-1x1.webp
+│   │   │       ├── infrastructure-core-3x4.webp
+│   │   │       ├── infrastructure-core-4x3.webp
+│   │   │       ├── infrastructure-core-9x16.webp
+│   │   │       ├── logo-circuit.png
+│   │   │       ├── og-image.png
+│   │   │       ├── performance-results-16x9.webp
+│   │   │       ├── performance-results-1x1.webp
+│   │   │       ├── performance-results-3x4.webp
+│   │   │       ├── performance-results-4x3.webp
+│   │   │       ├── performance-results-9x16.webp
+│   │   │       ├── profile-mastermind-16x9.webp
+│   │   │       ├── profile-mastermind-3x4.webp
+│   │   │       ├── profile-mastermind-4x3.webp
+│   │   │       ├── profile-mastermind-9x16.webp
+│   │   │       ├── profile-mysterious-1x1.webp
+│   │   │       └── service
+│   │   │           ├── Unlink-th.webp
+│   │   │           └── aemdevweb.webp
+│   │   ├── tsconfig.json
+│   │   └── tsconfig.tsbuildinfo
+│   └── web
+│       ├── Projectstructure.txt
+│       ├── README.md
+│       ├── app
+│       │   ├── (business)
+│       │   │   ├── areas
+│       │   │   │   ├── [slug]
+│       │   │   │   │   └── page.tsx
+│       │   │   │   └── page.tsx
+│       │   │   ├── blog
+│       │   │   │   ├── [slug]
+│       │   │   │   │   └── page.tsx
+│       │   │   │   └── page.tsx
+│       │   │   ├── case-studies
+│       │   │   │   ├── [slug]
+│       │   │   │   │   └── page.tsx
+│       │   │   │   └── page.tsx
+│       │   │   └── layout.tsx
+│       │   ├── (conversion)
+│       │   │   ├── layout.tsx
+│       │   │   └── services
+│       │   │       ├── [slug]
+│       │   │       │   └── page.tsx
+│       │   │       ├── ai-agent-integration
+│       │   │       │   └── page.tsx
+│       │   │       ├── page.tsx
+│       │   │       └── premium-demo
+│       │   │           └── page.tsx
+│       │   ├── (main)
+│       │   │   ├── about
+│       │   │   │   └── page.tsx
+│       │   │   ├── contact
+│       │   │   │   └── page.tsx
+│       │   │   ├── layout.tsx
+│       │   │   ├── page.tsx
+│       │   │   ├── privacy
+│       │   │   │   └── page.tsx
+│       │   │   ├── status
+│       │   │   │   └── page.tsx
+│       │   │   └── terms
+│       │   │       └── page.tsx
+│       │   ├── (showcase)
+│       │   │   └── templates
+│       │   │       ├── [template_id]
+│       │   │       │   └── page.tsx
+│       │   │       └── page.tsx
+│       │   ├── api
+│       │   │   ├── identity
+│       │   │   │   └── route.ts
+│       │   │   └── webhook
+│       │   │       └── line
+│       │   │           └── route.ts
+│       │   ├── error.tsx
+│       │   ├── favicon.ico
+│       │   ├── global-error.tsx
+│       │   ├── globals.css
+│       │   ├── layout.tsx
+│       │   ├── loading.tsx
+│       │   ├── manifest.ts
+│       │   ├── not-found.tsx
+│       │   ├── robots.ts
+│       │   └── sitemap.ts
+│       ├── components
+│       │   ├── CookieBanner.tsx
+│       │   ├── TestComponent.tsx
+│       │   ├── features
+│       │   │   ├── areas
+│       │   │   │   ├── AreaCard.tsx
+│       │   │   │   ├── AreaInfrastructureHUD.tsx
+│       │   │   │   ├── AreaSearchHub.tsx
+│       │   │   │   └── ThailandMap.tsx
+│       │   │   ├── blog
+│       │   │   │   ├── BlogCard.tsx
+│       │   │   │   ├── BlogFilters.tsx
+│       │   │   │   └── TableOfContents.tsx
+│       │   │   ├── case-studies
+│       │   │   │   └── CaseStudyCard.tsx
+│       │   │   ├── landing
+│       │   │   │   ├── AEMSpecialistHero.tsx
+│       │   │   │   ├── DeferredHomeWidgets.tsx
+│       │   │   │   ├── DynamicROICalculator.tsx
+│       │   │   │   ├── LivePerformanceDashboard.tsx
+│       │   │   │   ├── PricingSection.tsx
+│       │   │   │   └── WorkProcess.tsx
+│       │   │   ├── services
+│       │   │   │   ├── ServiceCard.tsx
+│       │   │   │   ├── ServiceListingHub.tsx
+│       │   │   │   └── ServiceNavigationHUD.tsx
+│       │   │   └── wow-factor
+│       │   │       ├── core
+│       │   │       │   ├── PremiumAtmosphere.tsx
+│       │   │       │   └── PremiumLayoutEngine.tsx
+│       │   │       ├── interactive
+│       │   │       │   ├── DynamicROICalculator.tsx
+│       │   │       │   ├── HolographicTerminal.tsx
+│       │   │       │   └── LivePerformanceDashboard.tsx
+│       │   │       └── shared
+│       │   │           └── AnimatedCounter.tsx
+│       │   ├── layout
+│       │   │   ├── Footer.tsx
+│       │   │   ├── Navbar.tsx
+│       │   │   └── TopLoader.tsx
+│       │   ├── providers
+│       │   │   ├── ClientInfrastructure.tsx
+│       │   │   ├── PremiumTemplateBuilderProvider.tsx
+│       │   │   └── ThemeProvider.tsx
+│       │   ├── seo
+│       │   │   ├── JsonLd.tsx
+│       │   │   └── ReputationShield.tsx
+│       │   ├── shared
+│       │   │   ├── AuthorCard.tsx
+│       │   │   ├── ConversionCTA.tsx
+│       │   │   ├── FloatingContainer.tsx
+│       │   │   ├── ImpactStats.tsx
+│       │   │   ├── LineStickyButton.tsx
+│       │   │   └── TrustBadge.tsx
+│       │   ├── templates
+│       │   │   ├── InteractiveCatalog.tsx
+│       │   │   ├── LayoutEngine.tsx
+│       │   │   ├── PremiumTemplateRenderer.tsx
+│       │   │   ├── TemplateBuilderContext.tsx
+│       │   │   ├── TemplateRenderer.tsx
+│       │   │   ├── bio
+│       │   │   │   └── Index.tsx
+│       │   │   ├── catalog
+│       │   │   │   └── Index.tsx
+│       │   │   ├── corporate
+│       │   │   │   ├── Index.tsx
+│       │   │   │   └── PremiumCorporateTemplate.tsx
+│       │   │   ├── hotelresort
+│       │   │   │   └── Index.tsx
+│       │   │   ├── local-authority
+│       │   │   │   └── Index.tsx
+│       │   │   ├── salepage
+│       │   │   │   └── Index.tsx
+│       │   │   ├── sections
+│       │   │   │   ├── AuditReportGenerator.tsx
+│       │   │   │   ├── CapabilityGraph.tsx
+│       │   │   │   ├── ClientRegistry.tsx
+│       │   │   │   ├── DirectOrderForm.tsx
+│       │   │   │   ├── DirectTerminal.tsx
+│       │   │   │   ├── DynamicFAQ.tsx
+│       │   │   │   ├── ExperienceNodes.tsx
+│       │   │   │   ├── FlashSaleTimer.tsx
+│       │   │   │   ├── LeadScoringHUD.tsx
+│       │   │   │   ├── LocalInsight.tsx
+│       │   │   │   ├── LocalMapNode.tsx
+│       │   │   │   ├── LocalSuccessNode.tsx
+│       │   │   │   ├── MarketIntelligence.tsx
+│       │   │   │   ├── PerformanceTrajectory.tsx
+│       │   │   │   ├── RegionalGallery.tsx
+│       │   │   │   ├── RegionalNodeHub.tsx
+│       │   │   │   ├── RegionalRoadmap.tsx
+│       │   │   │   ├── RevenueLeakageCalculator.tsx
+│       │   │   │   ├── SaleNavbar.tsx
+│       │   │   │   ├── StickyBuyButton.tsx
+│       │   │   │   ├── SuccessTimeline.tsx
+│       │   │   │   ├── ThaiTrustBadge.tsx
+│       │   │   │   ├── TrustEquation.tsx
+│       │   │   │   ├── UniversalHero.tsx
+│       │   │   │   ├── UniversalLogoCloud.tsx
+│       │   │   │   ├── UniversalPortal.tsx
+│       │   │   │   ├── UniversalRegistry.tsx
+│       │   │   │   ├── ValueBlueprint.tsx
+│       │   │   │   └── WeatherTracker.tsx
+│       │   │   ├── seo-agency
+│       │   │   │   └── Index.tsx
+│       │   │   ├── showcase
+│       │   │   └── themes
+│       │   │       └── hotel-premium
+│       │   │           └── index.ts
+│       │   └── ui
+│       │       ├── Accordion.tsx
+│       │       ├── AmbientBackground.tsx
+│       │       ├── Callout.tsx
+│       │       ├── IconRenderer.tsx
+│       │       ├── Magnetic.tsx
+│       │       ├── Pagination.tsx
+│       │       ├── Skeleton.tsx
+│       │       ├── SkeletonCard.tsx
+│       │       ├── SkeletonGrid.tsx
+│       │       ├── Sonner.tsx
+│       │       ├── ThemeToggle.tsx
+│       │       └── button.tsx
+│       ├── components.json
+│       ├── constants
+│       │   ├── about.ts
+│       │   ├── image-blur-data.ts
+│       │   ├── line-menu.ts
+│       │   ├── master-registry.ts
+│       │   ├── navigation.ts
+│       │   ├── services
+│       │   │   ├── bio.ts
+│       │   │   ├── catalog.ts
+│       │   │   ├── corporate.ts
+│       │   │   ├── hotel-resort.ts
+│       │   │   ├── local-authority.ts
+│       │   │   ├── salepage.ts
+│       │   │   ├── seo-agency.ts
+│       │   │   └── web-service-schema.ts
+│       │   ├── site-config.ts
+│       │   └── ui-strings.ts
+│       ├── content
+│       │   ├── blog
+│       │   │   ├── 5-points-killing-sales.mdx
+│       │   │   ├── 5-reasons-to-switch-to-ai-agent.mdx
+│       │   │   ├── advanced-capi-gtm-tracking-2026.mdx
+│       │   │   ├── advanced-json-ld-knowledge-graph.mdx
+│       │   │   ├── advanced-schema-markup.mdx
+│       │   │   ├── agentic-workflows-ai-automation-2026.mdx
+│       │   │   ├── ai-agents-api-first-seo-2026.mdx
+│       │   │   ├── ai-first-development-nextjs-16.mdx
+│       │   │   ├── ai-first-transformation-2026.mdx
+│       │   │   ├── ai-native-coding-standards-2026.mdx
+│       │   │   ├── ai-search-optimization-2026.mdx
+│       │   │   ├── ai-seo-analytics-data-mining-2026.mdx
+│       │   │   ├── autonomous-content-personalization-ai-2026.mdx
+│       │   │   ├── autonomous-web-2026-engineering-summary.mdx
+│       │   │   ├── case-study-unlink-th.mdx
+│       │   │   ├── copywriting-secrets.mdx
+│       │   │   ├── core-web-vitals-2026-lcp-cls-optimization.mdx
+│       │   │   ├── core-web-vitals-speed.mdx
+│       │   │   ├── ecommerce-conversion-seo.mdx
+│       │   │   ├── facebook-ads-vs-website.mdx
+│       │   │   ├── first-party-data-strategy-2026.mdx
+│       │   │   ├── future-of-web-infrastructure-beyond-2026.mdx
+│       │   │   ├── inp-core-web-vitals-2026-optimization.mdx
+│       │   │   ├── local-seo-dominance-nextjs-16.mdx
+│       │   │   ├── lower-north-digital-transformation.mdx
+│       │   │   ├── mobile-first-indexing-2026.mdx
+│       │   │   ├── multi-agent-content-orchestration-2026.mdx
+│       │   │   ├── nextjs-16-ai-infrastructure-2026.mdx
+│       │   │   ├── nextjs-16-hydration-mastery.mdx
+│       │   │   ├── nextjs-16-partial-prerendering-ppr.mdx
+│       │   │   ├── nextjs-16-security-hardening.mdx
+│       │   │   ├── nextjs-16-use-cache-performance.mdx
+│       │   │   ├── predictive-lead-scoring-ai-2026.mdx
+│       │   │   ├── react-compiler-react-19-optimization.mdx
+│       │   │   ├── semantic-html-accessibility-seo.mdx
+│       │   │   ├── seo-2026-strategy.mdx
+│       │   │   ├── server-side-tracking-capi-2026.mdx
+│       │   │   ├── technical-audit-protocol.mdx
+│       │   │   └── zero-js-architecture-performance-2026.mdx
+│       │   ├── case-studies
+│       │   │   ├── case-study-industrial-catalog.mdx
+│       │   │   ├── ecommerce-nextjs-migration.mdx
+│       │   │   ├── new-case-study-2026.mdx
+│       │   │   ├── phuket-luxury-seo.mdx
+│       │   │   ├── provincial-digital-domination.mdx
+│       │   │   └── unlink-reputation-management-success.mdx
+│       │   └── templates
+│       │       └── hotel
+│       │           └── data.ts
+│       ├── docs
+│       │   ├── business
+│       │   │   └── services-content.md
+│       │   └── test-component.md
+│       ├── eslint.config.mjs
+│       ├── knip.json
+│       ├── lib
+│       │   ├── api-utils.ts
+│       │   ├── blob.ts
+│       │   ├── cms.ts
+│       │   ├── data-merger.ts
+│       │   ├── db.ts
+│       │   ├── schema.sql
+│       │   ├── schema.ts
+│       │   ├── seo-utils.ts
+│       │   ├── shared-source
+│       │   │   ├── db.ts
+│       │   │   └── utils.ts
+│       │   ├── templates
+│       │   │   └── premium-types.ts
+│       │   └── utils.ts
+│       ├── mdx-components.tsx
+│       ├── next-env.d.ts
+│       ├── next.config.ts
+│       ├── package.json
+│       ├── pnpm-lock.yaml
+│       ├── pnpm-workspace.yaml
+│       ├── postcss.config.mjs
+│       ├── public
+│       │   ├── BingSiteAuth.xml
+│       │   ├── android-chrome-192x192.png
+│       │   ├── android-chrome-512x512.png
+│       │   ├── apple-touch-icon.png
+│       │   ├── favicon-16x16.png
+│       │   ├── favicon-32x32.png
+│       │   ├── favicon.ico
+│       │   ├── grid-pattern.svg
+│       │   ├── images
+│       │   │   ├── areas
+│       │   │   │   └── universal-node.webp
+│       │   │   ├── avatar.webp
+│       │   │   ├── hero-monolith.webp
+│       │   │   ├── logo-main.webp
+│       │   │   ├── og-blog.webp
+│       │   │   ├── og-case-studies.webp
+│       │   │   ├── og-default.webp
+│       │   │   ├── og-main.webp
+│       │   │   ├── og-seo-agency.webp
+│       │   │   ├── services
+│       │   │   │   ├── bio-node.webp
+│       │   │   │   ├── catalog-node.webp
+│       │   │   │   ├── corporate-node.webp
+│       │   │   │   ├── default.webp
+│       │   │   │   ├── extreme-intervention.webp
+│       │   │   │   ├── hotel-resort-node.webp
+│       │   │   │   ├── local-authority-node.webp
+│       │   │   │   ├── og-seo-agency.webp
+│       │   │   │   ├── salepage-node.webp
+│       │   │   │   └── seo-agency-node.webp
+│       │   │   └── shared
+│       │   │       ├── executive-reputation.webp
+│       │   │       ├── placeholder.webp
+│       │   │       ├── preview.webp
+│       │   │       └── trust-marker.webp
+│       │   └── logo-icon.svg
+│       ├── scripts
+│       │   └── test-schema.ts
+│       ├── tsconfig.json
+│       ├── tsconfig.tsbuildinfo
+│       └── types
+│           ├── index.d.ts
+│           └── templates.d.ts
+├── docs
+│   └── AEMDEVWEB-me.monorepo.docx.txt
+├── package.json
+├── packages
+│   ├── core
+│   │   ├── package.json
+│   │   └── src
+│   │       ├── constants
+│   │       │   ├── area-nodes
+│   │       │   │   ├── amnat-charoen.ts
+│   │       │   │   ├── ang-thong.ts
+│   │       │   │   ├── ayutthaya.ts
+│   │       │   │   ├── bangkok.ts
+│   │       │   │   ├── bueng-kan.ts
+│   │       │   │   ├── buriram.ts
+│   │       │   │   ├── chachoengsao.ts
+│   │       │   │   ├── chai-nat.ts
+│   │       │   │   ├── chaiyaphum.ts
+│   │       │   │   ├── chanthaburi.ts
+│   │       │   │   ├── chiang-mai.ts
+│   │       │   │   ├── chiang-rai.ts
+│   │       │   │   ├── chon-buri.ts
+│   │       │   │   ├── chumphon.ts
+│   │       │   │   ├── index.ts
+│   │       │   │   ├── kalasin.ts
+│   │       │   │   ├── kamphaeng-phet.ts
+│   │       │   │   ├── kanchanaburi.ts
+│   │       │   │   ├── khon-kaen.ts
+│   │       │   │   ├── korat.ts
+│   │       │   │   ├── krabi.ts
+│   │       │   │   ├── lampang.ts
+│   │       │   │   ├── lamphun.ts
+│   │       │   │   ├── loei.ts
+│   │       │   │   ├── lopburi.ts
+│   │       │   │   ├── mae-hong-son.ts
+│   │       │   │   ├── maha-sarakham.ts
+│   │       │   │   ├── mukdahan.ts
+│   │       │   │   ├── nakhon-nayok.ts
+│   │       │   │   ├── nakhon-pathom.ts
+│   │       │   │   ├── nakhon-phanom.ts
+│   │       │   │   ├── nakhon-sawan.ts
+│   │       │   │   ├── nakhon-si-thammarat.ts
+│   │       │   │   ├── nan.ts
+│   │       │   │   ├── narathiwat.ts
+│   │       │   │   ├── node-factory.ts
+│   │       │   │   ├── nong-bua-lamphu.ts
+│   │       │   │   ├── nong-khai.ts
+│   │       │   │   ├── nonthaburi.ts
+│   │       │   │   ├── pathum-thani.ts
+│   │       │   │   ├── pattani.ts
+│   │       │   │   ├── phang-nga.ts
+│   │       │   │   ├── phatthalung.ts
+│   │       │   │   ├── phayao.ts
+│   │       │   │   ├── phetchabun.ts
+│   │       │   │   ├── phetchaburi.ts
+│   │       │   │   ├── phichit.ts
+│   │       │   │   ├── phitsanulok.ts
+│   │       │   │   ├── phrae.ts
+│   │       │   │   ├── phuket.ts
+│   │       │   │   ├── prachin-buri.ts
+│   │       │   │   ├── prachuap-khiri-khan.ts
+│   │       │   │   ├── ranong.ts
+│   │       │   │   ├── ratchaburi.ts
+│   │       │   │   ├── rayong.ts
+│   │       │   │   ├── roi-et.ts
+│   │       │   │   ├── sa-kaeo.ts
+│   │       │   │   ├── sakon-nakhon.ts
+│   │       │   │   ├── samut-prakan.ts
+│   │       │   │   ├── samut-sakhon.ts
+│   │       │   │   ├── samut-songkhram.ts
+│   │       │   │   ├── saraburi.ts
+│   │       │   │   ├── satun.ts
+│   │       │   │   ├── si-sa-ket.ts
+│   │       │   │   ├── sing-buri.ts
+│   │       │   │   ├── songkhla.ts
+│   │       │   │   ├── sukhothai.ts
+│   │       │   │   ├── suphan-buri.ts
+│   │       │   │   ├── surat-thani.ts
+│   │       │   │   ├── surin.ts
+│   │       │   │   ├── tak.ts
+│   │       │   │   ├── trang.ts
+│   │       │   │   ├── trat.ts
+│   │       │   │   ├── ubon-ratchathani.ts
+│   │       │   │   ├── udon-thani.ts
+│   │       │   │   ├── uthai-thani.ts
+│   │       │   │   ├── uttaradit.ts
+│   │       │   │   ├── yala.ts
+│   │       │   │   └── yasothon.ts
+│   │       │   └── provinces
+│   │       │       └── config.ts
+│   │       ├── index.ts
+│   │       ├── lib
+│   │       │   └── area-processor.ts
+│   │       └── seo
+│   │           ├── JsonLd.tsx
+│   │           └── schemas.ts
+│   ├── eslint-config
+│   │   ├── README.md
+│   │   ├── base.js
+│   │   ├── next.js
+│   │   ├── package.json
+│   │   └── react-internal.js
+│   ├── typescript-config
+│   │   ├── base.json
+│   │   ├── nextjs.json
+│   │   ├── package.json
+│   │   └── react-library.json
+│   └── ui
+│       ├── eslint.config.mjs
+│       ├── package.json
+│       ├── src
+│       │   ├── button.tsx
+│       │   ├── card.tsx
+│       │   ├── code.tsx
+│       │   ├── components
+│       │   │   ├── AmbientBackground.tsx
+│       │   │   ├── ThemeToggle.tsx
+│       │   │   ├── button.tsx
+│       │   │   └── card.tsx
+│       │   └── index.ts
+│       └── tsconfig.json
+├── pnpm-lock.yaml
+├── pnpm-workspace.yaml
+└── turbo.json
+
+119 directories, 454 files

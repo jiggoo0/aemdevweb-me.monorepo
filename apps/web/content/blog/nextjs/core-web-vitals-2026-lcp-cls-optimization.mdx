@@ -1,0 +1,41 @@
+---
+title: "LCP & CLS Optimization 2026: วิธีดันคะแนน Performance สู่ 100/100 ในระดับวิศวกรรม"
+date: "2026-03-02T10:00:00.000Z"
+category: "Engineering"
+thumbnail: "/images/blog/core-web-vitals-speed.webp"
+coverImage: "/images/blog/core-web-vitals-speed.webp"
+description: "เจาะลึกเทคนิคการจัดการ Largest Contentful Paint และ Cumulative Layout Shift เพื่อให้หน้าเว็บโหลดเสร็จในเสี้ยววินาทีและนิ่งสนิทไร้การกระตุก"
+excerpt: "เจาะลึกเทคนิคการจัดการ Largest Contentful Paint และ Cumulative Layout Shift"
+tags: ["LCP", "CLS", "Core Web Vitals", "Web Performance", "Next.js 16"]
+readingTime: "8 min read"
+---
+
+# LCP & CLS: เมื่อ 'ความเร็ว' และ 'ความนิ่ง' คือหัวใจของ Conversion
+
+ในปี 2026 คะแนน Google Lighthouse ไม่ใช่แค่ตัวเลขประดับเทมเพลต แต่คือปัจจัยชี้ชะตาว่าลูกค้าจะอยู่ต่อหรือปิดหน้าเว็บหนี **AEMDEVWEB** จึงใช้มาตรฐาน **Zero-Jank Architecture** เพื่อรีดประสิทธิภาพสูงสุด
+
+## 1. Largest Contentful Paint (LCP) < 1.0s
+
+LCP วัดเวลาที่เนื้อหาที่ใหญ่ที่สุด (มักจะเป็นรูปภาพ Hero) แสดงผล
+
+- **Next.js 16 Strategy:** เราใช้ `priority` attribute ในคอมโพเนนต์ `Image` เพื่อบอกเบราว์เซอร์ให้โหลดรูปนี้ก่อนสิ่งอื่นใด
+- **Preload Critical Assets:** เราฉีดระบบ Preload Link เข้าไปใน Header เพื่อจองคิว Network ให้กับ Font และรูปภาพ LCP ตั้งแต่มิลลิวินาทีแรก
+
+## 2. Zero Cumulative Layout Shift (CLS)
+
+ไม่มีอะไรน่ารำคาญไปกว่าการกำลังจะกดปุ่มแล้วปุ่มเลื่อนหนีไปด้านล่างเพราะรูปเพิ่งโหลดเสร็จ
+
+- **Image Blur Registry:** เราใช้ระบบ **BlurHash** สกัดข้อมูลสีจากรูปภาพมาเป็น Placeholder ขนาดเล็กมาก (ไม่กี่ไบต์) เพื่อจองพื้นที่ไว้ล่วงหน้า
+- **Aspect Ratio Locking:** ทุกพื้นที่ที่มีรูปภาพหรือวิดีโอ จะถูกล็อคขนาด (Width/Height) ไว้ในระดับ CSS ทำให้หน้าเว็บ "นิ่งสนิท" (Stable Geometry) ตั้งแต่เริ่มโหลด
+
+## 3. สถาปัตยกรรมแบบ Composite-Only Animations
+
+เราหลีกเลี่ยงการใช้ JavaScript ในการขยับ Layout แต่เปลี่ยนไปใช้ **GPU-accelerated properties** (`transform`, `opacity`) เพื่อให้เบราว์เซอร์จัดการในระดับ Hardware
+
+กระบวนการนี้ทำให้เว็บไซต์ภายใต้การดูแลของเรา ไม่เพียงแต่เร็วบนคอมพิวเตอร์แรงๆ แต่ยังลื่นไหลระดับ 60fps แม้เปิดผ่านมือถือรุ่นประหยัดกลางแดดจ้า
+
+## บทสรุป
+
+การได้คะแนน Performance 100/100 ไม่ใช่เรื่องบังเอิญ แต่คือผลลัพธ์ของการวางแผนวิศวกรรมที่เป๊ะในทุกจุด
+
+**รีดความเร็วเว็บไซต์ของคุณให้ถึงขีดสุดกับ AEMDEVWEB (นายเอ็มซ่ามากส์) ครับ**

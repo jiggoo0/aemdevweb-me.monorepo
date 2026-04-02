@@ -1,0 +1,45 @@
+---
+title: "Advanced JSON-LD: วิธีสร้าง Knowledge Graph เพื่อยืนยันตัวตน E-E-A-T ของธุรกิจคุณ"
+date: "2026-02-26T18:00:00.000Z"
+category: "Technical SEO"
+thumbnail: "/images/blog/advanced-schema-markup.webp"
+coverImage: "/images/blog/advanced-schema-markup.webp"
+description: "เจาะลึกเทคนิคการเขียน JSON-LD ในระดับสูง เพื่อเชื่อมโยง Entity (ตัวตน) ของธุรกิจและผู้เชี่ยวชาญเข้าสู่ฐานข้อมูล Knowledge Graph ของ Google"
+excerpt: "เจาะลึกเทคนิคการเขียน JSON-LD ในระดับสูง เพื่อเชื่อมโยง Entity (ตัวตน) ของธุรกิจและผู้เชี่ยวชาญ"
+tags: ["JSON-LD", "Schema.org", "Knowledge Graph", "E-E-A-T", "Technical SEO"]
+readingTime: "9 min read"
+---
+
+# Advanced JSON-LD: มากกว่าแค่ Tag คือการสร้างความเชื่อใจให้ AI
+
+ในยุคที่ Google ให้ความสำคัญกับ **E-E-A-T** (Experience, Expertise, Authoritativeness, Trustworthiness) การใส่ Meta Tags แบบเดิมไม่เพียงพออีกต่อไป คุณจำเป็นต้อง "นิยามตัวตน" ให้ชัดเจนผ่าน **JSON-LD (Structured Data)**
+
+## 1. การสร้าง Entity Connection
+
+หัวใจของ Knowledge Graph คือการบอก Google ว่าสิ่งของ (Things) หรือบุคคล (People) เกี่ยวข้องกันอย่างไร
+
+- **SameAs Property:** ใช้เพื่อเชื่อมโยงเว็บไซต์กับ Social Profiles (LinkedIn, Wikipedia, GitHub) เพื่อยืนยันว่าเป็น "บุคคลเดียวกัน"
+- **AEMDEVWEB Implementation:** เราฉีด `sameAs` ใน `Person` Schema ของคุณอลงกรณ์ เพื่อให้ Google มั่นใจว่าบทความทั้งหมดเขียนโดย Specialist ตัวจริง
+
+## 2. ProfessionalService Schema สำหรับท้องถิ่น
+
+สำหรับธุรกิจที่มีหลายสาขา (Area Nodes) การใช้ `ProfessionalService` หรือ `LocalBusiness` Schema ร่วมกับพิกัด `geo` (Latitude/Longitude) คือกุญแจสำคัญในการทำ Local SEO
+
+- **Optimization:** ระบุ `priceRange`, `openingHours` และ `areaServed` ให้ชัดเจนในระดับรายจังหวัด เพื่อให้ติดอันดับบน Google Maps และ Rich Snippets
+
+## 3. สถาปัตยกรรม Schema ใน Next.js 16
+
+เราใช้ระบบ **Schema Orchestrator** ในระดับ `lib/schema.ts` เพื่อ Generate Graph ชุดเดียวที่ประกอบด้วย:
+
+1. **Organization:** ข้อมูลบริษัท
+2. **WebSite:** พิกัดการค้นหา (Search Action)
+3. **Person:** ข้อมูลผู้เชี่ยวชาญ (Author)
+4. **Service/Product:** ข้อมูลบริการเฉพาะหน้า
+
+การผสานทั้งหมดนี้เข้าเป็น `@graph` ชุดเดียว ช่วยลดความซับซ้อนของ Code และเพิ่มประสิทธิภาพในการประมวลผลของ Google Bot
+
+## บทสรุป
+
+JSON-LD คือ "ภาษา" ที่ใช้คุยกับ AI Search การจัดโครงสร้างข้อมูลที่แม่นยำจะเปลี่ยนเว็บไซต์ของคุณจากแค่ "เว็บสวย" ให้กลายเป็น "แหล่งข้อมูลอ้างอิง" (Authoritative Source) ในสายตา Google
+
+**สร้างความแข็งแกร่งให้ Knowledge Graph ของคุณกับ AEMDEVWEB วันนี้ครับ**

@@ -1,0 +1,49 @@
+---
+title: "E-commerce Infrastructure Migration: จาก Legacy PHP สู่ Next.js 16 (Case Study)"
+date: "2026-02-26"
+client: "Industrial Parts Provider (B2B)"
+result: "Conversion Rate +140% | LCP 0.8s"
+thumbnail: "/images/case-studies/industrial-catalog.webp"
+image: "/images/case-studies/industrial-catalog.webp"
+description: "เบื้องหลังการยกเครื่องระบบเว็บไซต์แคตตาล็อกสินค้าอุตสาหกรรมกว่า 10,000 SKU ด้วยสถาปัตยกรรม Next.js 16 และ Server-Side Tracking"
+results:
+  [
+    "LCP ลดลงจาก 4.2s เหลือ 0.8s",
+    "SEO Traffic เพิ่มขึ้น 85% ใน 3 เดือน",
+    "ยอดขอใบเสนอราคา (RFQ) เพิ่มขึ้น 2.4 เท่า",
+  ]
+---
+
+## โจทย์ของธุรกิจ (The Challenge)
+
+ลูกค้าเป็นผู้จำหน่ายอะไหล่เครื่องจักรรายใหญ่ในกรุงเทพฯ ที่มีสินค้า (SKU) จำนวนมหาศาล แต่ประสบปัญหา:
+
+1. **เว็บไซต์เดิมโหลดช้ามาก:** เนื่องจากใช้โครงสร้างเก่าที่เรนเดอร์ทุกอย่างที่ Client-side ทำให้ลูกค้าฝ่ายจัดซื้อเสียเวลารอนาน
+2. **อันดับ SEO ตก:** โครงสร้าง HTML ไม่เป็นไปตามมาตรฐาน Semantic ทำให้ Google Bot เข้าใจข้อมูลสินค้าได้ยาก
+3. **Tracking ไม่แม่นยำ:** เสียข้อมูลลูกค้าไปกว่า 30% จากการบล็อกคุกกี้บน iOS 14+
+
+## โซลูชันระดับวิศวกรรม (The Technical Solution)
+
+**นายเอ็มซ่ามากส์ (AEMDEVWEB)** ได้เข้ามาวางโครงสร้างใหม่ทั้งหมดโดยใช้:
+
+### 1. Hybrid Rendering Strategy (ISR + RSC)
+
+เราใช้ **React Server Components** เพื่อเรนเดอร์หน้าแคตตาล็อกสินค้า 10,000+ หน้าแบบ Static และใช้ **Incremental Static Regeneration (ISR)** เพื่ออัปเดตสต็อกสินค้าทุก 1 ชั่วโมง ทำให้เว็บโหลดไวเหมือนเปิดไฟล์เอกสารในเครื่อง
+
+### 2. Semantic Data Architecture
+
+ฝัง **JSON-LD Schema (Product & Organization)** อย่างเข้มข้นในทุกหน้าสินค้า ทำให้ Google แสดงผลแบบ Rich Results (ราคา, สถานะสินค้า) บนหน้าค้นหาทันที
+
+### 3. Server-Side CAPI Implementation
+
+ติดตั้งระบบ **Facebook & Google Conversion API** บน Cloud Server เพื่อส่งข้อมูลการสั่งซื้อและ RFQ กลับไปเทรน AI โฆษณาโดยตรง โดยไม่ผ่าน Browser Cookie ทำให้แอดแม่นยำขึ้นอย่างมหาศาล
+
+## ผลลัพธ์ทางธุรกิจ (The Outcome)
+
+หลังการ Migration เพียง 90 วัน:
+
+- **Performance Score:** ทะยานสู่ 100/100 บนทุกหน้าอุปกรณ์
+- **Business Impact:** อัตราการเปลี่ยนจากคนดูเป็นคนซื้อ (Conversion Rate) เพิ่มขึ้น 140%
+- **Cost Efficiency:** ต้นทุนต่อการได้มาซึ่งลูกค้า (CPA) ลดลง 40% เนื่องจากแอดมีความแม่นยำขึ้นจากข้อมูล CAPI
+
+> "นี่คือการลงทุนในโครงสร้างพื้นฐานดิจิทัลที่คุ้มค่าที่สุดของบริษัทในรอบ 5 ปี" — เจ้าของโครงการ
