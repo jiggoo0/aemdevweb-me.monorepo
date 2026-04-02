@@ -5,7 +5,7 @@
 | Track ID | Name | Status | Description |
 | :--- | :--- | :--- | :--- |
 | `arch-001` | [Monorepo Modernization](./tracks/arch-001/plan.md) | `Completed` | จัดโครงสร้างใหม่และเตรียมระบบฐานข้อมูลกลาง |
-| `seo_77_province_engine_20260402` | [77 Province Engine](./tracks/seo_77_province_engine_20260402/plan.md) | `New` | พัฒนาระบบ SEO Dynamic Routing สำหรับ 77 จังหวัด |
+| `seo_77_province_engine_20260402` | [77 Province Engine](./tracks/seo_77_province_engine_20260402/plan.md) | `In Progress` | พัฒนาระบบ SEO Dynamic Routing สำหรับ 77 จังหวัด |
 | `auth-001` | [Centralized Auth] | `Proposed` | รวมระบบ Login ของทุกแอปเข้ากับ Supabase Auth |
 
 ## Continuous Workflow
