@@ -109,11 +109,66 @@
     @apply bg-white/70 backdrop-blur-xl border border-white/20;
   }
 
+  .glass-liquid {
+    @apply relative overflow-hidden backdrop-blur-2xl border border-white/40;
+    background: linear-gradient(
+      135deg,
+      oklch(1 0 0 / 0.1) 0%,
+      oklch(1 0 0 / 0.05) 50%,
+      oklch(1 0 0 / 0.15) 100%
+    );
+    box-shadow: 
+      inset 0 0 20px oklch(1 0 0 / 0.2),
+      0 10px 30px -10px oklch(0 0 0 / 0.1);
+  }
+
   .text-gradient-authority {
     @apply bg-clip-text text-transparent bg-gradient-to-br from-foreground to-foreground/60;
   }
 
   .section-spacing {
     @apply py-24 md:py-40;
+  }
+
+  /* 🏨 HOSPITALITY THEME: Cinematic & Elegant */
+  .theme-hospitality {
+    --background: oklch(0.15 0.02 240); /* Deep Dark */
+    --foreground: oklch(0.98 0.01 240);
+    --primary: oklch(0.85 0.12 85); /* Ethereal Gold */
+    --secondary: oklch(0.4 0.05 240);
+    --radius: 0rem; /* Sharp, high-fashion edges */
+    font-family: var(--font-serif, serif);
+  }
+
+  /* 🛍️ E-COMMERCE THEME: Dynamic & Trendy */
+  .theme-ecommerce {
+    --background: oklch(1 0 0);
+    --primary: oklch(0.6 0.3 340); /* Vibrant Pink/Red */
+    --secondary: oklch(0.15 0.02 240);
+    --radius: 1.5rem; /* Ultra rounded for lifestyle */
+  }
+
+  /* ⚖️ PROFESSIONAL THEME: Corporate Trust */
+  .theme-professional {
+    --background: oklch(0.99 0.01 240);
+    --primary: oklch(0.25 0.08 245); /* Trust Navy */
+    --secondary: oklch(0.7 0.12 90); /* Subtle Gold */
+    --radius: 0.5rem; /* Balanced & Serious */
+  }
+
+  /* 🏭 INDUSTRIAL THEME: Technical Precision */
+  .theme-industrial {
+    --background: oklch(0.95 0.01 240);
+    --primary: oklch(0.6 0.25 45); /* Safety Orange */
+    --secondary: oklch(0.2 0.02 240);
+    --radius: 0.25rem; /* Functional & Hard */
+  }
+
+  /* 🏥 WELLNESS THEME: Serenity & Natural */
+  .theme-wellness {
+    --background: oklch(0.98 0.02 145); /* Soft Sage */
+    --primary: oklch(0.45 0.1 145); /* Forest Green */
+    --secondary: oklch(0.9 0.05 80); /* Warm Sand */
+    --radius: 2rem; /* Organic & Soft */
   }
 }

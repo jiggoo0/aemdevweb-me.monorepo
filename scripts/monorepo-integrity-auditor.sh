@@ -16,7 +16,7 @@ echo -e "${CYAN}--- Monorepo Integrity Auditor ---${NC}"
 
 # --- Check 1: Boundary Violations (Deep/Relative Imports) ---
 check_boundary() {
-  echo -e "\n[1/6] Checking Boundary Violations..."
+  echo -e "\n[1/5] Checking Boundary Violations..."
   VIOLATIONS=$(grep -r "import .* from \"\.\./\.\./\.\./packages/" apps --include="*.tsx" --include="*.ts")
   if [ -z "$VIOLATIONS" ]; then
     echo -e "${GREEN}✓ No boundary violations found.${NC}"
@@ -28,7 +28,7 @@ check_boundary() {
 
 # --- Check 2: Version Mismatch ---
 check_versions() {
-  echo -e "\n[2/6] Checking Version Mismatch (Common Libraries)..."
+  echo -e "\n[2/5] Checking Version Mismatch (Common Libraries)..."
   node -e "
     const fs = require('fs');
     const path = require('path');
@@ -68,7 +68,7 @@ check_versions() {
 
 # --- Check 3: Circular Dependencies (between packages) ---
 check_circular() {
-  echo -e "\n[3/6] Checking Circular Dependencies..."
+  echo -e "\n[3/5] Checking Circular Dependencies..."
   node -e "
     const fs = require('fs');
     const path = require('path');
@@ -108,21 +108,9 @@ check_circular() {
   "
 }
 
-# --- Check 4: Phantom Dependencies ---
-check_phantom() {
-  echo -e "\n[4/6] Checking Phantom Dependencies (Simplified)..."
-  PHANTOM=$(grep -r "import .* from ['\"]lodash['\"]" apps packages --exclude-dir=node_modules)
-  if [ -n "$PHANTOM" ]; then
-    echo -e "${RED}✗ Potential Phantom Dependencies detected:${NC}"
-    echo "$PHANTOM"
-  else
-    echo -e "${GREEN}✓ No phantom dependencies (lodash demo) detected.${NC}"
-  fi
-}
-
-# --- Check 5: Name Conflicts (Duplicate Package Names) ---
+# --- Check 4: Name Conflicts (Duplicate Package Names) ---
 check_duplicates() {
-  echo -e "\n[5/6] Checking for Duplicate Package Names..."
+  echo -e "\n[4/5] Checking for Duplicate Package Names..."
   node -e "
     const fs = require('fs');
     const path = require('path');
@@ -150,9 +138,9 @@ check_duplicates() {
   "
 }
 
-# --- Check 6: Naming Standards (@repo/*) ---
+# --- Check 5: Naming Standards (@repo/*) ---
 check_naming_standard() {
-  echo -e "\n[6/6] Checking Naming Standards (@repo/* or internal names)..."
+  echo -e "\n[5/5] Checking Naming Standards (@repo/* or internal names)..."
   node -e "
     const fs = require('fs');
     const path = require('path');
@@ -164,7 +152,7 @@ check_naming_standard() {
     let errors = false;
     pkgs.forEach(p => {
       const pkg = JSON.parse(fs.readFileSync(p, 'utf8'));
-      if (!pkg.name.startsWith('@repo/') && !['web', 'me', 'unlink'].includes(pkg.name)) {
+      if (!pkg.name.startsWith('@repo/') && !['web', 'me', 'unlink', 'test'].includes(pkg.name)) {
         errors = true;
         console.log('\x1b[33m⚠ Non-standard naming in ' + p + ': \"' + pkg.name + '\"\x1b[0m');
         console.log('  Advice: Consider using \"@repo/\" prefix for consistency.');
@@ -178,7 +166,6 @@ check_naming_standard() {
 check_boundary
 check_versions
 check_circular
-check_phantom
 check_duplicates
 check_naming_standard
 

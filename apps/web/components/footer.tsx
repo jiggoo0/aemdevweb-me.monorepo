@@ -1,6 +1,7 @@
 import React from "react";
 import { SHARED_SITE_CONFIG } from "@repo/core";
 import Link from "next/link";
+import Image from "next/image";
 
 /**
  * [COMPONENT]: Footer v4.1.0
@@ -21,7 +22,13 @@ export function Footer() {
           <div className="md:col-span-5 space-y-8">
             <div className="flex items-center gap-4">
               <div className="w-12 h-12 bg-white/10 backdrop-blur-xl flex items-center justify-center rounded-2xl border border-white/10 shadow-2xl">
-                <span className="text-white font-black text-2xl tracking-tighter">A</span>
+                <Image
+                  src="/logo-icon.svg"
+                  alt="AEM Logo"
+                  width={28}
+                  height={28}
+                  className="w-7 h-7"
+                />
               </div>
               <div className="flex flex-col">
                 <span className="font-black uppercase tracking-[0.4em] text-sm text-white">

@@ -45,26 +45,30 @@ async function seedProvinces() {
     const provinceId = provinceData.id;
 
     // 2. Seed Province SEO Content (Corrected table name to provinces_content)
-    const { error: cError } = await supabase.from("provinces_content").upsert(
-      {
-        province_id: provinceId,
-        province_slug: node.slug, // Maintain backward compatibility if needed
-        seo_title: node.seoTitle,
-        seo_description: node.seoDescription,
-        long_description: node.longDescription,
-        keywords: node.keywords,
-        metadata: {
-          market_insight: node.localContext.marketInsight,
-          districts: node.districts
-        }
-      },
-      { onConflict: "province_slug" } // Use slug as unique identifier for content
-    );
+    try {
+      const { error: cError } = await supabase.from("provinces_content").upsert(
+        {
+          province_id: provinceId,
+          province_slug: node.slug,
+          seo_title: node.seoTitle,
+          seo_description: node.seoDescription,
+          long_description: node.longDescription,
+          keywords: node.keywords,
+          metadata: {
+            market_insight: node.localContext.marketInsight,
+            districts: node.districts
+          }
+        },
+        { onConflict: "province_slug" }
+      );
 
-    if (cError) {
-      console.error(`❌ Failed to seed content for ${node.name_th}:`, cError.message);
-    } else {
-      console.log(`✅ Fully Synchronized: ${node.name_th} (${node.slug})`);
+      if (cError) {
+        console.error(`❌ Failed to seed content for ${node.name_th}:`, cError.message);
+      } else {
+        console.log(`✅ Fully Synchronized: ${node.name_th} (${node.slug})`);
+      }
+    } catch (innerError) {
+      console.error(`💥 Unexpected error seeding content for ${node.name_th}:`, innerError);
     }
   }
 

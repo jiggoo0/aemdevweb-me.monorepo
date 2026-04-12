@@ -29,6 +29,7 @@ export * from "./components/ProjectCard";
 export * from "./components/ProjectGrid";
 export * from "./components/PostCard";
 export * from "./components/PostGrid";
+export * from "./components/TemplateShowcase";
 export * from "./components/ArticleLayout";
 export * from "./components/ServiceCard";
 

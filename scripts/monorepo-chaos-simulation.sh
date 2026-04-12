@@ -69,7 +69,7 @@ inject_version_mismatch() {
   echo -e "${RED}[Chaos]${NC} Injecting Version Mismatch..."
   # Backup
   cp apps/web/package.json apps/web/package.json.bak
-  cp apps/me/package.json apps/me/package.json.bak
+  cp apps/unlink-th/package.json apps/unlink-th/package.json.bak
   node -e "
     const fs = require('fs');
     const path = 'apps/web/package.json';
@@ -79,12 +79,12 @@ inject_version_mismatch() {
   "
   node -e "
     const fs = require('fs');
-    const path = 'apps/me/package.json';
+    const path = 'apps/unlink-th/package.json';
     const pkg = JSON.parse(fs.readFileSync(path, 'utf8'));
     pkg.dependencies['react'] = '19.0.0-rc';
     fs.writeFileSync(path, JSON.stringify(pkg, null, 2));
   "
-  echo "Done: React version mismatch injected between web and me apps."
+  echo "Done: React version mismatch injected between web and unlink-th apps."
 }
 
 restore_repo() {

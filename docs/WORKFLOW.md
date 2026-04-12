@@ -14,17 +14,20 @@ pnpm install
 pnpm run env:sync
 ```
 
-## 2. ขั้นตอนการพัฒนา (Development Cycle)
+## 3. ขั้นตอนการพัฒนา (Development Cycle)
 ใช้โครงสร้างเอกสารใน `docs/` เป็นแนวทาง:
 - **แอปหลัก (Portfolio):** อ้างอิง `docs/web/README.md`
 - **ระบบความปลอดภัย:** อ้างอิง `docs/unlink-th/README.md`
-- **ธุรกิจซอส:** อ้างอิง `docs/test/README.md`
 
-**การใช้ AI ช่วยพัฒนา:**
-- เรียกใช้ Gemini CLI เพื่อขอคำแนะนำจากทรัพยากรใน `docs/resources/`
-- ใช้คำสั่ง `gemini review staged` ก่อนทำการ Commit
+**การจัดการทรัพยากร (Asset Management):**
+- **Images:** เก็บไฟล์ภาพใน `public/images/` แยกโฟลเดอร์ตามประเภทงาน (`cases`, `blog`, `services`)
+- **Branding:** ใช้ `logo-icon.svg` ใน UI Components เพื่อความสอดคล้องของแบรนด์
 
-## 3. การตรวจสอบความสมบูรณ์ (Integrity Check)
+**การตรวจสอบเทมเพลต (Template Verification):**
+- เมื่อสร้าง Case Study ใหม่ ต้องระบุ `theme` (เช่น `theme-hospitality`) ใน MDX Frontmatter
+- ตรวจสอบความถูกต้องของสไตล์ผ่าน `pnpm run build` เพื่อดูการแสดงผล Layout เฉพาะอุตสาหกรรม
+
+## 4. การตรวจสอบความสมบูรณ์ (Integrity Check)
 **ห้ามข้ามขั้นตอนพื้นฐานเหล่านี้:**
 1.  **Standardize:** รัน `pnpm run standardize` เพื่อคุมเวอร์ชันไลบรารี
 2.  **Audit:** รัน `pnpm run audit` เพื่อตรวจสอบโครงสร้าง Monorepo

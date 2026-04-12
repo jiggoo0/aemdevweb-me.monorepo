@@ -12,6 +12,7 @@ interface ProvinceDna {
   readonly layoutOrder?: string[];
   readonly tier: 1 | 2 | 3;
   readonly landmark?: string;
+  readonly suggestedIndustry?: "hospitality" | "ecommerce" | "professional" | "industrial" | "health";
 }
 
 /** [REGISTRY]: มาตรฐานอัตลักษณ์ภูมิภาคและจังหวัดเฉพาะทาง (DNA Blueprint) */
@@ -99,6 +100,7 @@ const PROVINCIAL_DNA: Record<string, ProvinceDna> = {
       mode: "light",
       radius: "2rem",
     },
+    suggestedIndustry: "hospitality",
     layoutOrder: ["hero", "gallery", "trust", "process", "pricing", "faq", "cta"],
   },
   krabi: {
@@ -185,3 +187,4 @@ export function getProvinceDna(provinceSlug: string, region: ProvinceDna["region
   const regionalDefault = PROVINCIAL_DNA[`default-${region.toLowerCase()}`];
   return (regionalDefault || PROVINCIAL_DNA["default-central"]) as ProvinceDna;
 }
+

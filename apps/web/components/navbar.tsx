@@ -4,6 +4,7 @@ import React from "react";
 import { SHARED_SITE_CONFIG } from "@repo/core";
 import { StatusIndicator, UnlinkTrustBadge } from "@repo/ui";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { ROUTES } from "@/lib/routes";
 
@@ -30,10 +31,16 @@ export function Navbar() {
         aria-label="AEM Home Hub"
       >
         <div
-          className="w-10 h-10 bg-foreground flex items-center justify-center rounded-xl shadow-[0_0_20px_rgba(255,255,255,0.05)]"
+          className="w-10 h-10 bg-white/5 flex items-center justify-center rounded-xl shadow-[0_0_20px_rgba(255,255,255,0.05)] border border-white/10"
           aria-hidden="true"
         >
-          <span className="text-background font-black text-xl tracking-tighter">A</span>
+          <Image
+            src="/logo-icon.svg"
+            alt="AEM Logo"
+            width={24}
+            height={24}
+            className="w-6 h-6"
+          />
         </div>
         <div className="hidden md:block">
           <p className="font-black uppercase tracking-[0.3em] text-[10px] leading-none text-foreground">

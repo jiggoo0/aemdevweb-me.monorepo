@@ -13,8 +13,6 @@ if (!connectionString) {
   process.exit(1);
 }
 
-process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
-
 const { Client } = pg;
 const schemaSql = fs.readFileSync(path.resolve(__dirname, "../store/schema.sql"), "utf8");
 

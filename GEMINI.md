@@ -1,40 +1,87 @@
-# 🏛️ AEM Monorepo Constitution (v5.0.0)
+# 🏛️ AEM Monorepo Constitution & Development Guide (v5.1.0)
 
-เอกสารนี้คือมาตรฐานสูงสุดในการพัฒนาโปรเจกต์ `aemdevweb-me.monorepo` AI และนักพัฒนาทุกท่านต้องยึดถือปฏิบัติ 100% เพื่อรักษาความสมบูรณ์ของระบบ (System Integrity)
-
----
-
-## 🎯 1. Architectural & Database Mandates
-
-- **Factory Pattern (@repo/core):** ห้ามสร้าง AreaNode โดยไม่ผ่าน `defineAreaNode` และต้องมี `name_th`, `name_en` เสมอ
-- **Facade Pattern (@repo/db):** ทุกแอปพลิเคชันต้องเรียกข้อมูลผ่าน `DataRegistry` เท่านั้น ห้ามเรียก `supabase` client โดยตรง
-- **Strategy Pattern (apps/web):** การเจน SEO/Layout ต้องแยกเป็น Strategies ตาม `docs/web/README.md`
-- **Database Migrations:** ห้ามเก็บไฟล์ SQL ใน `src/` ให้เก็บไว้ใน `packages/db/migrations/` เท่านั้น
-
-## 🎨 2. Design & UI Standards
-
-- **Design System:** อ้างอิงสไตล์จาก `docs/DESIGN.md` และทรัพยากรใน `docs/resources/design/` (Apple, Stripe, Vercel)
-- **Color Space:** ใช้ **OKLCH** 100% สำหรับสไตล์ใหม่ๆ (Institutional Core & Cinematic Dark)
-- **Typography:** ใช้ `Geist Sans` และ `Geist Mono` เท่านั้น
-
-## ⚡ 3. Next.js 16 & Performance
-
-- **Development:** ต้องใช้ทรัพยากรใน `docs/resources/nextjs/` เป็นคู่มือมาตรฐาน (RSC, PPR, Use Cache)
-- **Directives:** ใช้ `"use cache"` ในระดับ Server Components (ห้ามใช้ใน Shared Packages เพื่อความเสถียรบน WASM)
-- **Bundler:** ต้องใช้ `--webpack` ในการ build/dev เสมอเพื่อรองรับ Termux/ARM64
-
-## 🔄 4. Operational Workflow (Strict Enforcement)
-
-- **Documentation:** ทุกการพัฒนาต้องแยกข้อมูลตามโฟลเดอร์แอปใน `docs/` (`web`, `unlink-th`, `test`)
-- **Integrity Audit:** ต้องรัน `pnpm run audit` และ `pnpm run standardize` ก่อนส่งมอบงานทุกครั้ง
-- **Workflow Compliance:** ปฏิบัติตามขั้นตอนใน `docs/WORKFLOW.md` (Sync -> Dev -> Audit -> Deploy)
-
-## 🛡️ 5. AI Agent Guidelines
-
-- **Context Load:** AI ต้องอ่าน `docs/AI-DIRECTION.md` และ `docs/WORKFLOW.md` ก่อนเริ่มงานเสมอ
-- **Automation:** ใช้ `gemini` CLI ในการวิเคราะห์โค้ดและช่วยตรวจสอบมาตรฐานก่อน Commit
+เอกสารฉบับนี้คือ **Instructional Context** สูงสุดสำหรับ Gemini CLI และนักพัฒนา เพื่อใช้ในการวิเคราะห์ พัฒนา และบำรุงรักษาโปรเจกต์ `aemdevweb-me.monorepo` ให้มีความสมบูรณ์ของระบบ (System Integrity) 100%
 
 ---
 
-_Enforced & Updated by Gemini CLI | v5.0.0_
-_Last Updated: 2026-04-12_
+## 📖 1. Project Overview & Architecture
+
+โปรเจกต์นี้เป็น **Advanced Node.js Monorepo** ที่ออกแบบมาเพื่อการบริหารจัดการข้อมูลเชิงพื้นที่ (77 จังหวัด), การทำ Programmatic SEO (P-SEO), และการสร้างความน่าเชื่อถือระดับสถาบัน (E-E-A-T) โดยใช้แนวคิด **Monorepo Chaos Engineering** เพื่อทดสอบความทนทานของระบบ
+
+### 🏗️ สถาปัตยกรรมหลัก (Core Architecture)
+- **Monorepo Manager:** `pnpm` Workspaces & `Turbo` Build System
+- **Apps Layer:** 
+  - `apps/web`: Next.js 16 (Main Portal/SEO Strategy Hub)
+  - `apps/unlink-th`: Next.js 16 (Verification & Reputation Management)
+  - `apps/test`: Chaos Testing Ground
+- **Shared Packages:**
+  - `@repo/core`: ศูนย์กลาง Logic, Factory Patterns (`defineAreaNode`)
+  - `@repo/db`: Facade Pattern (`DataRegistry`) ห้ามเรียก Supabase โดยตรง
+  - `@repo/ui`: Institutional Design System (OKLCH, Geist Fonts)
+  - `@repo/seo`: Entity Linking & Schema.org JSON-LD Generators
+
+---
+
+## ⚡ 2. Building, Running & Auditing
+
+### 🛠️ Key Commands
+- **Initialization:** `pnpm install` และ `pnpm run env:sync` (เพื่อซิงก์ `.env` ข้ามแอป)
+- **Development:**
+  - `pnpm run dev`: รันทุกแอปผ่าน Turbo (ใช้ `--max-old-space-size=2048`)
+  - `pnpm run dev:web`: รันเฉพาะแอปหลัก (Port 3001)
+- **Production Build:**
+  - `pnpm run build`: Build ทุกแอป (ต้องใช้ `--webpack` ภายในเพื่อให้รองรับ ARM64/Termux)
+- **Integrity Audit (Mandatory):**
+  - `pnpm run audit`: ตรวจสอบความถูกต้องของโครงสร้าง Monorepo
+  - `pnpm run standardize`: คุมเวอร์ชัน Dependencies ให้ตรงกันทั้งระบบ
+  - `pnpm run audit:all`: Full audit (Format, Lint, Typecheck, Knip, Auditor)
+
+---
+
+## 🎨 3. Development Conventions (Mandates)
+
+### 🛡️ System Integrity & Security
+- **Data Access:** ห้ามใช้ Supabase Client โดยตรงในแอปพลิเคชัน ให้ผ่าน `@repo/db` เสมอ
+- **Factory Pattern:** ทุก AreaNode ต้องสร้างผ่าน `defineAreaNode` พร้อมข้อมูล 2 ภาษา (`name_th`, `name_en`)
+- **Database Migrations:** เก็บไฟล์ SQL ไว้ที่ `packages/db/migrations/` เท่านั้น ห้ามกระจายใน `src/`
+
+### 🎨 Aesthetics & Design (2026 Trend)
+- **Color Space:** ใช้ **OKLCH** 100% สำหรับสถาปัตยกรรมสีใหม่
+- **Typography:** ใช้ `Geist Sans` (UI) และ `Geist Mono` (Code/Technical) เท่านั้น
+- **Visual Style:** เน้น Liquid Glass (Glassmorphism), Tactile Depth, และ Optical Balance
+
+### 🚀 Next.js 16 Mastery
+- **Directives:** ใช้ `"use cache"` ใน Server Components ระดับแอป (ห้ามใช้ใน Shared Packages เพื่อความเสถียร)
+- **Features:** เปิดใช้งาน PPR (Partial Prerendering) ในหน้าที่มีการดึงข้อมูล Dynamic
+- **SEO:** ต้องฝัง JSON-LD (Schema.org) ในทุกหน้า Landing Page เพื่อสร้าง Entity Linking
+
+---
+
+## 🔄 4. Operational Workflow (AEM Standard Protocol)
+
+เพื่อให้การพัฒนามีประสิทธิภาพสูงสุดและรักษาความสมบูรณ์ของระบบ (System Integrity) AI และนักพัฒนาต้องปฏิบัติตามลูปนี้:
+
+1.  **Sync (Preparation):** รัน `pnpm install` และ `pnpm run env:sync` ทุกครั้งที่เริ่ม session หรือมีการเปลี่ยนแปลงโครงสร้าง
+2.  **Research (Context Load):** อ่าน `GEMINI.md` และ `docs/WORKFLOW.md` เพื่อรับทราบ Mandates ล่าสุด
+3.  **Dev (Standards-Driven):** 
+    - พัฒนาตาม **Atomic Design** และใช้ **Facade Pattern** (`@repo/db`)
+    - ใช้สี **OKLCH**, Font **Geist**, และฝัง **Schema.org** เสมอ
+4.  **Integrity Check (Quality Loop):**
+    - `pnpm run standardize`: ปรับจูนเวอร์ชัน dependencies
+    - `pnpm run audit`: ตรวจสอบโครงสร้าง Monorepo
+    - `pnpm run typecheck`: ยืนยันความถูกต้องของ Type 100%
+5.  **Chaos Testing (Stability):** หากแก้ไข Core Packages หรือ Shared UI ให้รัน `./scripts/monorepo-chaos-simulation.sh --all` เพื่อยืนยันว่าระบบจะไม่พัง
+6.  **Build Check (Final Validation):** รัน `pnpm run build` เพื่อตรวจสอบว่าแอปสามารถ Build บนสถาปัตยกรรมเป้าหมาย (ARM64/Termux) ได้จริง
+7.  **Handover (AI Review):** ใช้ `gemini review staged` เพื่อตรวจสอบโค้ดขั้นสุดท้ายก่อนทำการ Git Commit
+
+---
+
+## 📂 5. Key Documentation & Resources
+- **Overall Strategy:** `docs/MASTER-STRATEGY-ARCH.md`
+- **Workflow Detail:** `docs/WORKFLOW.md`
+- **AI Direction:** `docs/AI-DIRECTION.md`
+- **Design Specs:** `docs/DESIGN.md`
+
+---
+_Generated by Gemini CLI | Authorized for AEM Monorepo Ecosystem v5.1.0_
+_Last Updated: 2026-04-13_
