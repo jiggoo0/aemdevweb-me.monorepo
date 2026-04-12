@@ -5,7 +5,6 @@ import { cacheLife, cacheTag } from "next/cache";
 
 /**
  * [RESOLVER]: Path Resolution Engine
- * จัดการหาตำแหน่งโฟลเดอร์ content ให้ถูกต้องใน Monorepo Environment
  */
 const getPath = (subPath: string) => {
   const currentDir = process.cwd();
@@ -71,7 +70,8 @@ export async function getAllBlogPosts(): Promise<BlogPostMetadata[]> {
       const source = await fs.promises.readFile(filePath, "utf8");
       const { data } = matter(source);
 
-      return {
+      // [STRICT MAPPING]: ป้องกันข้อมูลหลุดและค่าว่าง
+      const postMetadata: BlogPostMetadata = {
         slug: file.replace(".mdx", ""),
         title: data.title || "Untitled Transmission",
         date: data.date || new Date().toISOString(),
@@ -83,8 +83,10 @@ export async function getAllBlogPosts(): Promise<BlogPostMetadata[]> {
         coverImage: data.coverImage || data.thumbnail || "/images/blog/default.webp",
         readingTime: data.readingTime || "5 min read",
         author: data.author || "AEM Architect",
-        ...data,
-      } as BlogPostMetadata;
+        ...data, // กระจายข้อมูลที่เหลือ
+      };
+
+      return postMetadata;
     }),
   );
 
@@ -113,11 +115,12 @@ export async function getAllCaseStudies(): Promise<CaseStudy[]> {
       const source = await fs.promises.readFile(filePath, "utf8");
       const { data } = matter(source);
 
-      return {
+      const study: CaseStudy = {
         slug: file.replace(".mdx", ""),
         title: data.title || "Untitled Case Study",
         client: data.client || "Confidential",
         industry: data.industry || "General",
+        theme: data.theme || "",
         description: data.description || "",
         date: data.date || new Date().toISOString(),
         thumbnail: data.thumbnail || "/images/cases/default.webp",
@@ -125,7 +128,9 @@ export async function getAllCaseStudies(): Promise<CaseStudy[]> {
         tags: data.tags || [],
         stats: data.stats || [],
         ...data,
-      } as CaseStudy;
+      };
+
+      return study;
     }),
   );
 
@@ -155,6 +160,7 @@ export async function getCaseStudyBySlug(slug: string): Promise<CaseStudy | null
     title: data.title || "Untitled Case Study",
     client: data.client || "Confidential",
     industry: data.industry || "General",
+    theme: data.theme || "",
     description: data.description || "",
     date: data.date || new Date().toISOString(),
     thumbnail: data.thumbnail || "/images/cases/default.webp",
