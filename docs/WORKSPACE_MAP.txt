@@ -1,0 +1,178 @@
+Workflows for aemdevweb-me.monorepo
+
+  1. Development Workflow
+
+  This workflow describes how developers interact
+  with the project on their local machines to
+  ensure code quality and consistency.
+
+   * Core Technologies:
+       * Monorepo Management: pnpm (package
+         manager) and turbo (build orchestrator)
+         are central to managing dependencies and
+         running tasks across the multiple
+         packages and applications within the
+         repository.
+       * Language & Typing: TypeScript with strict
+         type checking (strict: true) is used
+         throughout the project for robust code.
+       * Code Formatting & Linting: prettier
+         ensures consistent code style, and eslint
+         enforces coding standards.
+       * AI Assistance: Integrated gemini
+         monorepo-fix allows for AI-powered review
+         and correction of staged code changes.
+       * Dependencies: react is a key dependency,
+         indicating a frontend focus, alongside
+         tools like lucide-react, framer-motion,
+         and @supabase/supabase-js for backend
+         integration.
+
+   * Key Local Development Commands:
+       * Installation: pnpm install (installs all
+         dependencies across the monorepo).
+       * Local Development Server: pnpm run dev
+         (starts the development environment,
+         likely managed by turbo dev).
+       * Building: pnpm run build (uses turbo to
+         build all packages recursively).
+       * Code Quality Assurance:
+           * Formatting: pnpm run format (checks)
+             and pnpm run format:fix (applies
+             fixes).
+           * Linting: pnpm run lint --fix
+             (attempts to lint and fix code, but
+             may be impacted by Turborepo platform
+             issues on Android ARM64).
+           * Type Checking: pnpm run typecheck
+             (performs TypeScript checks,
+             potentially impacted by Turborepo
+             issues).
+           * Auditing: pnpm run audit (runs shell
+             script for integrity checks) and pnpm
+             run audit:knip (uses Knip for
+             dependency analysis, which passed
+             after removing framer-motion).
+           * Version Standardization: pnpm run
+             standardize (uses a shell script to
+             ensure version consistency).
+       * AI Code Fixing: gemini monorepo-fix
+         staged can be used to automatically fix
+         staged code changes.
+
+   * Development Conventions:
+       * Project Structure: A standard monorepo
+         layout with applications in apps/ and
+         shared code/libraries in packages/.
+       * Module Imports: TypeScript path aliases
+         (e.g., @repo/ui, @repo/core) are used for
+         inter-package imports, configured in
+         tsconfig.json.
+       * Environment Variables: .env.*local files
+         are used for local configuration and are
+         recognized by Turbo.
+       * Contribution: Developers are expected to
+         maintain code quality through formatting,
+         linting, type checking, and audits. The
+         project also emphasizes AI-assisted code
+         improvement.
+
+  2. CI/CD Pipeline Workflow
+
+  The project has existing CI/CD configurations in
+  the .github/workflows directory, managed by
+  GitHub Actions.
+
+  audit.yml (Monorepo Integrity & Security Audit)
+
+  This workflow runs on pull requests targeting
+  main and can be triggered manually. It aims to
+  ensure the integrity and security of the
+  monorepo.
+
+   * Trigger: pull_request (to main),
+     workflow_dispatch (manual trigger).
+   * Runner: ubuntu-latest.
+   * Key Steps:
+       1. Checkout Code: Fetches the repository
+          code.
+       2. Setup PNPM: Installs PNPM v10.
+       3. Setup Node.js: Sets up Node.js v22 with
+          PNPM caching.
+       4. Install Dependencies: pnpm install
+          --frozen-lockfile ensures consistent              dependency installation.
+       5. [CORE] Monorepo Integrity Audit:
+          Executes
+          ./scripts/monorepo-integrity-auditor.sh
+          to check for architectural issues.
+       6. [SECURITY] Dependency Audit: Runs pnpm
+          audit --audit-level high to check for
+          security vulnerabilities.
+       7. [QUALITY] Turbo Linting: Executes pnpm
+          turbo lint. Note: This step is likely to
+          fail on non-Linux/macOS environments or
+          specific architectures like Android
+          ARM64 due to Turborepo platform
+          limitations.
+       8. [STANDARDIZATION] Check Version
+          Consistency: Runs
+          ./scripts/monorepo-standardizer.sh
+          --check to verify dependency versions.
+
+  deploy.yml (CI/CD Pipeline)
+
+  This workflow handles building and deploying the
+  project, triggered by push or pull_request
+  events to the main branch.
+
+   * Trigger: push to main, pull_request to main.
+   * Runner: ubuntu-latest.
+   * Jobs:
+       * build Job:
+           1. Checkout Code: Fetches the
+              repository.
+           2. Setup PNPM & Node.js: Installs PNPM
+              (v10) and Node.js (v20) with
+              caching.
+           3. Install Dependencies: pnpm install
+              --frozen-lockfile.
+           4. Run Monorepo Integrity Auditor:
+              Executes                                          ./scripts/monorepo-integrity-auditor
+              .sh.
+           5. Build: pnpm build (orchestrated by
+              Turbo).
+           6. Lint: pnpm lint (likely uses turbo
+              lint, so may fail on certain
+              platforms).
+       * deploy Job:
+           1. Depends on: build job.
+           2. Trigger Condition: Only runs on push
+              to main.
+           3. Runner: ubuntu-latest.
+           4. Steps:
+               * Checkout Code.
+               * Setup PNPM (v9) and Node.js (v20)
+                 with caching.
+               * Install Vercel CLI.
+               * Pull Vercel Environment
+                 Information (requires
+                 VERCEL_TOKEN, VERCEL_ORG_ID,
+                 VERCEL_PROJECT_ID secrets).
+               * Build Project Artifacts for
+                 production deployment using
+                 Vercel CLI.
+               * Deploy Project Artifacts to
+                 Vercel production.
+
+  Considerations for Platform Incompatibility:
+  The CI/CD pipelines are configured to run on
+  ubuntu-latest, which is a standard Linux
+  environment and should not encounter the same
+  Turborepo platform issues as encountered on
+  Android ARM64. However, if any development or
+  testing is done on environments similar to the
+  one where Turborepo failed, those specific
+  commands (like turbo lint) might need
+  adjustments or alternative execution methods.
+▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
+ 

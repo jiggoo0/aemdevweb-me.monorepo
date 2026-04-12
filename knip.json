@@ -1,0 +1,55 @@
+{
+  "$schema": "https://unpkg.com/knip@latest/schema.json",
+  "next": {
+    "entry": [
+      "next.config.{js,ts,mjs}",
+      "app/**/page.tsx",
+      "app/**/layout.tsx",
+      "app/**/loading.tsx",
+      "app/**/not-found.tsx",
+      "app/**/error.tsx",
+      "app/**/opengraph-image.tsx"
+    ]
+  },
+  "ignore": [
+    "scripts/**",
+    "package-helper.cjs",
+    "store/**",
+    ".next/**",
+    ".turbo/**",
+    "**/dist/**",
+    "**/*.log"
+  ],
+  "ignoreDependencies": [
+    "@supabase/ssr",
+    "tailwindcss",
+    "tailwindcss-animate",
+    "@tailwindcss/typography"
+  ],
+  "workspaces": {
+    ".": {
+      "ignore": ["scripts/**", "package-helper.cjs"]
+    },
+    "apps/unlink-th": {
+      "entry": ["app/**/page.tsx", "app/**/layout.tsx"],
+      "project": ["**/*.{ts,tsx}"]
+    },
+    "apps/web": {
+      "entry": ["app/**/page.tsx", "app/**/layout.tsx"],
+      "project": ["**/*.{ts,tsx}"]
+    },
+    "packages/*": {
+      "project": ["src/**/*.{ts,tsx}"]
+    },
+    "packages/eslint-config": {
+      "entry": ["react-internal.js"],
+      "project": ["**/*.js"]
+    },
+    "packages/typescript-config": {
+      "entry": ["*.json"],
+      "project": ["*.json"]
+    }
+  },
+  "ignoreExportsUsedInFile": true,
+  "include": ["exports", "nsExports", "types", "nsTypes", "dependencies", "binaries"]
+}

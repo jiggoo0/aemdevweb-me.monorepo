@@ -1,93 +1,49 @@
-/**
- * [SEO_INFRA]: SITEMAP_ORCHESTRATOR v18.0.5 (PRODUCTION_READY)
- * [STRATEGY]: Parallel Node Discovery | SSOT Integration | Priority Calculation
- * [MAINTAINER]: AEMZA MACKS (Lead Architect)
- */
-
-import type { MetadataRoute } from "next";
-
-// --- 1. Infrastructure Data (SSOT) ---
-import { MASTER_REGISTRY } from "@/constants/master-registry";
-import { AREA_NODES } from "@repo/core";
-import { SITE_CONFIG } from "@/constants/site-config";
-import { absoluteUrl } from "@/lib/utils";
-
-// --- 2. Content CMS Data (Markdown/MDX) ---
-import { getAllPosts, getAllCaseStudies } from "@/lib/cms";
+import { MetadataRoute } from "next";
+import { AREA_NODES, SHARED_SITE_CONFIG } from "@repo/core";
+import { getProjects, getPosts } from "@repo/db";
 
 /**
- * @function sitemap
- * @description รวบรวมและแจกจ่ายพิกัด URL ทั้งหมดในระบบไปยัง Search Engine Bots
+ * [SEO]: DYNAMIC SITEMAP GENERATOR v1.2.0
+ * [STRATEGY]: Full 77 Province Coverage + Portfolio + Blog + Core Marketing Pages
  */
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const lastModified = "2026-03-01T00:00:00.000Z";
-  const baseUrl = SITE_CONFIG.siteUrl;
+  const baseUrl = SHARED_SITE_CONFIG.links.site;
+  const { data: projects } = await getProjects();
+  const { data: posts } = await getPosts();
 
-  /* [A] DATA_RESOLUTION: ดึงข้อมูลจาก CMS แบบขนานเพื่อ Performance สูงสุด */
-  const [posts, caseStudies] = await Promise.all([
-    getAllPosts().catch(() => []),
-    getAllCaseStudies().catch(() => []),
-  ]);
-
-  /**
-   * -------------------------------------------------------
-   * GROUP 1: STATIC CORE NODES (System Pillars)
-   * -------------------------------------------------------
-   */
-  const staticRoutes: MetadataRoute.Sitemap = [
-    { url: `${baseUrl}/`, lastModified, changeFrequency: "daily", priority: 1.0 },
-    { url: `${baseUrl}/services`, lastModified, changeFrequency: "weekly", priority: 0.9 },
-    { url: `${baseUrl}/case-studies`, lastModified, changeFrequency: "weekly", priority: 0.8 },
-    { url: `${baseUrl}/blog`, lastModified, changeFrequency: "daily", priority: 0.8 },
-    { url: `${baseUrl}/about`, lastModified, changeFrequency: "monthly", priority: 0.7 },
-    { url: `${baseUrl}/privacy`, lastModified, changeFrequency: "yearly", priority: 0.3 },
-    { url: `${baseUrl}/terms`, lastModified, changeFrequency: "yearly", priority: 0.3 },
-  ];
-
-  /**
-   * -------------------------------------------------------
-   * GROUP 2: SERVICE NODES (Solution Blueprints)
-   * -------------------------------------------------------
-   */
-  const serviceRoutes: MetadataRoute.Sitemap = MASTER_REGISTRY.map((service) => ({
-    url: absoluteUrl(`/services/${service.templateSlug}`),
-    lastModified,
-    changeFrequency: "weekly",
-    priority: 0.9,
+  // 1. Core Pages
+  const corePages = ["", "/services", "/portfolio", "/about", "/contact", "/blog"].map((route) => ({
+    url: `${baseUrl}${route}`,
+    lastModified: "2026-04-12T00:00:00.000Z",
+    changeFrequency: "weekly" as const,
+    priority: route === "" ? 1 : 0.8,
   }));
 
-  /**
-   * -------------------------------------------------------
-   * GROUP 3: AREA NODES (Local SEO Domination)
-   * -------------------------------------------------------
-   */
-  const areaRoutes: MetadataRoute.Sitemap = AREA_NODES.map((area) => ({
-    url: absoluteUrl(`/areas/${area.slug}`),
-    lastModified,
-    changeFrequency: "weekly",
-    // [LOGIC]: แปลงคะแนน Priority 0-100 เป็นเกณฑ์ 0.0-1.0 สำหรับ Search Engine
-    priority: Number(((area.priority || 50) / 100).toFixed(1)),
+  // 2. Dynamic Province Pages (The 77 Engine)
+  const provincePages = AREA_NODES.map((node) => ({
+    url: `${baseUrl}/${node.slug}`,
+    lastModified: "2026-04-12T00:00:00.000Z",
+    changeFrequency: "monthly" as const,
+    priority: 0.6,
   }));
 
-  /**
-   * -------------------------------------------------------
-   * GROUP 4: KNOWLEDGE GRAPH NODES (Blog & Proof of Concept)
-   * -------------------------------------------------------
-   */
-  const blogRoutes: MetadataRoute.Sitemap = posts.map((post) => ({
-    url: absoluteUrl(`/blog/${post.slug}`),
-    lastModified: post.date ? new Date(post.date) : lastModified,
-    changeFrequency: "monthly",
+  // 3. Portfolio Project Pages
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const projectPages = ((projects as unknown[] | null) || []).map((project: any) => ({
+    url: `${baseUrl}/portfolio/${project.slug}`,
+    lastModified: new Date(project.updated_at),
+    changeFrequency: "monthly" as const,
     priority: 0.7,
   }));
 
-  const caseStudyRoutes: MetadataRoute.Sitemap = caseStudies.map((study) => ({
-    url: absoluteUrl(`/case-studies/${study.slug}`),
-    lastModified: study.date ? new Date(study.date) : lastModified,
-    changeFrequency: "monthly",
-    priority: 0.8,
+  // 4. Blog Analysis Pages
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const blogPages = ((posts as unknown[] | null) || []).map((post: any) => ({
+    url: `${baseUrl}/blog/${post.slug}`,
+    lastModified: new Date(post.updated_at),
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
   }));
 
-  /* [B] ORCHESTRATION: รวมทุก Node เข้าเป็นแผนผังเดียว */
-  return [...staticRoutes, ...serviceRoutes, ...areaRoutes, ...caseStudyRoutes, ...blogRoutes];
+  return [...corePages, ...provincePages, ...projectPages, ...blogPages] as MetadataRoute.Sitemap;
 }

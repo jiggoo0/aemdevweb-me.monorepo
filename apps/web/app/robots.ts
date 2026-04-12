@@ -1,28 +1,16 @@
+import { MetadataRoute } from "next";
+import { SHARED_SITE_CONFIG } from "@repo/core";
+
 /**
- * [SEO_INFRASTRUCTURE]: ROBOTS_ORCHESTRATOR v18.0.5 (STABILIZED)
- * [STRATEGY]: Rendering Optimization | Crawl Budget Management
- * [MAINTAINER]: AEMZA MACKS (Lead Architect)
+ * [SEO]: ROBOTS.TXT CONFIGURATION
  */
-
-import type { MetadataRoute } from "next";
-import { SITE_CONFIG } from "@/constants/site-config";
-
 export default function robots(): MetadataRoute.Robots {
-  const baseUrl = SITE_CONFIG.siteUrl;
-
   return {
-    rules: [
-      {
-        userAgent: "*",
-        allow: ["/", "/_next/static/", "/_next/image", "/images/"],
-        disallow: ["/api/", "/admin/", "/status", "/private/", "/*?*"],
-      },
-      {
-        userAgent: ["GPTBot", "CCBot", "Google-Extended"],
-        allow: "/",
-        disallow: ["/api/", "/admin/"],
-      },
-    ],
-    sitemap: `${baseUrl}/sitemap.xml`,
+    rules: {
+      userAgent: "*",
+      allow: "/",
+      disallow: ["/api/", "/_next/", "/admin/"],
+    },
+    sitemap: `${SHARED_SITE_CONFIG.links.site}/sitemap.xml`,
   };
 }

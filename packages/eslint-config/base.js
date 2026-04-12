@@ -1,32 +1,36 @@
-import js from "@eslint/js";
-import eslintConfigPrettier from "eslint-config-prettier";
-import turboPlugin from "eslint-plugin-turbo";
-import tseslint from "typescript-eslint";
-import onlyWarn from "eslint-plugin-only-warn";
+// Shared ESLint configuration for the repository.
+// [STRATEGY]: ESLint 9+ Flat Config Compliance
+// [MAINTAINER]: AEMZA MACKS (Lead Architect)
 
-/**
- * A shared ESLint configuration for the repository.
- *
- * @type {import("eslint").Linter.Config[]}
- * */
-export const config = [
+const js = require("@eslint/js");
+const eslintConfigPrettier = require("eslint-config-prettier");
+const turboPlugin = require("eslint-plugin-turbo");
+const tseslint = require("typescript-eslint");
+const onlyWarn = require("eslint-plugin-only-warn");
+
+module.exports = tseslint.config(
+  // Base config
   js.configs.recommended,
   eslintConfigPrettier,
+
+  // TypeScript configs using the new 'typescript-eslint' utility
   ...tseslint.configs.recommended,
+
+  // Custom Rules & Plugins
   {
     plugins: {
       turbo: turboPlugin,
+      "only-warn": onlyWarn,
     },
     rules: {
       "turbo/no-undeclared-env-vars": "warn",
+      "@typescript-eslint/no-explicit-any": "warn",
+      "@typescript-eslint/no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
     },
   },
+
+  // Global Ignores
   {
-    plugins: {
-      onlyWarn,
-    },
+    ignores: ["**/dist/**", "**/node_modules/**", "**/.next/**", "**/out/**", "**/build/**"],
   },
-  {
-    ignores: ["dist/**"],
-  },
-];
+);

@@ -1,0 +1,13 @@
+# Ignore compiled and third-party code
+node_modules/
+.next/
+dist/
+.vercel/
+
+# Ignore assets
+public/
+
+# Ignore config files that don't need linting
+next.config.ts
+postcss.config.mjs
+tailwind.config.ts

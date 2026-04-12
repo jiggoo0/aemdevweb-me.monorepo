@@ -34,8 +34,15 @@ export const phetchabunNode = defineAreaNode(localAuthorityService, {
       "เน้น Image Optimization สำหรับภาพทะเลหมอก และระบบจองที่พักที่รองรับ High Traffic ในหน้าหนาว",
     painPoints: ["หน้าเว็บโหลดช้าในช่วง High Season", "ลูกค้าหาข้อมูลการเดินทางขึ้นเขาไม่เจอ"],
     competitorLevel: "medium",
-    socialProof: { rating: 5.0, reviewCount: 56, localClient: "รีสอร์ตหรูชื่อดัง ย่านเขาค้อ" },
-    regionalPricing: { startPrice: `${localAuthorityService.price} บาท`, timeline: "14-21 วัน" },
+    socialProof: {
+      rating: 5.0,
+      reviewCount: 56,
+      localClient: "รีสอร์ตหรูชื่อดัง ย่านเขาค้อ",
+    },
+    regionalPricing: {
+      startPrice: `${localAuthorityService.price} บาท`,
+      timeline: "14-21 วัน",
+    },
   },
   keywords: [
     "วางระบบเว็บไซต์ เพชรบูรณ์",

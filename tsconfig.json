@@ -1,0 +1,36 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@repo/core": ["packages/core/src/index.ts"],
+      "@repo/db": ["packages/db/src/index.ts"],
+      "@repo/ui": ["packages/ui/src/index.ts"],
+      "@repo/seo": ["packages/seo/src/index.ts"],
+      "@repo/trust-engine": ["packages/trust-engine/src/index.ts"]
+    },
+    "jsx": "react-jsx",
+    "composite": true,
+    "declaration": true,
+    "declarationMap": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "noEmit": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "target": "ESNext"
+  },
+  "exclude": [
+    "node_modules",
+    ".next",
+    "dist",
+    ".turbo",
+    "out",
+    "**/node_modules",
+    "**/.next",
+    "**/dist"
+  ]
+}

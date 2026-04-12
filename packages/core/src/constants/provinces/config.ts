@@ -183,5 +183,5 @@ export function getProvinceDna(provinceSlug: string, region: ProvinceDna["region
   if (specificDna) return specificDna;
 
   const regionalDefault = PROVINCIAL_DNA[`default-${region.toLowerCase()}`];
-  return regionalDefault || PROVINCIAL_DNA["default-central"];
+  return (regionalDefault || PROVINCIAL_DNA["default-central"]) as ProvinceDna;
 }

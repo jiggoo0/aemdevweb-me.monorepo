@@ -1,0 +1,42 @@
+name: Monorepo Integrity & Security Audit
+
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  audit:
+    name: System Integrity & Security
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: "[CORE] Monorepo Integrity Audit"
+        run: |
+          chmod +x ./scripts/monorepo-integrity-auditor.sh
+          ./scripts/monorepo-integrity-auditor.sh
+        continue-on-error: false
+
+      - name: "[SECURITY] Dependency Audit"
+        run: pnpm audit --audit-level high
+
+      - name: "[QUALITY] Turbo Linting"
+        run: pnpm turbo lint
+
+      - name: "[STANDARDIZATION] Check Version Consistency"
+        run: |
+          chmod +x ./scripts/monorepo-standardizer.sh
+          ./scripts/monorepo-standardizer.sh --check

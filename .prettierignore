@@ -1,0 +1,27 @@
+# Dependencies
+node_modules
+.next
+dist
+out
+
+# Build Outputs
+.turbo
+*.log
+.pnpm-store
+.pnpm-debug.log
+
+# Data & Reference Folders (Skipped for Audit)
+store/
+docs/
+.agent/
+scripts/*.ts
+*.bak
+*.tmp
+
+# Assets
+public/
+*.webp
+*.png
+*.jpg
+*.svg
+*.ico

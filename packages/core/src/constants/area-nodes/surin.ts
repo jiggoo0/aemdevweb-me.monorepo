@@ -32,7 +32,10 @@ export const surinNode = defineAreaNode(localAuthorityService, {
       reviewCount: 42,
       localClient: "แบรนด์ผ้าไหมยกทองพรีเมียม สุรินทร์",
     },
-    regionalPricing: { startPrice: `${localAuthorityService.price} บาท`, timeline: "14-21 วัน" },
+    regionalPricing: {
+      startPrice: `${localAuthorityService.price} บาท`,
+      timeline: "14-21 วัน",
+    },
   },
   keywords: [
     "วางระบบเว็บไซต์ สุรินทร์",

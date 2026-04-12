@@ -1,11 +1,10 @@
 /**
- * [SERVICE_NODE]: BIO_IDENTITY_ORCHESTRATOR v19.0.0 (LEGACY_READY)
+ * [SERVICE_NODE]: BIO_IDENTITY_ORCHESTRATOR v19.0.1
  * [STRATEGY]: Specialist Personal Branding | Knowledge Graph Dominance | SEO Identity Guard
- * [MAINTAINER]: AEMZA MACKS
  */
 
 import type { TemplateMasterData } from "../../types";
-import { SITE_CONFIG } from "../site-config";
+import { SHARED_SITE_CONFIG } from "../site-config";
 
 export const bioService: TemplateMasterData = {
   id: "AEM-SVC-PB-14",
@@ -24,11 +23,11 @@ export const bioService: TemplateMasterData = {
 
   theme: {
     mode: "dark",
-    primary: "#06b6d4", // Cyan 500
-    secondary: "#164e63", // Cyan 900
-    background: "#09090b", // Deep Zinc
-    foreground: "#fafafa", // Zinc 50
-    accent: "#22d3ee", // Cyan 400
+    primary: "#06b6d4",
+    secondary: "#164e63",
+    background: "#09090b",
+    foreground: "#fafafa",
+    accent: "#22d3ee",
     gradient: "from-[#06b6d4]/20 via-transparent to-transparent",
   },
 
@@ -67,13 +66,13 @@ export const bioService: TemplateMasterData = {
       name: "Strategy Consultation",
       description: "ปรึกษาการวางโครงสร้างตัวตนดิจิทัลและยุทธศาสตร์ส่วนบุคคล",
       icon: "MessageCircle",
-      url: SITE_CONFIG.links.line,
+      url: SHARED_SITE_CONFIG.links.line,
     },
     {
       name: "Authority Stack Update",
       description: "ติดตามอัปเดตกลยุทธ์ Technical SEO และการสร้าง Personal Brand",
       icon: "TrendingUp",
-      url: SITE_CONFIG.links.facebook,
+      url: SHARED_SITE_CONFIG.links.facebook,
     },
   ],
 

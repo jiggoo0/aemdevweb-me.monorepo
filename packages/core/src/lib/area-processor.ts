@@ -79,7 +79,7 @@ export class AreaNodeProcessor {
     const expert = SHARED_SITE_CONFIG.expert.displayName;
 
     let summary = `วิเคราะห์เจาะลึกการทำเว็บไซต์และ SEO ในจังหวัด${province} โดย ${expert}: `;
-    
+
     if (localContext.expertObservation) {
       summary += localContext.expertObservation;
     } else {
@@ -103,35 +103,35 @@ export class AreaNodeProcessor {
     return {
       "@context": "https://schema.org",
       "@type": "Service",
-      "serviceType": "Web Development and SEO Services",
-      "provider": {
+      serviceType: "Web Development and SEO Services",
+      provider: {
         "@type": "Person",
-        "name": expert.legalNameThai,
-        "alternateName": expert.displayName,
-        "jobTitle": expert.jobTitle,
-        "url": site.brand.siteUrl,
+        name: expert.legalNameThai,
+        alternateName: expert.displayName,
+        jobTitle: expert.jobTitle,
+        url: site.brand.siteUrl,
       },
-      "areaServed": {
+      areaServed: {
         "@type": "AdministrativeArea",
-        "name": node.province,
+        name: node.province,
       },
-      "description": node.description,
-      "name": node.title,
-      "offers": {
+      description: node.description,
+      name: node.title,
+      offers: {
         "@type": "Offer",
-        "priceCurrency": "THB",
-        "price": node.priceValue || "Call for pricing",
-        "availability": "https://schema.org/InStock",
+        priceCurrency: "THB",
+        price: node.priceValue || "Call for pricing",
+        availability: "https://schema.org/InStock",
       },
-      "hasOfferCatalog": {
+      hasOfferCatalog: {
         "@type": "OfferCatalog",
-        "name": "Digital Transformation Services",
-        "itemListElement": node.coreFeatures?.map((f) => ({
+        name: "Digital Transformation Services",
+        itemListElement: node.coreFeatures?.map((f) => ({
           "@type": "Offer",
-          "itemOffered": {
+          itemOffered: {
             "@type": "Service",
-            "name": f.title,
-            "description": f.description,
+            name: f.title,
+            description: f.description,
           },
         })),
       },

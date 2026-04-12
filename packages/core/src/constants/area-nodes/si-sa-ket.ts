@@ -41,7 +41,10 @@ export const siSaKetNode = defineAreaNode(localAuthorityService, {
       reviewCount: 36,
       localClient: "สวนทุเรียนภูเขาไฟพรีเมียม ศรีสะเกษ",
     },
-    regionalPricing: { startPrice: `${localAuthorityService.price} บาท`, timeline: "14-21 วัน" },
+    regionalPricing: {
+      startPrice: `${localAuthorityService.price} บาท`,
+      timeline: "14-21 วัน",
+    },
   },
   keywords: [
     "วางระบบเว็บไซต์ ศรีสะเกษ",

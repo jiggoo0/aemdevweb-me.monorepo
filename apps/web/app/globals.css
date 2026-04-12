@@ -1,26 +1,115 @@
 @import "tailwindcss";
+@plugin "tailwindcss-animate";
+@plugin "@tailwindcss/typography";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* 🔍 Optimized scanning for Termux environment */
+@source "../*.{ts,tsx}";
+@source "../(marketing)/**/*.{ts,tsx}";
+@source "../area/**/*.{ts,tsx}";
+@source "../[province]/**/*.{ts,tsx}";
+@source "../../../packages/ui/src/**/*.{ts,tsx}";
+
+@theme {
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, monospace;
+
+  /* 🏛️ Institutional Authority Design System (OKLCH - Unlink Standard) */
+  --color-background: oklch(0.05 0 0);
+  --color-foreground: oklch(0.984 0.003 247.858);
+
+  --color-card: oklch(0.08 0 0);
+  --color-card-foreground: oklch(0.984 0.003 247.858);
+
+  --color-primary: oklch(0.546 0.245 262.881);
+  --color-primary-foreground: oklch(0.984 0.003 247.858);
+
+  --color-secondary: oklch(0.446 0.03 256.802);
+  --color-secondary-foreground: oklch(0.984 0.003 247.858);
+
+  --color-muted: oklch(0.12 0 0);
+  --color-muted-foreground: oklch(0.6 0 0);
+
+  --color-accent: oklch(0.546 0.245 262.881);
+  --color-accent-foreground: oklch(0.984 0.003 247.858);
+
+  --color-border: oklch(0.15 0 0);
+  --color-input: oklch(0.15 0 0);
+  --color-ring: oklch(0.546 0.245 262.881 / 0.3);
+
+  --radius-lg: 2.5rem;
+  --radius-md: 1.25rem;
+  --radius-sm: 0.75rem;
+
+  /* 🌀 Keyframes for Ambient Background */
+  @keyframes aura-1 {
+    0%,
+    100% {
+      transform: translate(0, 0) scale(1);
+    }
+    33% {
+      transform: translate(10%, 10%) scale(1.1);
+    }
+    66% {
+      transform: translate(-5%, 15%) scale(0.9);
+    }
+  }
+  @keyframes aura-2 {
+    0%,
+    100% {
+      transform: translate(0, 0) scale(1);
+    }
+    33% {
+      transform: translate(-15%, -10%) scale(1.2);
+    }
+    66% {
+      transform: translate(10%, -5%) scale(0.8);
+    }
+  }
+
+  --animate-aura-1: aura-1 20s ease-in-out infinite;
+  --animate-aura-2: aura-2 25s ease-in-out infinite;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    /* 🔗 Critical Bridge Variables for UI Components */
+    --brand-primary: oklch(0.546 0.245 262.881);
+    --brand-secondary: oklch(0.446 0.03 256.802);
+    --color-brand-primary: var(--brand-primary);
+    --color-brand-primary-fg: oklch(0.984 0.003 247.858);
+    --text-primary: var(--foreground);
+    --text-secondary: var(--muted-foreground);
+    --surface-main: var(--background);
+    --surface-offset: oklch(0.08 0 0);
+    --radius-button: 2.5rem;
+    --border: oklch(0.15 0 0);
+  }
+
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer utilities {
+  .tech-grid {
+    background-image: radial-gradient(circle at 2px 2px, oklch(1 0 0 / 0.03) 1px, transparent 0);
+    background-size: 40px 40px;
+  }
+
+  .authority-card {
+    @apply relative overflow-hidden bg-card border border-border p-8 md:p-10 transition-all duration-500;
+    border-radius: var(--radius-lg);
+  }
+
+  .authority-card:hover {
+    @apply border-primary/30 -translate-y-1;
+    box-shadow: 0 30px 60px -15px oklch(0 0 0 / 0.5);
+  }
+
+  .glass-panel {
+    @apply bg-white/5 backdrop-blur-2xl border border-white/10;
+  }
 }

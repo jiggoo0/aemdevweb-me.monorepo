@@ -3,12 +3,7 @@
 # ป้องกันการอ่านไฟล์ซ้ำซ้อน, ไฟล์ขนาดใหญ่ และความลับสำคัญ
 
 # 🚫 [Secrets & Config] - ป้องกันการอ่านข้อมูลลับโดยไม่จำเป็น
-.env
-.env.local
-.env.*.local
-.vercel/
-.git/
-.ssh/
+.
 
 # 📦 [Dependencies & Stores] - ประหยัด Token โดยไม่อ่าน Library
 node_modules/

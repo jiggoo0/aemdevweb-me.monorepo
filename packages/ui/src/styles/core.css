@@ -1,0 +1,119 @@
+/* =========================================================
+   🛡️ AEM MONOREPO CORE DNA: INSTITUTIONAL AUTHORITY
+   ---------------------------------------------------------
+   Theme: Pristine White, Corporate Trust Blue & Clean Slate
+   Strategy: High-Integrity E-E-A-T Optimized Design
+   ========================================================= */
+
+:root {
+  /* 🏛️ The Foundation (Institutional Slate) */
+  --background: oklch(0.984 0.003 247.858); /* Slate-50 */
+  --foreground: oklch(0.21 0.006 285.885); /* Slate-900 */
+
+  /* 💎 Institutional Surfaces */
+  --card: oklch(1 0 0); /* White */
+  --card-foreground: oklch(0.21 0.006 285.885); /* Slate-900 */
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.21 0.006 285.885);
+
+  /* 🛡️ Corporate Trust (Primary Identity) */
+  --primary: oklch(0.21 0.006 285.885); /* Slate-900 */
+  --primary-foreground: oklch(0.984 0.003 247.858); /* Slate-50 */
+
+  /* ⚖️ Structural Elements */
+  --secondary: oklch(0.546 0.245 262.881); /* Blue-600 */
+  --secondary-foreground: oklch(0.984 0.003 247.858);
+
+  --muted: oklch(0.92 0.004 286.32); /* Slate-200 */
+  --muted-foreground: oklch(0.446 0.03 256.802); /* Slate-600 */
+
+  /* ✨ Verification Accent */
+  --accent: oklch(0.546 0.245 262.881); /* Blue-600 */
+  --accent-foreground: oklch(0.984 0.003 247.858);
+
+  /* System States */
+  --destructive: oklch(0.577 0.245 27.325); /* Red-600 */
+  --destructive-foreground: oklch(0.984 0.003 247.858);
+  --success: oklch(0.627 0.194 149.214); /* Green-600 */
+  --success-foreground: oklch(0.984 0.003 247.858);
+
+  --border: oklch(0.92 0.004 286.32); /* Slate-200 */
+  --input: oklch(0.92 0.004 286.32);
+  --ring: oklch(0.21 0.006 285.885 / 0.3);
+
+  --radius: 1.25rem; /* Smoother, institutionally rounded */
+}
+
+/* Base Institutional Reset */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    background-color: var(--background);
+    color-scheme: light;
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    line-height: 1.6;
+    letter-spacing: -0.011em;
+    -webkit-font-smoothing: antialiased;
+    font-feature-settings: "cv02", "cv03", "cv04", "ss01";
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    line-height: 1.1;
+    color: var(--foreground);
+    text-wrap: balance;
+  }
+
+  h1 {
+    @apply text-5xl md:text-7xl mb-8;
+  }
+  h2 {
+    @apply text-4xl md:text-6xl mb-6;
+  }
+  h3 {
+    @apply text-2xl md:text-3xl mb-4;
+  }
+}
+
+/* Elite Authority Classes */
+@layer utilities {
+  .container-authority {
+    width: 100%;
+    margin-inline: auto;
+    padding-inline: 2rem;
+    max-width: 90rem;
+  }
+
+  .authority-card {
+    @apply relative overflow-hidden bg-card border border-border p-8 md:p-10 transition-all duration-500;
+    border-radius: var(--radius);
+    box-shadow: 0 4px 20px -2px oklch(0 0 0 / 0.02);
+  }
+
+  .authority-card:hover {
+    @apply border-secondary/30 -translate-y-1;
+    box-shadow: 0 30px 40px -15px oklch(0 0 0 / 0.06);
+  }
+
+  .glass-panel {
+    @apply bg-white/70 backdrop-blur-xl border border-white/20;
+  }
+
+  .text-gradient-authority {
+    @apply bg-clip-text text-transparent bg-gradient-to-br from-foreground to-foreground/60;
+  }
+
+  .section-spacing {
+    @apply py-24 md:py-40;
+  }
+}

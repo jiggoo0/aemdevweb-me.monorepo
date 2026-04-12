@@ -3,6 +3,8 @@
 # --- Config: Standard Versions ---
 REACT_VERSION="19.2.4"
 REACT_DOM_VERSION="19.2.4"
+TYPES_REACT_VERSION="19.2.14"
+TYPES_REACT_DOM_VERSION="19.2.2"
 NEXT_VERSION="16.2.2"
 TYPESCRIPT_VERSION="5.9.2"
 
@@ -21,6 +23,8 @@ const path = require('path');
 const targetVersions = {
   'react': '$REACT_VERSION',
   'react-dom': '$REACT_DOM_VERSION',
+  '@types/react': '$TYPES_REACT_VERSION',
+  '@types/react-dom': '$TYPES_REACT_DOM_VERSION',
   'next': '$NEXT_VERSION',
   'typescript': '$TYPESCRIPT_VERSION'
 };

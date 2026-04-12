@@ -1,16 +1,56 @@
 {
-  "name": "next-monorepo",
+  "name": "aemdevweb-me.monorepo",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "keywords": [],
-  "author": "",
   "license": "ISC",
-  "packageManager": "pnpm@10.33.0",
-  "devDependencies": {
+  "author": "",
+  "scripts": {
+    "audit": "./scripts/monorepo-integrity-auditor.sh",
+    "audit:all": "pnpm run standardize && pnpm run format && pnpm run lint && pnpm run typecheck && pnpm run audit:knip && pnpm run audit",
+    "audit:knip": "pnpm exec knip",
+    "build": "pnpm -r build",
+    "clean": "pnpm -r exec rm -rf .next node_modules && rm -rf node_modules",
+    "db:seed": "pnpm exec tsx scripts/seed-provinces.ts && pnpm exec tsx scripts/seed-projects.ts",
+    "db:setup": "pnpm exec tsx scripts/setup-database.ts",
+    "db:test": "pnpm exec tsx scripts/test-database-ops.ts",
+    "dev": "NODE_OPTIONS='--max-old-space-size=2048' turbo dev",
+    "dev:termux": "NODE_OPTIONS='--max-old-space-size=2048' pnpm -r --parallel dev",
+    "dev:unlink": "NODE_OPTIONS='--max-old-space-size=2048' pnpm --filter unlink dev",
+    "dev:web": "NODE_OPTIONS='--max-old-space-size=2048' pnpm --filter web dev",
+    "fix:all": "pnpm run format:fix && pnpm run standardize && pnpm run lint --fix",
+    "format": "prettier --check .",
+    "format:fix": "prettier --write .",
+    "lint": "eslint . --max-warnings 0",
+    "lint:fix": "eslint . --fix",
+    "lint:termux": "pnpm -r lint",
+    "standardize": "./scripts/monorepo-standardizer.sh",
+    "start": "turbo start",
+    "start:termux": "pnpm -r --parallel start",
+    "typecheck": "pnpm -r exec tsc --noEmit"
+  },
+  "dependencies": {
+    "dotenv": "^17.4.0",
+    "tsx": "^4.21.0",
     "turbo": "^2.9.3"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.4",
+    "@supabase/supabase-js": "^2.103.0",
+    "@types/node": "^22.19.15",
+    "eslint": "^9.7.0",
+    "eslint-plugin-only-warn": "^1.2.1",
+    "globals": "^17.4.0",
+    "knip": "^6.3.0",
+    "pg": "^8.20.0",
+    "prettier": "^3.8.1",
+    "prettier-plugin-packagejson": "^3.0.2",
+    "schema-dts": "^2.0.0",
+    "typescript": "5.9.2",
+    "typescript-eslint": "^8.58.0"
+  },
+  "packageManager": "pnpm@10.33.0",
+  "engines": {
+    "node": ">=22.0.0"
   }
 }

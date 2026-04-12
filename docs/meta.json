@@ -1,0 +1,11 @@
+{
+  "name": "AEM Monorepo",
+  "description": "High-performance Monorepo for AEMDEVWEB & UNLINK THAILAND built with Next.js 15 and React 19",
+  "maintainedByCoreTeam": true,
+  "techStack": {
+    "framework": "Next.js 15 (App Router)",
+    "ui": "React 19, Vanilla CSS",
+    "monorepo": "Turborepo, pnpm",
+    "database": "Supabase (PostgreSQL)"
+  }
+}

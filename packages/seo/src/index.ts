@@ -1,9 +1,15 @@
+import { SHARED_SITE_CONFIG } from "@repo/core";
+
 export const BRAND_IDENTITY = {
-  brand: "AEMDEVWEB",
+  brand: SHARED_SITE_CONFIG.brand.name,
   founder: {
-    th: "ชื่อจริง นามสกุล", // TODO: Replace with actual
-    en: "Firstname Lastname" // TODO: Replace with actual
+    th: SHARED_SITE_CONFIG.expert.legalNameThai,
+    en: SHARED_SITE_CONFIG.expert.legalNameEnglish,
   },
-  getSignatureKeywords: () => 
-    `${BRAND_IDENTITY.brand}, ${BRAND_IDENTITY.founder.th}, ${BRAND_IDENTITY.founder.en}`
+  getSignatureKeywords: () =>
+    `${BRAND_IDENTITY.brand}, ${BRAND_IDENTITY.founder.th}, ${BRAND_IDENTITY.founder.en}`,
 };
+
+export * from "./JsonLd";
+export * from "./ReputationShield";
+export * from "./schemas";

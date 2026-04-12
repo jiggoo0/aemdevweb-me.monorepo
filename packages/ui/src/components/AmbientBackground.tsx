@@ -1,11 +1,9 @@
 /**
- * [UI COMPONENT]: AMBIENT_BACKGROUND v18.0.5 (CSS_ACCELERATED)
- * [STRATEGY]: CSS Keyframes | Compositor Orchestration | Zero-JS Hydration
- * [MAINTAINER]: AEMZA MACKS (Lead Architect)
+ * [UI COMPONENT]: AMBIENT_BACKGROUND v18.0.5 (NAMED_EXPORT)
  */
 
 import React, { memo } from "react";
-import { cn } from "@/lib/utils";
+import { cn } from "../lib/utils";
 
 interface AmbientBackgroundProps {
   readonly className?: string;
@@ -13,13 +11,7 @@ interface AmbientBackgroundProps {
   readonly opacity?: number;
 }
 
-/**
- * @component AmbientBackground
- * @description หน่วยประมวลผลพื้นหลังแบบไดนามิกที่ใช้ CSS Animation (60fps)
- * [OPTIMIZATION]: ย้าย Logic การทำแอนิเมชันจาก JS ไปยัง CSS Engine ของเบราว์เซอร์
- * เพื่อลด Total Blocking Time (TBT) และประหยัดแบตเตอรี่บน Mobile
- */
-const AmbientBackground = ({ className, color, opacity = 1 }: AmbientBackgroundProps) => {
+const AmbientBackgroundComponent = ({ className, color, opacity = 1 }: AmbientBackgroundProps) => {
   return (
     <div
       className={cn(
@@ -34,12 +26,11 @@ const AmbientBackground = ({ className, color, opacity = 1 }: AmbientBackgroundP
       }}
       aria-hidden="true"
     >
-      {/* --- LAYER 01: ADAPTIVE AURA NODES (CSS Accelerated) --- */}
       <div
         className={cn(
           "absolute -top-[15%] -left-[10%] h-[80vw] w-[80vw] transform-gpu rounded-full opacity-[0.10]",
           "blur-[60px] md:blur-[120px]",
-          "md:animate-aura-1", // รันแอนิเมชันเฉพาะบน Desktop เพื่อถนอม CPU ของ Mobile
+          "md:animate-aura-1",
         )}
         style={{ backgroundColor: "var(--brand-primary)" }}
       />
@@ -50,10 +41,11 @@ const AmbientBackground = ({ className, color, opacity = 1 }: AmbientBackgroundP
           "blur-[50px] md:blur-[100px]",
           "md:animate-aura-2",
         )}
-        style={{ backgroundColor: "var(--brand-secondary, var(--brand-primary))" }}
+        style={{
+          backgroundColor: "var(--brand-secondary, var(--brand-primary))",
+        }}
       />
 
-      {/* --- LAYER 02: NOISE TEXTURE (High-End Polish) --- */}
       <div
         className="absolute inset-0 opacity-[0.012]"
         style={{
@@ -61,7 +53,6 @@ const AmbientBackground = ({ className, color, opacity = 1 }: AmbientBackgroundP
         }}
       />
 
-      {/* --- LAYER 03: REFINED INFRASTRUCTURE GRID --- */}
       <div
         className="absolute inset-0 opacity-[0.015]"
         style={{
@@ -70,10 +61,9 @@ const AmbientBackground = ({ className, color, opacity = 1 }: AmbientBackgroundP
         }}
       />
 
-      {/* --- LAYER 04: DEPTH VIGNETTE --- */}
       <div className="from-surface-main/40 to-surface-main/60 absolute inset-0 bg-gradient-to-tr via-transparent" />
     </div>
   );
 };
 
-export default memo(AmbientBackground);
+export const AmbientBackground = memo(AmbientBackgroundComponent);

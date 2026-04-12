@@ -1,0 +1,70 @@
+@import "tailwindcss";
+@plugin "tailwindcss-animate";
+
+/* 🔍 Precision Scanning for Monorepo/Termux Environment */
+@source "../**/*.{ts,tsx}";
+@source "../../unlink-th/app/**/*.{ts,tsx}";
+@source "../../../packages/ui/src/**/*.{ts,tsx}";
+@source "../../../packages/core/src/**/*.{ts,tsx}";
+
+@theme {
+  --font-sans: var(--font-inter), "Geist Sans", ui-sans-serif, system-ui;
+  --font-mono: "Geist Mono", "JetBrains Mono", ui-monospace;
+
+  /* ⚖️ Institutional & Authority Palette (OKLCH) */
+  --color-registry-primary: oklch(0.18 0.05 262.881);
+  --color-registry-accent: oklch(0.546 0.245 262.881);
+  --color-verify-success: oklch(0.627 0.194 149.214);
+  --color-verify-error: oklch(0.577 0.245 27.325);
+
+  --color-background: oklch(0.05 0 0);
+  --color-foreground: oklch(0.984 0.003 247.858);
+
+  --color-card: oklch(0.08 0 0);
+  --color-card-foreground: oklch(0.984 0.003 247.858);
+
+  --color-primary: oklch(0.546 0.245 262.881);
+  --color-primary-foreground: oklch(1 0 0);
+
+  --color-secondary: oklch(0.2 0.05 262.881);
+  --color-secondary-foreground: oklch(0.984 0.003 247.858);
+
+  --color-muted: oklch(0.15 0.02 262.881);
+  --color-muted-foreground: oklch(0.6 0.02 262.881);
+
+  --color-accent: oklch(0.546 0.245 262.881);
+  --color-accent-foreground: oklch(1 0 0);
+
+  --color-border: oklch(0.15 0.02 262.881);
+  --color-input: oklch(0.15 0.02 262.881);
+  --color-ring: oklch(0.546 0.245 262.881 / 0.3);
+
+  --radius-lg: 1.25rem;
+  --radius-md: calc(1.25rem - 2px);
+  --radius-sm: calc(1.25rem - 4px);
+}
+
+@utility tech-grid {
+  background-image: radial-gradient(circle at 2px 2px, oklch(1 0 0 / 0.05) 1px, transparent 0);
+  background-size: 24px 24px;
+}
+
+@utility glass-registry {
+  @apply bg-white/5 backdrop-blur-2xl border border-white/10 shadow-2xl;
+}
+
+@utility text-registry-hero {
+  @apply text-6xl md:text-8xl font-black tracking-tight bg-gradient-to-b from-white to-gray-400 bg-clip-text text-transparent leading-none;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    /* Apply utility directly in body */
+    background-image: radial-gradient(circle at 2px 2px, oklch(1 0 0 / 0.05) 1px, transparent 0);
+    background-size: 24px 24px;
+  }
+}

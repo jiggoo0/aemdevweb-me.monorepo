@@ -1,0 +1,17 @@
+# Local Build Outputs
+.next/
+node_modules/
+dist/
+
+# Assets & Static
+public/
+*.webp
+*.png
+*.jpg
+*.svg
+*.ico
+
+# Cache & Temporary
+.turbo/
+*.tmp
+*.bak

@@ -36,6 +36,8 @@ type LocalNodeConfig = Omit<
   | "keywords"
   | "seoTitle"
   | "seoDescription"
+  | "name_th"
+  | "name_en"
 > &
   Partial<
     Pick<
@@ -53,6 +55,8 @@ type LocalNodeConfig = Omit<
       | "keywords"
       | "seoTitle"
       | "seoDescription"
+      | "name_th"
+      | "name_en"
     >
   >;
 
@@ -122,8 +126,14 @@ export function defineAreaNode(
     priority: localConfig.priority ?? masterService.priority,
     clientTrust: localConfig.clientTrust ?? masterService.clientTrust,
     socialProof: localConfig.socialProof ?? masterService.socialProof,
+
     // --- [LOCAL UNIQUE DATA] ---
     ...localConfig,
+
+    // [FACTORY_ENFORCEMENT]: Guaranteed Non-null property names
+    name_th: localConfig.name_th ?? localConfig.province,
+    name_en:
+      localConfig.name_en ?? localConfig.slug.charAt(0).toUpperCase() + localConfig.slug.slice(1),
 
     // [ENFORCED]: บังคับใช้ภาพพื้นที่บริการเดียวกันทั้งระบบตามคำสั่ง
     heroImage: "/images/areas/universal-node.webp",
@@ -142,10 +152,12 @@ export function defineAreaNode(
     // ตรวจจับและสร้าง SEO Metadata อัตโนมัติหากไม่ได้เขียนระบุไว้
     seoTitle:
       localConfig.seoTitle ??
-      `${localConfig.title} | ${masterService.title.split("|")[0].trim()} จังหวัด${localConfig.province}`,
+      `${localConfig.title || ""} | ${(masterService.title || "").split("|")[0]?.trim() || ""} จังหวัด${localConfig.province || ""}`,
+    /* eslint-disable @typescript-eslint/no-explicit-any */
     seoDescription:
       localConfig.seoDescription ??
-      `${localConfig.description} ให้บริการในพื้นที่ ${localConfig.districts?.slice(0, 3).join(", ")} และใกล้เคียง`,
+      `${(localConfig as any).description || ""} ให้บริการในพื้นที่ ${((localConfig as any).districts || []).slice(0, 3).join(", ")} และใกล้เคียง`,
+    /* eslint-enable @typescript-eslint/no-explicit-any */
   } as AreaNode;
 
   return node;

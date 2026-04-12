@@ -4,7 +4,7 @@ import * as React from "react";
 import Link from "next/link";
 import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
-import { cn } from "@/lib/utils";
+import { cn } from "../lib/utils";
 
 const buttonVariants = cva(
   "focus-visible:ring-brand-primary inline-flex items-center justify-center gap-2 rounded-[var(--radius-button,0.75rem)] text-sm font-bold whitespace-nowrap transition-all duration-300 focus-visible:ring-1 focus-visible:outline-none active:scale-[0.98] disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
@@ -39,7 +39,8 @@ const buttonVariants = cva(
   },
 );
 
-interface ButtonProps
+// [PATCH]: Unified Props to handle Button, Anchor, and Link safely
+export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>, VariantProps<typeof buttonVariants> {
   asChild?: boolean;
   href?: string;
@@ -51,30 +52,24 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       href?.startsWith("http") || href?.startsWith("mailto:") || href?.startsWith("tel:");
 
     if (href) {
+      const commonProps = {
+        className: cn(buttonVariants({ variant, size, className })),
+        children: props.children,
+      };
+
       if (isExternal) {
         return (
           <a
             href={href}
             target="_blank"
             rel="noopener noreferrer"
-            className={cn(buttonVariants({ variant, size, className }))}
-            // @ts-expect-error - a tag and button share many props but not all
-            {...props}
-          >
-            {props.children}
-          </a>
+            {...commonProps}
+            {...(props as React.AnchorHTMLAttributes<HTMLAnchorElement>)}
+          />
         );
       }
-      return (
-        <Link
-          href={href}
-          className={cn(buttonVariants({ variant, size, className }))}
-          // @ts-expect-error - Link and button share many props but not all
-          {...props}
-        >
-          {props.children}
-        </Link>
-      );
+
+      return <Link href={href} {...commonProps} {...(props as Record<string, unknown>)} />;
     }
 
     const Comp = asChild ? Slot : "button";
@@ -87,4 +82,4 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 );
 Button.displayName = "Button";
 
-export { Button };
+export { Button, buttonVariants };

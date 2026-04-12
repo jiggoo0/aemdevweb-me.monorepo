@@ -37,7 +37,10 @@ export const uthaiThaniNode = defineAreaNode(localAuthorityService, {
       reviewCount: 28,
       localClient: "กลุ่มวิสาหกิจผ้าทอพรีเมียม อุทัยธานี",
     },
-    regionalPricing: { startPrice: `${localAuthorityService.price} บาท`, timeline: "14-21 วัน" },
+    regionalPricing: {
+      startPrice: `${localAuthorityService.price} บาท`,
+      timeline: "14-21 วัน",
+    },
   },
   keywords: [
     "วางระบบเว็บไซต์ อุทัยธานี",
