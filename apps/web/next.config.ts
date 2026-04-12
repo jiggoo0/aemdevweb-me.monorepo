@@ -24,6 +24,7 @@ const nextConfig: NextConfig = {
   },
 
   // 🏗️ Build & Optimization Settings
+  output: "standalone",
   typescript: {
     // Strategic bypass: Type integrity is verified via 'pnpm run audit' or AI development cycle.
     ignoreBuildErrors: true,
