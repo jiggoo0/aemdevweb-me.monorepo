@@ -22,19 +22,20 @@ const CASE_STUDIES_PATH = getPath("case-studies");
 
 /**
  * [INTERFACES]: Standard Metadata Models
+ * [SYNC]: ตรงกับ UI Components (PostCard, TemplateShowcase)
  */
 export interface BlogPostMetadata {
   slug: string;
   title: string;
-  date: string;
+  published_at: string; // Sync with PostCard
   category: string;
   description: string;
   excerpt: string;
   tags: string[];
-  thumbnail?: string;
+  thumbnail_url: string; // Sync with PostCard
   coverImage?: string;
   readingTime?: string;
-  author?: string;
+  author_id: string; // Sync with PostCard
 }
 
 export interface CaseStudy {
@@ -70,20 +71,18 @@ export async function getAllBlogPosts(): Promise<BlogPostMetadata[]> {
       const source = await fs.promises.readFile(filePath, "utf8");
       const { data } = matter(source);
 
-      // [STRICT MAPPING]: ป้องกันข้อมูลหลุดและค่าว่าง
+      // [STRICT SYNC]: แปลง Metadata ให้ตรงกับ UI Component 100%
       const postMetadata: BlogPostMetadata = {
         slug: file.replace(".mdx", ""),
         title: data.title || "Untitled Transmission",
-        date: data.date || new Date().toISOString(),
+        published_at: data.date || new Date().toISOString(),
         category: data.category || "General",
         description: data.description || "",
         excerpt: data.excerpt || data.description || "",
         tags: data.tags || [],
-        thumbnail: data.thumbnail || "/images/blog/default.webp",
-        coverImage: data.coverImage || data.thumbnail || "/images/blog/default.webp",
-        readingTime: data.readingTime || "5 min read",
-        author: data.author || "AEM Architect",
-        ...data, // กระจายข้อมูลที่เหลือ
+        thumbnail_url: data.thumbnail || "/images/blog/default.webp",
+        author_id: data.author || "AEM_Architect",
+        ...data,
       };
 
       return postMetadata;
@@ -91,9 +90,9 @@ export async function getAllBlogPosts(): Promise<BlogPostMetadata[]> {
   );
 
   return posts.sort((a, b) => {
-    const dateB = b.date ? new Date(b.date).getTime() : 0;
-    const dateA = a.date ? new Date(a.date).getTime() : 0;
-    return dateB - dateA;
+    const dateB = new Date(a.published_at).getTime();
+    const dateA = new Date(b.published_at).getTime();
+    return dateA - dateB;
   });
 }
 
@@ -135,8 +134,8 @@ export async function getAllCaseStudies(): Promise<CaseStudy[]> {
   );
 
   return studies.sort((a, b) => {
-    const dateB = b.date ? new Date(b.date).getTime() : 0;
-    const dateA = a.date ? new Date(a.date).getTime() : 0;
+    const dateB = new Date(b.date).getTime();
+    const dateA = new Date(a.date).getTime();
     return dateB - dateA;
   });
 }
@@ -189,8 +188,10 @@ export async function getPostMetadataBySlug(slug: string): Promise<BlogPostMetad
   return {
     slug,
     title: data.title || "Untitled Transmission",
-    date: data.date || new Date().toISOString(),
+    published_at: data.date || new Date().toISOString(),
     category: data.category || "General",
+    thumbnail_url: data.thumbnail || "/images/blog/default.webp",
+    author_id: data.author || "AEM_Architect",
     ...data,
   } as BlogPostMetadata;
 }

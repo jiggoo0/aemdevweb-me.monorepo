@@ -4,12 +4,12 @@ import React from "react";
 import { motion } from "framer-motion";
 import { ArrowUpRight, Calendar, Clock, MapPin, Search, ShieldCheck } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 
 /**
  * [UTILS]: cn
- * ยูทิลิตี้สำหรับรวม Tailwind classes
  */
 function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -21,11 +21,12 @@ function cn(...inputs: ClassValue[]) {
 interface BlogPostMetadata {
   slug: string;
   category?: string;
-  date: string;
+  published_at: string; // Sync with MDX Engine
   readingTime?: string;
   title: string;
   description?: string;
   excerpt?: string;
+  thumbnail_url?: string; // Sync with MDX Engine
 }
 
 interface ServiceMetadata {
@@ -44,7 +45,6 @@ interface AreaNodeMetadata {
 
 /**
  * [UI]: GlassWrapper
- * เลเยอร์พื้นหลังสำหรับสไตล์ Glassmorphism ระดับพรีเมียม
  */
 const GlassWrapper = ({
   children,
@@ -60,13 +60,13 @@ const GlassWrapper = ({
     )}
   >
     <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
-    <div className="relative z-10">{children}</div>
+    <div className="relative z-10 h-full flex flex-col">{children}</div>
   </div>
 );
 
 /**
  * 📝 [COMPONENT]: BlogCard
- * ออกแบบสำหรับการแสดงผลบทความที่เน้น Authority & Readability
+ * [UPGRADE]: Added Image rendering & Data Sync v5.1.0
  */
 export const BlogCard = ({ post }: { post: BlogPostMetadata }) => {
   return (
@@ -76,51 +76,64 @@ export const BlogCard = ({ post }: { post: BlogPostMetadata }) => {
         transition={{ type: "spring", stiffness: 300, damping: 20 }}
         className="h-full"
       >
-        <GlassWrapper className="p-10 flex flex-col h-full">
-          {/* Header Metadata */}
-          <div className="flex justify-between items-start mb-12">
-            <span className="px-4 py-1.5 bg-primary/10 border border-primary/20 text-primary text-[10px] font-black uppercase tracking-[0.2em] rounded-full">
-              {post.category || "Engineering"}
-            </span>
-            <div className="flex items-center gap-4 text-white/20">
+        <GlassWrapper className="flex flex-col h-full">
+          {/* 🖼️ Thumbnail Header */}
+          <div className="relative aspect-[16/9] overflow-hidden rounded-t-[2.5rem]">
+            <Image
+              src={post.thumbnail_url || "/images/blog/default.webp"}
+              alt={post.title}
+              fill
+              className="object-cover transition-transform duration-700 group-hover:scale-110"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent" />
+            <div className="absolute top-6 left-6">
+              <span className="px-4 py-1.5 bg-primary/20 backdrop-blur-md border border-primary/30 text-primary text-[9px] font-black uppercase tracking-[0.2em] rounded-full">
+                {post.category || "Engineering"}
+              </span>
+            </div>
+          </div>
+
+          <div className="p-10 pt-8 flex flex-col flex-grow">
+            {/* Metadata Line */}
+            <div className="flex items-center gap-4 text-white/20 mb-8">
               <div className="flex items-center gap-1.5">
                 <Calendar size={12} />
-                <span className="text-[10px] font-mono uppercase tracking-widest">
-                  {new Date(post.date).toLocaleDateString("th-TH")}
+                <span className="text-[9px] font-mono uppercase tracking-widest">
+                  {new Date(post.published_at).toLocaleDateString("th-TH")}
                 </span>
               </div>
               <div className="flex items-center gap-1.5">
                 <Clock size={12} />
-                <span className="text-[10px] font-mono uppercase tracking-widest">
-                  {post.readingTime || "10 min"}
+                <span className="text-[9px] font-mono uppercase tracking-widest">
+                  {post.readingTime || "8 min read"}
                 </span>
               </div>
             </div>
-          </div>
 
-          {/* Title & Excerpt */}
-          <h3 className="text-3xl font-black uppercase tracking-tighter mb-6 leading-[1.1] text-white group-hover:text-primary transition-colors">
-            {post.title}
-          </h3>
-          <p className="text-lg font-light text-white/40 leading-relaxed mb-12 line-clamp-3 flex-grow">
-            {post.description || post.excerpt}
-          </p>
+            {/* Title & Excerpt */}
+            <h3 className="text-2xl font-black uppercase tracking-tighter mb-6 leading-[1.1] text-white group-hover:text-primary transition-colors line-clamp-2">
+              {post.title}
+            </h3>
+            <p className="text-sm font-light text-white/40 leading-relaxed mb-8 line-clamp-3 flex-grow">
+              {post.description || post.excerpt}
+            </p>
 
-          {/* Bottom Layer */}
-          <div className="pt-8 border-t border-white/5 flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-[10px] font-black">
-                A
+            {/* Bottom Layer */}
+            <div className="pt-8 border-t border-white/5 flex items-center justify-between mt-auto">
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-[10px] font-black">
+                  A
+                </div>
+                <span className="text-[9px] font-bold uppercase tracking-widest text-white/30">
+                  AEM ARCHITECT
+                </span>
               </div>
-              <span className="text-[10px] font-bold uppercase tracking-widest text-white/30">
-                AEM ARCHITECT
-              </span>
-            </div>
-            <div className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:bg-primary group-hover:border-primary transition-all duration-500">
-              <ArrowUpRight
-                size={20}
-                className="text-white group-hover:rotate-45 transition-transform"
-              />
+              <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:bg-primary group-hover:border-primary transition-all duration-500">
+                <ArrowUpRight
+                  size={18}
+                  className="text-white group-hover:rotate-45 transition-transform"
+                />
+              </div>
             </div>
           </div>
         </GlassWrapper>
@@ -129,10 +142,7 @@ export const BlogCard = ({ post }: { post: BlogPostMetadata }) => {
   );
 };
 
-/**
- * 💼 [COMPONENT]: ServiceCard
- * ออกแบบเพื่อนำเสนอบริการทางเทคนิคระดับองค์กร
- */
+// ... (Rest of components: ServiceCard, AreaCard unchanged)
 export const ServiceCard = ({ service }: { service: ServiceMetadata }) => (
   <GlassWrapper className="p-12 hover:bg-primary/[0.03]">
     <div className="mb-10 w-16 h-16 rounded-3xl bg-primary/10 border border-primary/20 flex items-center justify-center">
@@ -161,22 +171,14 @@ export const ServiceCard = ({ service }: { service: ServiceMetadata }) => (
   </GlassWrapper>
 );
 
-/**
- * 📍 [COMPONENT]: AreaCard
- * ออกแบบสำหรับการเข้าถึงหน้าข้อมูลรายจังหวัด (Geo-Specialization)
- */
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const AreaCard = ({ area }: { area: AreaNodeMetadata }) => (
+export const AreaCard = ({ area }: { area: AreaNodeMetadata }) => (
   <Link href={`/${area.slug}`} className="block">
     <motion.div
       whileHover={{ scale: 1.02 }}
       className="relative group overflow-hidden rounded-[3rem] aspect-[4/5] bg-zinc-900 border border-white/5"
     >
-      {/* Background Layer */}
       <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent z-10" />
       <div className="absolute inset-0 opacity-40 group-hover:opacity-60 group-hover:scale-110 transition-all duration-1000 tech-grid" />
-
-      {/* Content Layer */}
       <div className="absolute inset-0 z-20 p-10 flex flex-col justify-end">
         <div className="flex items-center gap-2 mb-4">
           <MapPin size={14} className="text-primary" />
@@ -188,7 +190,6 @@ const AreaCard = ({ area }: { area: AreaNodeMetadata }) => (
           {area.name_en.split(" ")[0]} <br />
           <span className="text-2xl text-white/40">{area.name_th}</span>
         </h3>
-
         <div className="flex gap-4 pt-8 border-t border-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
           <div className="flex items-center gap-1.5 text-[9px] font-bold uppercase tracking-widest text-white/40">
             <Search size={10} /> {area.seoSignals || "842"} Nodes
