@@ -2,36 +2,62 @@ import { cacheLife, cacheTag } from "next/cache";
 import { DataRegistry } from "@repo/db";
 
 /**
+ * [TYPE]: ProvinceData
+ * โครงสร้างข้อมูลมาตรฐานสำหรับหน้าจังหวัด (ยึดตาม DB Schema)
+ */
+export interface ProvinceData {
+  title: string;
+  content: string;
+  metadata: {
+    description: string;
+  };
+  source: "database" | "fallback"; // 🛠️ เพิ่มสถานะที่มาของข้อมูล
+}
+
+/**
  * [CACHED_FETCH]: getProvinceData
  * ดึงข้อมูลคอนเทนต์จังหวัดจาก DB พร้อมระบบแคชระดับ Next.js 16
  */
-export async function getCachedProvinceData(province: string) {
+export async function getCachedProvinceData(province: string): Promise<ProvinceData> {
   "use cache";
   cacheTag("province-data", `province-${province}`);
   cacheLife("days");
 
   try {
-    console.log(`[Cache Miss] Attempting to fetch data for province: ${province}`);
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const result = (await DataRegistry.getProvinceData(province)) as any;
+    const result = await DataRegistry.getProvinceData(province);
 
     if (!result || !result.data) {
-      throw new Error("Empty data returned from registry");
+      throw new Error(`Data missing for province: ${province}`);
     }
 
-    return result.data;
-  } catch {
-    console.warn(
-      `[Data Recovery] Failed to fetch live data for ${province}, activating architectural fallback.`,
-    );
+    // [TYPE_SAFE]: แปลงข้อมูลให้เป็นโครงสร้างมาตรฐาน และตรวจสอบความถูกต้อง
+    const rawData = result.data as Record<string, unknown>;
 
-    // 🎨 Creative Fallback: Return a structured standard data based on province name
+    const title = String(rawData.title || `สถาปัตยกรรมเว็บไซต์ใน ${province}`);
+    const content =
+      typeof rawData.content === "string" ? rawData.content : JSON.stringify(rawData.content || ""); // Safe string conversion
+
+    const metadata = (rawData.metadata as Record<string, unknown>) || {};
+
+    return {
+      title,
+      content,
+      metadata: {
+        description: String(metadata.description || `บริการ SEO ใน ${province}`),
+      },
+      source: "database",
+    };
+  } catch (err) {
+    // 📢 Fallback Monitoring (Simulated)
+    console.error(`[Data Integrity] Fallback activated for ${province}. Cause:`, err);
+
     return {
       title: `สถาปัตยกรรมเว็บไซต์และยุทธศาสตร์ SEO ชั้นนำใน ${province.toUpperCase()}`,
-      content: `<p>เราพร้อมส่งมอบโครงสร้างพื้นฐานดิจิทัลที่ปรับแต่งมาเพื่อธุรกิจในพื้นที่ ${province} โดยเฉพาะ เพื่อยึดครองอันดับในการค้นหาและสร้างความน่าเชื่อถือระดับสถาบัน</p>`,
+      content: `<p>เราพร้อมส่งมอบโครงสร้างพื้นฐานดิจิทัลที่ปรับแต่งมาเพื่อธุรกิจในพื้นที่ ${province} โดยเฉพาะ</p>`,
       metadata: {
         description: `ยกระดับธุรกิจใน ${province} ด้วยระบบ P-SEO และสถาปัตยกรรม Next.js 16 จาก AEM DEVWEB`,
       },
+      source: "fallback",
     };
   }
 }

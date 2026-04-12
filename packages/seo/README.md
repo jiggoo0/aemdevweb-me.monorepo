@@ -4,7 +4,7 @@
 
 ## 📌 จุดประสงค์ (Purpose)
 
-- **Entity Linking (The Power Couple):** เชื่อมโยงข้อมูลระหว่าง `me.aemdevweb.com` (Person) และ `aemdevweb.com` (Organization) เพื่อให้ Google Search Bot เข้าใจโครงสร้างความสัมพันธ์ของแบรนด์
+- **Entity Linking (The Power Couple):** เชื่อมโยงข้อมูลระหว่างอัตลักษณ์บุคคล (Person Profile) และองค์กร (Organization) ภายใต้โดเมนเดียวกัน (`aemdevweb.com`) เพื่อให้ Google Search Bot เข้าใจโครงสร้างความสัมพันธ์ของแบรนด์ได้อย่างไร้รอยต่อ
 - **E-E-A-T Signal Boosting:** เสริมสร้างสัญญาณความเชี่ยวชาญ (Expertise) และความน่าเชื่อถือ (Trustworthiness) ผ่านเทคนิค JSON-LD Structured Data
 - **Identity Signature:** จัดการ "ลายเซ็นอัตลักษณ์" (Brand Name + First & Last Name ทั้งไทยและอังกฤษ) เพื่อสร้างความสอดคล้อง (Consistency) ทั่วทั้งระบบ
 

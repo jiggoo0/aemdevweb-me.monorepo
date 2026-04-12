@@ -5,17 +5,18 @@ import { SHARED_SITE_CONFIG } from "@repo/core";
 import { StatusIndicator, UnlinkTrustBadge } from "@repo/ui";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { ROUTES } from "@/lib/routes";
 
 export function Navbar() {
   const { brand } = SHARED_SITE_CONFIG;
   const pathname = usePathname();
 
   const navLinks = [
-    { name: "Network", href: "/area" },
-    { name: "Solutions", href: "/services" },
-    { name: "Registry", href: "/portfolio" },
-    { name: "Intelligence", href: "/blog" },
-    { name: "Identity", href: "/me" },
+    { name: "Network", href: ROUTES.AREA },
+    { name: "Solutions", href: ROUTES.SERVICES },
+    { name: "Registry", href: ROUTES.PORTFOLIO },
+    { name: "Intelligence", href: ROUTES.BLOG.ROOT },
+    { name: "Identity", href: ROUTES.ME },
   ];
 
   return (
@@ -24,7 +25,7 @@ export function Navbar() {
       aria-label="Main Infrastructure Navigation"
     >
       <Link
-        href="/"
+        href={ROUTES.HOME}
         className="flex items-center gap-4 hover:opacity-80 transition-opacity"
         aria-label="AEM Home Hub"
       >

@@ -4,10 +4,11 @@ import { GeistMono } from "geist/font/mono";
 import { SHARED_SITE_CONFIG } from "@repo/core";
 import { ReputationShield } from "@repo/seo";
 import { CookieBanner, SafeAnalytics } from "@repo/ui";
+import { SEO_CONSTANTS } from "../lib/constants/seo";
 import "./globals.css";
 
 export const viewport: Viewport = {
-  themeColor: "#050505",
+  themeColor: SEO_CONSTANTS.THEME_COLOR,
   width: "device-width",
   initialScale: 1,
 };
@@ -15,11 +16,10 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL(SHARED_SITE_CONFIG.links.site),
   title: {
-    template: "%s | AEMDEVWEB",
-    default: "AEMDEVWEB - รับทำเว็บไซต์ระดับ High-end และ SEO 77 จังหวัด",
+    template: SEO_CONSTANTS.DEFAULT_TITLE_TEMPLATE,
+    default: `AEMDEVWEB - ${SEO_CONSTANTS.KEYWORDS.STANDARD[0]} High-end และ SEO 77 จังหวัด`,
   },
-  description:
-    "บริการรับทำเว็บไซต์ Next.js และ SEO ทะยานสู่หน้าแรกด้วยระบบ Hyper-localization ครอบคลุมทั่วประเทศไทย",
+  description: SEO_CONSTANTS.DEFAULT_DESCRIPTION,
   alternates: {
     canonical: "./",
   },

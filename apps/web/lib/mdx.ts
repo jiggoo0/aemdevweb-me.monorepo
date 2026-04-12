@@ -41,7 +41,7 @@ export interface BlogPostMetadata {
 
 /**
  * [HELPER]: getAllBlogPosts
- * ดึงรายการบทความทั้งหมดพร้อมคัดกรอง Metadata
+ * ดึงรายการบทความทั้งหมดพร้อมคัดกรอง Metadata แบบ High-Performance (Async/Parallel)
  */
 export async function getAllBlogPosts(): Promise<BlogPostMetadata[]> {
   "use cache";
@@ -52,16 +52,30 @@ export async function getAllBlogPosts(): Promise<BlogPostMetadata[]> {
 
   const files = fs.readdirSync(BLOG_PATH).filter((f) => f.endsWith(".mdx"));
 
-  const posts = files.map((file) => {
-    const filePath = path.join(BLOG_PATH, file);
-    const source = fs.readFileSync(filePath, "utf8");
-    const { data } = matter(source);
+  // [OPTIMIZED]: ใช้ Promise.all และ fs.promises เพื่ออ่านไฟล์แบบ Parallel
+  const posts = await Promise.all(
+    files.map(async (file) => {
+      const filePath = path.join(BLOG_PATH, file);
+      const source = await fs.promises.readFile(filePath, "utf8");
+      const { data } = matter(source);
 
-    return {
-      slug: file.replace(".mdx", ""),
-      ...data,
-    } as BlogPostMetadata;
-  });
+      // [STANDARDIZATION]: เติมค่า Default หาก Metadata ไม่ครบถ้วน
+      return {
+        slug: file.replace(".mdx", ""),
+        title: data.title || "Untitled Transmission",
+        date: data.date || new Date().toISOString(),
+        category: data.category || "General",
+        description: data.description || "",
+        excerpt: data.excerpt || data.description || "",
+        tags: data.tags || [],
+        thumbnail: data.thumbnail || "/images/blog/default.webp",
+        coverImage: data.coverImage || data.thumbnail || "/images/blog/default.webp",
+        readingTime: data.readingTime || "5 min read",
+        author: data.author || "AEM Architect",
+        ...data,
+      } as BlogPostMetadata;
+    }),
+  );
 
   // เรียงลำดับตามวันที่ (ล่าสุดขึ้นก่อน)
   return posts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
@@ -69,7 +83,7 @@ export async function getAllBlogPosts(): Promise<BlogPostMetadata[]> {
 
 /**
  * [HELPER]: getPostMetadataBySlug
- * ดึง Metadata ของบทความเดียวโดยใช้ slug
+ * ดึง Metadata ของบทความเดียวแบบ Async
  */
 export async function getPostMetadataBySlug(slug: string): Promise<BlogPostMetadata | null> {
   "use cache";
@@ -79,11 +93,14 @@ export async function getPostMetadataBySlug(slug: string): Promise<BlogPostMetad
   const filePath = path.join(BLOG_PATH, `${slug}.mdx`);
   if (!fs.existsSync(filePath)) return null;
 
-  const source = fs.readFileSync(filePath, "utf8");
+  const source = await fs.promises.readFile(filePath, "utf8");
   const { data } = matter(source);
 
   return {
     slug,
+    title: data.title || "Untitled Transmission",
+    date: data.date || new Date().toISOString(),
+    category: data.category || "General",
     ...data,
   } as BlogPostMetadata;
 }

@@ -170,7 +170,7 @@ export default function RegistryPage() {
           <h1 className="text-6xl md:text-[7rem] font-black uppercase tracking-tighter leading-[0.85] mb-12 text-white">
             Institutional <br /> <span className="text-white/20">Data Ledger.</span>
           </h1>
-          
+
           <div className="max-w-3xl p-1.5 bg-white/5 border border-white/10 rounded-3xl flex items-center gap-4 group focus-within:border-primary/30 focus-within:bg-white/[0.08] transition-all duration-500">
             <div className="pl-6 text-muted-foreground/40 group-focus-within:text-primary transition-colors">
               <Search size={22} />

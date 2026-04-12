@@ -1,16 +1,25 @@
 import { Metadata } from "next";
 import { SEOStrategy } from "./seo-strategy";
+import { SEO_CONSTANTS } from "../constants/seo";
 
 /**
  * [STRATEGY]: DefaultProvinceStrategy
- * Standard SEO for regular provinces.
+ * Standard SEO implementation for common provinces.
+ * Focuses on local authority and general service keywords.
  */
 export class DefaultProvinceStrategy implements SEOStrategy {
+  /**
+   * Generates localized metadata based on province title and slug.
+   * @param slug - The province URL slug.
+   * @param data - Raw database content for the province.
+   */
   generateMetadata(slug: string, data: unknown): Metadata {
     const provinceData = data as { title?: string } | undefined;
     const name = provinceData?.title || slug;
+    const mainKeyword = SEO_CONSTANTS.KEYWORDS.STANDARD[0];
+
     return {
-      title: `รับทำเว็บไซต์ ${name} | บริการดูแลเว็บครบวงจร - AEMDEVWEB`,
+      title: `${mainKeyword} ${name} | บริการดูแลเว็บครบวงจร - AEMDEVWEB`,
       description: `บริการรับทำเว็บไซต์ในพื้นที่ ${name} ออกแบบทันสมัย รองรับ SEO และ Mobile-Friendly โดยทีมงานมืออาชีพ AEMDEVWEB`,
       openGraph: {
         title: `AEMDEVWEB บริการรับทำเว็บ ${name}`,
@@ -25,20 +34,20 @@ export class DefaultProvinceStrategy implements SEOStrategy {
 }
 
 /**
- * [STRATEGY]: CapitalProvinceStrategy (Bangkok)
- * High-competition, specialized SEO for the capital.
+ * [STRATEGY]: CapitalProvinceStrategy
+ * Optimized for High-Competition areas like Bangkok.
+ * Focuses on Enterprise-grade keywords and Institutional authority.
  */
 export class CapitalProvinceStrategy implements SEOStrategy {
+  /**
+   * Generates high-authority metadata for capital cities.
+   */
   generateMetadata(_slug: string, _data: unknown): Metadata {
     return {
       title: "AEM Digital Solutions Bangkok | ศูนย์กลางบริการเว็บระดับองค์กร",
       description:
         "บริการรับทำเว็บไซต์ระดับ Enterprise ในกรุงเทพมหานคร พัฒนาด้วย Next.js 16 ประสิทธิภาพสูงสุดสำหรับธุรกิจคุณ",
-      keywords: [
-        "รับทำเว็บ กรุงเทพ",
-        "Enterprise Web Development Bangkok",
-        "Next.js Agency Thailand",
-      ],
+      keywords: SEO_CONSTANTS.KEYWORDS.ENTERPRISE,
     };
   }
 
@@ -48,16 +57,21 @@ export class CapitalProvinceStrategy implements SEOStrategy {
 }
 
 /**
- * [STRATEGY]: TourismProvinceStrategy (Phuket, Chiang Mai, etc.)
- * Tourism and International oriented SEO.
+ * [STRATEGY]: TourismProvinceStrategy
+ * Specialized for tourist-heavy provinces (Phuket, Samui).
+ * Focuses on International standards and Luxury hospitality.
  */
 export class TourismProvinceStrategy implements SEOStrategy {
+  /**
+   * Generates English-friendly metadata for global reach.
+   */
   generateMetadata(slug: string, data: unknown): Metadata {
     const provinceData = data as { title?: string } | undefined;
     const name = provinceData?.title || slug;
     return {
       title: `Professional Web Design ${name} | International Standards`,
       description: `High-end web development services in ${name} for hotels, resorts, and tourism businesses. Global reach, local expertise.`,
+      keywords: SEO_CONSTANTS.KEYWORDS.TOURISM,
     };
   }
 
@@ -68,7 +82,9 @@ export class TourismProvinceStrategy implements SEOStrategy {
 
 /**
  * [FACTORY/REGISTRY]: StrategyRegistry
- * Maps province slugs to their respective strategies.
+ * Resolves the appropriate strategy instance based on the province slug.
+ * @param slug - Province slug identifier.
+ * @returns An instance of SEOStrategy.
  */
 export const getProvinceStrategy = (slug: string): SEOStrategy => {
   const mapping: Record<string, SEOStrategy> = {

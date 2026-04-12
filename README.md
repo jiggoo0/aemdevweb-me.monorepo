@@ -149,7 +149,7 @@ NEXT_PUBLIC_WEB_URL=https://www.aemdevweb.com
 
 ## 👥 ผู้เขียนและกิตติกรรมประกาศ (Authors)
 
-- **Lead Architect:** [AEMZA MACKS](https://me.aemdevweb.com)
+- **Lead Architect:** [AEMZA MACKS](https://www.aemdevweb.com)
 - **Core Team:** UNLINK Thailand & Strategic Partners
 
 ---

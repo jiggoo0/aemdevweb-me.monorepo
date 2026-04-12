@@ -14,7 +14,7 @@ export default function LoginPage() {
       {/* 🌌 [ATMOSPHERIC_DECOR]: Background Elements */}
       <div className="absolute inset-0 tech-grid opacity-20 pointer-events-none" />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-4xl h-[600px] bg-primary/5 blur-[150px] rounded-full pointer-events-none" />
-      
+
       {/* Animated Scan Line */}
       <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary/20 to-transparent animate-scan-line z-20" />
 

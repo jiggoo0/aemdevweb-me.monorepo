@@ -8,16 +8,7 @@ import { notFound } from "next/navigation";
 import { SHARED_SITE_CONFIG } from "@repo/core";
 import { getVerifiedNode } from "@repo/db";
 import { StatusIndicator } from "@repo/ui";
-import {
-  Shield,
-  ShieldCheck,
-  Activity,
-  Lock,
-  Database,
-  FileText,
-  
-  ArrowRight,
-} from "lucide-react";
+import { Shield, ShieldCheck, Activity, Lock, Database, FileText, ArrowRight } from "lucide-react";
 import Link from "next/link";
 
 interface PageProps {
@@ -60,7 +51,7 @@ async function VerificationContent({ paramsPromise }: { paramsPromise: Promise<{
     <>
       <header className="mb-32 text-center relative">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-96 bg-primary/5 blur-[120px] rounded-full pointer-events-none opacity-50" />
-        
+
         <div className="inline-flex items-center gap-3 px-6 py-2 bg-success/5 border border-success/10 rounded-full mb-12 animate-in fade-in zoom-in duration-1000">
           <div className="w-2 h-2 rounded-full bg-success animate-pulse shadow-[0_0_10px_rgba(var(--color-verify-success),0.5)]" />
           <span className="text-[10px] font-black uppercase tracking-[0.4em] text-success">
@@ -102,7 +93,9 @@ async function VerificationContent({ paramsPromise }: { paramsPromise: Promise<{
             </div>
             <div className="flex justify-between items-center text-[10px] font-mono border-b border-white/5 pb-4">
               <span className="text-white/20 uppercase tracking-widest">Signature</span>
-              <span className="font-black text-primary">{node?.architect_signature || expert.signature}</span>
+              <span className="font-black text-primary">
+                {node?.architect_signature || expert.signature}
+              </span>
             </div>
           </div>
         </div>
@@ -183,19 +176,30 @@ async function VerificationContent({ paramsPromise }: { paramsPromise: Promise<{
 
         {node?.linkedProjects && (node.linkedProjects as unknown[]).length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-6xl mx-auto">
-            {(node.linkedProjects as { id: string; category: string; title: string; description: string; slug: string }[]).map((project) => (
+            {(
+              node.linkedProjects as {
+                id: string;
+                category: string;
+                title: string;
+                description: string;
+                slug: string;
+              }[]
+            ).map((project) => (
               <div
                 key={project.id}
                 className="glass-registry p-10 rounded-[3rem] group hover:border-primary/40 transition-all duration-700 relative overflow-hidden"
               >
                 {/* Accent line */}
                 <div className="absolute top-0 left-10 w-20 h-1 bg-primary/30 group-hover:w-40 transition-all duration-700" />
-                
+
                 <div className="flex justify-between items-start mb-10">
                   <span className="text-[9px] font-black px-4 py-1.5 bg-white/5 text-primary border border-white/10 rounded-full uppercase tracking-[0.3em]">
                     {project.category}
                   </span>
-                  <FileText className="text-white/10 group-hover:text-primary/20 transition-colors" size={32} />
+                  <FileText
+                    className="text-white/10 group-hover:text-primary/20 transition-colors"
+                    size={32}
+                  />
                 </div>
                 <h4 className="text-2xl font-black mb-4 group-hover:text-primary transition-colors leading-tight uppercase tracking-tighter">
                   {project.title}
@@ -207,7 +211,11 @@ async function VerificationContent({ paramsPromise }: { paramsPromise: Promise<{
                   href={`/portfolio/${project.slug}`}
                   className="inline-flex items-center gap-4 text-[10px] font-black uppercase tracking-[0.5em] text-primary group/link"
                 >
-                  View Evidence Archive <ArrowRight size={18} className="group-hover/link:translate-x-2 transition-transform" />
+                  View Evidence Archive{" "}
+                  <ArrowRight
+                    size={18}
+                    className="group-hover/link:translate-x-2 transition-transform"
+                  />
                 </Link>
               </div>
             ))}
@@ -217,7 +225,9 @@ async function VerificationContent({ paramsPromise }: { paramsPromise: Promise<{
             <div className="w-24 h-24 rounded-full bg-white/5 border border-white/10 flex items-center justify-center mx-auto mb-10 group-hover:border-primary/30 transition-all">
               <FileText className="text-white/20" size={48} />
             </div>
-            <h3 className="text-3xl font-black mb-4 uppercase tracking-tighter">Archive Records Syncing</h3>
+            <h3 className="text-3xl font-black mb-4 uppercase tracking-tighter">
+              Archive Records Syncing
+            </h3>
             <p className="text-white/30 text-base font-light uppercase tracking-widest">
               รอยืนยันความสมบูรณ์ของข้อมูลจาก Node สาขา
             </p>
@@ -234,7 +244,8 @@ async function VerificationContent({ paramsPromise }: { paramsPromise: Promise<{
             </span>
           </div>
           <p className="text-[10px] text-white/20 uppercase tracking-widest max-w-md">
-            ใบรับรองอิเล็กทรอนิกส์นี้ถูกสร้างและจัดเก็บในระบบ Ledger กระจายศูนย์ ไม่สามารถปลอมแปลงได้
+            ใบรับรองอิเล็กทรอนิกส์นี้ถูกสร้างและจัดเก็บในระบบ Ledger กระจายศูนย์
+            ไม่สามารถปลอมแปลงได้
           </p>
         </div>
         <div className="flex flex-col gap-4">

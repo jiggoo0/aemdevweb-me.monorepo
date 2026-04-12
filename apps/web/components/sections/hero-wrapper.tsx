@@ -9,5 +9,5 @@ import { HeroAndShowcase } from "./hero-showcase";
 export async function HeroWrapper() {
   await getCachedIndustries();
 
-  return <HeroAndShowcase   />;
+  return <HeroAndShowcase />;
 }

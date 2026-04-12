@@ -128,44 +128,66 @@ export interface ThemeConfig {
 }
 
 export interface SiteConfig {
-  readonly brandName: string;
-  readonly siteUrl: string;
-  readonly description: string;
-  readonly logo: string;
-  readonly ogImage: string;
-  readonly locale: string;
-  readonly themeColor: string;
-  readonly keywords: readonly string[];
-  readonly hero: {
-    readonly title: string;
-    readonly description: string;
-    readonly primaryAction: string;
-    readonly secondaryAction: string;
-  };
-  readonly persona: {
-    readonly tone: string;
-    readonly communicationStyle: string;
-    readonly antiConnotation: string;
-  };
+  /** [IDENTITY]: Core Expert Information (E-E-A-T) */
   readonly expert: {
     readonly displayName: string;
     readonly alternateName?: string;
-    readonly alias?: readonly string[];
-    readonly legalName: string;
+    readonly strategicAlias?: string;
     readonly legalNameThai: string;
+    readonly legalNameEnglish: string;
     readonly role: string;
     readonly jobTitle: string;
     readonly signature: string;
     readonly avatar: string;
     readonly email: string;
     readonly bio: string;
-    readonly bioUrl: string;
-    readonly twitterHandle: string;
+    readonly bioUrl?: string;
     readonly googleMerchantId?: string;
-    /** [PATCH_v18.1.0]: LinkedIn Authority Link */
+    readonly twitterHandle?: string;
     readonly linkedinUrl?: string;
     readonly sameAs?: readonly string[];
+    readonly skills?: {
+      readonly technical: readonly string[];
+      readonly seo: readonly string[];
+      readonly governance: readonly string[];
+    };
   };
+
+  /** [BRANDING]: Institutional Visuals & Identity */
+  readonly brand: {
+    readonly name: string;
+    readonly fullName: string;
+    readonly siteUrl: string;
+    readonly logo?: string;
+    readonly ogImage?: string;
+    readonly established: string;
+    readonly industry: string;
+    readonly location: string;
+    readonly themeColor: string;
+    readonly locale: string;
+    readonly description: string;
+  };
+
+  /** [MARKETING]: Strategic Messaging */
+  readonly hero: {
+    readonly title: string;
+    readonly tagline?: string;
+    readonly description: string;
+    readonly primaryAction: string;
+    readonly secondaryAction?: string;
+  };
+
+  /** [PERSONA]: AI & Communication Strategy */
+  readonly persona: {
+    readonly tone: string;
+    readonly communicationStyle: string;
+    readonly antiConnotation: string;
+  };
+
+  /** [SEO]: Authority Keywords */
+  readonly keywords: readonly string[];
+
+  /** [LOGISTICS]: Contact & Support */
   readonly contact: {
     readonly email: string;
     readonly phone: string;
@@ -174,57 +196,59 @@ export interface SiteConfig {
     readonly streetAddress: string;
     readonly postalCode: string;
     readonly workHours: string;
-    readonly mapUrl: string;
+    readonly mapUrl?: string;
   };
-  readonly project: {
-    readonly title: string;
-    readonly shortTitle: string;
-    readonly version: string;
-    readonly framework: string;
-    readonly uiStack: string;
-  };
+
+  /** [PARAMETERS]: Business Metadata */
   readonly business: {
     readonly location: string;
     readonly region: string;
-    readonly industry: string;
+    readonly industry?: string;
     readonly roiFocus: boolean;
-    readonly priceRange: string;
-    readonly established: string;
+    readonly established?: string;
     readonly status: string;
-    readonly ids: Record<string, string>;
+    readonly priceRange: string;
+    readonly ids: {
+      readonly businessProfileId?: string;
+      readonly storeCode?: string;
+      readonly [key: string]: string | undefined;
+    };
+  };
+
+  /** [TECHNICAL]: Compliance & Tracking */
+  readonly analytics?: {
+    readonly gaId?: string;
+    readonly pixelId?: string;
   };
   readonly verification: {
     readonly google: string;
     readonly facebook?: string;
   };
-  readonly analytics?: {
-    readonly gaId?: string;
-    readonly pixelId?: string;
-  };
-  /** [STRATEGIC]: UNLINK-GLOBAL Ecosystem Integration */
+
+  /** [ECOSYSTEM]: UNLINK-GLOBAL Integration */
   readonly ecosystem?: {
     readonly masterHub: string;
-    readonly registryUrl: string;
-    readonly verificationUrl: string;
-    readonly nodes: readonly {
-      readonly name: string;
-      readonly url: string;
-      readonly role: string;
-    }[];
+    readonly commercialUrl?: string;
+    readonly identityUrl?: string;
+    readonly [key: string]: string | undefined;
   };
-  /** [REFINED]: Explicit Links for Authoritative Mapping */
+
+  /** [LINK_REGISTRY]: Authoritative Social Connections */
   readonly links: {
+    readonly site: string;
+    readonly me: string;
+    readonly unlink: string;
     readonly line: string;
     readonly lineId: string;
     readonly messenger: string;
     readonly facebook: string;
     readonly github: string;
-    readonly twitter: string;
-    readonly youtube: string;
-    readonly googleMaps: string;
-    readonly googleReview: string;
-    readonly linkedin?: string;
-    readonly [key: string]: string | undefined; // Fallback for flexibility
+    readonly linkedin: string;
+    readonly twitter?: string;
+    readonly youtube?: string;
+    readonly googleMaps?: string;
+    readonly googleReview?: string;
+    readonly [key: string]: string | undefined;
   };
 }
 

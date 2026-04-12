@@ -2,16 +2,16 @@
 
 import { ProtectedRoute, UserMenu, StatusIndicator } from "@repo/ui";
 import Link from "next/link";
-import { 
-  ChevronLeft, 
-  ShieldCheck, 
-  Activity, 
-  Search, 
-  FileText, 
+import {
+  ChevronLeft,
+  ShieldCheck,
+  Activity,
+  Search,
+  FileText,
   Terminal,
   Server,
   Fingerprint,
-  Zap
+  Zap,
 } from "lucide-react";
 
 export default function AuditPage() {
@@ -32,7 +32,9 @@ export default function AuditPage() {
             <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:border-primary/50 transition-all">
               <ChevronLeft size={20} />
             </div>
-            <span className="font-black uppercase tracking-[0.4em] text-[10px]">Back to Portal</span>
+            <span className="font-black uppercase tracking-[0.4em] text-[10px]">
+              Back to Portal
+            </span>
           </Link>
           <div className="flex items-center gap-8">
             <div className="hidden md:flex gap-4">
@@ -56,18 +58,23 @@ export default function AuditPage() {
                   Audit <br /> <span className="text-white/20">Protocol.</span>
                 </h1>
                 <p className="text-xl md:text-2xl font-light text-white/40 uppercase tracking-[0.2em] max-w-2xl leading-relaxed">
-                  ระบบบริหารจัดการความปลอดภัยและตรวจสอบความสมบูรณ์ของระบบนิเวศ <span className="text-primary/60">UNLINK-TH</span>
+                  ระบบบริหารจัดการความปลอดภัยและตรวจสอบความสมบูรณ์ของระบบนิเวศ{" "}
+                  <span className="text-primary/60">UNLINK-TH</span>
                 </p>
               </div>
 
               <div className="p-8 bg-white/[0.02] border border-white/5 rounded-[2.5rem] flex items-center gap-8 backdrop-blur-xl">
                 <div className="flex flex-col gap-1">
-                  <span className="text-[8px] font-black uppercase tracking-widest text-muted-foreground">System_Health</span>
+                  <span className="text-[8px] font-black uppercase tracking-widest text-muted-foreground">
+                    System_Health
+                  </span>
                   <span className="text-2xl font-black text-success">99.8%</span>
                 </div>
                 <div className="w-px h-10 bg-white/10" />
                 <div className="flex flex-col gap-1">
-                  <span className="text-[8px] font-black uppercase tracking-widest text-muted-foreground">Active_Nodes</span>
+                  <span className="text-[8px] font-black uppercase tracking-widest text-muted-foreground">
+                    Active_Nodes
+                  </span>
                   <span className="text-2xl font-black text-white">077</span>
                 </div>
               </div>
@@ -84,7 +91,9 @@ export default function AuditPage() {
               <div className="w-16 h-16 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center mb-10 group-hover:scale-110 transition-transform duration-500">
                 <Activity className="text-primary" size={32} />
               </div>
-              <h3 className="text-2xl font-black uppercase tracking-tighter mb-4 text-white">System Status</h3>
+              <h3 className="text-2xl font-black uppercase tracking-tighter mb-4 text-white">
+                System Status
+              </h3>
               <p className="text-sm font-light text-white/30 leading-relaxed mb-10 uppercase tracking-tight">
                 ตรวจสอบสถานะการเชื่อมต่อ ประสิทธิภาพของ API และความหน่วงของเครือข่ายทั่วประเทศ
               </p>
@@ -101,7 +110,9 @@ export default function AuditPage() {
               <div className="w-16 h-16 rounded-2xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center mb-10 group-hover:scale-110 transition-transform duration-500">
                 <Search className="text-purple-500" size={32} />
               </div>
-              <h3 className="text-2xl font-black uppercase tracking-tighter mb-4 text-white">Entity Scanner</h3>
+              <h3 className="text-2xl font-black uppercase tracking-tighter mb-4 text-white">
+                Entity Scanner
+              </h3>
               <p className="text-sm font-light text-white/30 leading-relaxed mb-10 uppercase tracking-tight">
                 วิเคราะห์ตัวตนดิจิทัลและรหัสยืนยันความปลอดภัยที่ถูกสร้างขึ้นในระบบนิเวศ
               </p>
@@ -118,7 +129,9 @@ export default function AuditPage() {
               <div className="w-16 h-16 rounded-2xl bg-success/10 border border-success/20 flex items-center justify-center mb-10 group-hover:scale-110 transition-transform duration-500">
                 <FileText className="text-success" size={32} />
               </div>
-              <h3 className="text-2xl font-black uppercase tracking-tighter mb-4 text-white">Case Management</h3>
+              <h3 className="text-2xl font-black uppercase tracking-tighter mb-4 text-white">
+                Case Management
+              </h3>
               <p className="text-sm font-light text-white/30 leading-relaxed mb-10 uppercase tracking-tight">
                 จัดการเอกสารบันทึกเหตุการณ์ทางกฎหมายและรายงานการละเมิดความเป็นส่วนตัว
               </p>

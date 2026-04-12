@@ -13,90 +13,109 @@
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, monospace;
 
-  /* 🏛️ Institutional Authority Design System (OKLCH - Unlink Standard) */
-  --color-background: oklch(0.05 0 0);
-  --color-foreground: oklch(0.984 0.003 247.858);
+  /* 🏛️ Premium Institutional Design System (Cinematic Dark v5.5.0) */
+  --color-background: oklch(0.02 0 0); /* Ultra-deep black for Linear feel */
+  --color-foreground: oklch(0.98 0.01 247);
 
-  --color-card: oklch(0.08 0 0);
-  --color-card-foreground: oklch(0.984 0.003 247.858);
+  --color-card: oklch(0.04 0 0);
+  --color-card-foreground: oklch(0.98 0.01 247);
 
-  --color-primary: oklch(0.546 0.245 262.881);
-  --color-primary-foreground: oklch(0.984 0.003 247.858);
+  --color-primary: oklch(0.55 0.25 263); /* AEM Primary Blue */
+  --color-primary-foreground: oklch(0.98 0.01 247);
 
-  --color-secondary: oklch(0.446 0.03 256.802);
-  --color-secondary-foreground: oklch(0.984 0.003 247.858);
+  --color-secondary: oklch(0.45 0.05 257);
+  --color-secondary-foreground: oklch(0.98 0.01 247);
 
-  --color-muted: oklch(0.12 0 0);
-  --color-muted-foreground: oklch(0.6 0 0);
+  --color-muted: oklch(0.08 0 0);
+  --color-muted-foreground: oklch(0.5 0 0);
 
-  --color-accent: oklch(0.546 0.245 262.881);
-  --color-accent-foreground: oklch(0.984 0.003 247.858);
+  --color-accent: oklch(0.65 0.3 340); /* High-fidelity highlight */
 
-  --color-border: oklch(0.15 0 0);
-  --color-input: oklch(0.15 0 0);
-  --color-ring: oklch(0.546 0.245 262.881 / 0.3);
+  --color-border: oklch(0.1 0 0);
+  --color-input: oklch(0.1 0 0);
+  --color-ring: oklch(0.55 0.25 263 / 0.3);
 
   --radius-lg: 2.5rem;
   --radius-md: 1.25rem;
   --radius-sm: 0.75rem;
 
-  /* 🌀 Keyframes for Ambient Background */
+  /* 🌀 High-Fidelity Motion Patterns (Stripe & Linear Inspired) */
   @keyframes aura-1 {
     0%,
     100% {
-      transform: translate(0, 0) scale(1);
+      transform: translate3d(0, 0, 0) scale(1);
+      opacity: 0.4;
     }
     33% {
-      transform: translate(10%, 10%) scale(1.1);
+      transform: translate3d(5%, 8%, 0) scale(1.1);
+      opacity: 0.6;
     }
     66% {
-      transform: translate(-5%, 15%) scale(0.9);
+      transform: translate3d(-3%, 12%, 0) scale(0.95);
+      opacity: 0.5;
     }
   }
   @keyframes aura-2 {
     0%,
     100% {
-      transform: translate(0, 0) scale(1);
+      transform: translate3d(0, 0, 0) scale(1);
+      opacity: 0.3;
     }
     33% {
-      transform: translate(-15%, -10%) scale(1.2);
+      transform: translate3d(-10%, -5%, 0) scale(1.15);
+      opacity: 0.5;
     }
     66% {
-      transform: translate(10%, -5%) scale(0.8);
+      transform: translate3d(8%, -2%, 0) scale(0.9);
+      opacity: 0.4;
     }
   }
 
-  --animate-aura-1: aura-1 20s ease-in-out infinite;
-  --animate-aura-2: aura-2 25s ease-in-out infinite;
+  --animate-aura-1: aura-1 30s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  --animate-aura-2: aura-2 35s cubic-bezier(0.4, 0, 0.2, 1) infinite;
 }
 
 @layer base {
   :root {
-    /* 🔗 Critical Bridge Variables for UI Components */
-    --brand-primary: oklch(0.546 0.245 262.881);
-    --brand-secondary: oklch(0.446 0.03 256.802);
+    /* Critical Bridge Variables for UI Package */
+    --brand-primary: oklch(0.55 0.25 263);
+    --brand-secondary: oklch(0.45 0.05 257);
     --color-brand-primary: var(--brand-primary);
-    --color-brand-primary-fg: oklch(0.984 0.003 247.858);
+    --color-brand-primary-fg: oklch(0.98 0.01 247);
     --text-primary: var(--foreground);
     --text-secondary: var(--muted-foreground);
     --surface-main: var(--background);
-    --surface-offset: oklch(0.08 0 0);
+    --surface-offset: var(--color-card);
     --radius-button: 2.5rem;
-    --border: oklch(0.15 0 0);
+    --border: var(--color-border);
   }
 
   * {
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground antialiased;
+    @apply bg-background text-foreground antialiased selection:bg-primary/30;
+    /* Multilayered Ambient Glows */
+    background-image:
+      radial-gradient(at 0% 0%, oklch(0.55 0.25 263 / 0.03) 0px, transparent 50%),
+      radial-gradient(at 100% 100%, oklch(0.65 0.3 340 / 0.03) 0px, transparent 50%);
+  }
+
+  /* GPU Optimized Animations */
+  .animate-aura-1,
+  .animate-aura-2 {
+    will-change: transform, opacity;
+    backface-visibility: hidden;
   }
 }
 
 @layer utilities {
   .tech-grid {
-    background-image: radial-gradient(circle at 2px 2px, oklch(1 0 0 / 0.03) 1px, transparent 0);
-    background-size: 40px 40px;
+    background-image:
+      linear-gradient(to right, oklch(1 0 0 / 0.02) 1px, transparent 1px),
+      linear-gradient(to bottom, oklch(1 0 0 / 0.02) 1px, transparent 1px);
+    background-size: 80px 80px;
+    mask-image: radial-gradient(ellipse at center, black, transparent 80%);
   }
 
   .authority-card {

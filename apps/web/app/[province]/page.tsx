@@ -15,18 +15,6 @@ interface Props {
   params: Promise<{ province: string }>;
 }
 
-/**
- * [TYPE]: DBContent
- * โครงสร้างข้อมูลที่ดึงมาจากฐานข้อมูลสำหรับหน้าจังหวัด
- */
-interface DBContent {
-  title?: string;
-  content?: string;
-  metadata?: {
-    description?: string;
-  };
-}
-
 export async function generateStaticParams() {
   return AREA_NODES.map((node) => ({
     province: node.slug,
@@ -47,7 +35,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     ...seo,
     alternates: {
-      canonical: `/${province}`,
+      canonical: `${SHARED_SITE_CONFIG.links.site}/${province}`,
     },
     openGraph: {
       ...seo.openGraph,
@@ -67,15 +55,31 @@ async function ProvinceContent({
   province: string;
   node: (typeof AREA_NODES)[0];
 }) {
-  const dbContent = (await getCachedProvinceData(province)) as DBContent;
+  // [OPTIMIZED]: getCachedProvinceData uses "use cache" for deduplication and persistence
+  const dbContent = await getCachedProvinceData(province);
 
   return (
     <>
-      <p className="text-xl md:text-2xl text-white/40 font-light leading-relaxed max-w-3xl mb-12">
+      {/* 🚀 System Transparency Indicator */}
+      <div className="mb-6 flex justify-center animate-in fade-in duration-700">
+        <span
+          className={`text-[9px] font-black uppercase tracking-[0.3em] px-3 py-1 rounded-full border ${
+            dbContent.source === "database"
+              ? "bg-emerald-500/10 border-emerald-500/20 text-emerald-400"
+              : "bg-blue-500/10 border-blue-500/20 text-blue-400"
+          }`}
+        >
+          {dbContent.source === "database" ? "LIVE_NODE_SYNC" : "STANDARD_HUB_LOGIC"}
+        </span>
+      </div>
+
+      <p className="text-xl md:text-2xl text-white/40 font-light leading-relaxed max-w-3xl mb-12 animate-in fade-in duration-1000">
         {dbContent?.title || node.description}
       </p>
 
-      <UnlinkTrustBadge siteId={`AEM-NODE-${node.slug.toUpperCase()}`} className="scale-110" />
+      <div className="animate-in zoom-in duration-700 delay-300">
+        <UnlinkTrustBadge siteId={`AEM-NODE-${node.slug.toUpperCase()}`} className="scale-110" />
+      </div>
 
       {/* Strategic Implementation Content */}
       <section className="py-24 w-full max-w-5xl text-left">

@@ -7,18 +7,24 @@ import { WithContext, Thing, Person, Organization, WebSite } from "schema-dts";
  * 🌐 Unified Graph Schema (SEO Authority Bridge)
  */
 /**
- * 🌐 Strategic Entity Intelligence Network (JSON-LD Graph)
+ * [SEO]: Strategic Entity Intelligence Network (JSON-LD Graph) v5.0.0
  * ---------------------------------------------------------
  * This protocol links the Person, the Agency, and the Institutional Authority
  * to establish maximum E-E-A-T for AI Search Engines (GEO).
  */
 
+const ECOSYSTEM = {
+  identityUrl: SHARED_SITE_CONFIG.ecosystem?.identityUrl ?? SHARED_SITE_CONFIG.links.me,
+  commercialUrl: SHARED_SITE_CONFIG.ecosystem?.commercialUrl ?? SHARED_SITE_CONFIG.links.site,
+  masterHub: SHARED_SITE_CONFIG.ecosystem?.masterHub ?? SHARED_SITE_CONFIG.links.unlink,
+};
+
 export const getPersonSchema = (): Person => ({
   "@type": "Person",
-  "@id": `${SHARED_SITE_CONFIG.ecosystem.identityUrl}/#expert`,
+  "@id": `${ECOSYSTEM.identityUrl}/#expert`,
   name: SHARED_SITE_CONFIG.expert.legalNameThai,
   alternateName: SHARED_SITE_CONFIG.expert.alternateName,
-  url: SHARED_SITE_CONFIG.ecosystem.identityUrl,
+  url: ECOSYSTEM.identityUrl,
   image: SHARED_SITE_CONFIG.expert.avatar,
   jobTitle: SHARED_SITE_CONFIG.expert.jobTitle,
   description: SHARED_SITE_CONFIG.expert.bio,
@@ -31,23 +37,23 @@ export const getPersonSchema = (): Person => ({
 
 export const getOrganizationSchema = (): Organization => ({
   "@type": "Organization",
-  "@id": `${SHARED_SITE_CONFIG.ecosystem.commercialUrl}/#organization`,
+  "@id": `${ECOSYSTEM.commercialUrl}/#organization`,
   name: SHARED_SITE_CONFIG.brand.name,
-  url: SHARED_SITE_CONFIG.ecosystem.commercialUrl,
-  founder: { "@id": `${SHARED_SITE_CONFIG.ecosystem.identityUrl}/#expert` },
+  url: ECOSYSTEM.commercialUrl,
+  founder: { "@id": `${ECOSYSTEM.identityUrl}/#expert` },
   memberOf: {
     "@type": "Organization",
     name: "UNLINK-GLOBAL Institutional Network",
-    url: SHARED_SITE_CONFIG.ecosystem.masterHub,
+    url: ECOSYSTEM.masterHub,
   },
 });
 
 export const getWebSiteSchema = (): WebSite => ({
   "@type": "WebSite",
-  "@id": `${SHARED_SITE_CONFIG.ecosystem.commercialUrl}/#website`,
-  url: SHARED_SITE_CONFIG.ecosystem.commercialUrl,
+  "@id": `${ECOSYSTEM.commercialUrl}/#website`,
+  url: ECOSYSTEM.commercialUrl,
   name: SHARED_SITE_CONFIG.brand.fullName,
-  publisher: { "@id": `${SHARED_SITE_CONFIG.ecosystem.commercialUrl}/#organization` },
+  publisher: { "@id": `${ECOSYSTEM.commercialUrl}/#organization` },
 });
 
 export const getGraphSchema = (): WithContext<Thing> => {

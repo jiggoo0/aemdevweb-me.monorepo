@@ -88,10 +88,13 @@ export default function BlogListingPage() {
             {/* Filter Search Placeholder (Visual only for now) */}
             <div className="flex-grow max-w-md">
               <div className="flex items-center gap-4 p-4 bg-white/5 border border-white/10 rounded-2xl group focus-within:border-primary/30 transition-all duration-500">
-                <Search size={18} className="text-white/20 group-focus-within:text-primary transition-colors" />
-                <input 
-                  type="text" 
-                  placeholder="SEARCH_PROTOCOL..." 
+                <Search
+                  size={18}
+                  className="text-white/20 group-focus-within:text-primary transition-colors"
+                />
+                <input
+                  type="text"
+                  placeholder="SEARCH_PROTOCOL..."
                   className="bg-transparent border-none outline-none w-full text-[10px] font-black uppercase tracking-widest text-white placeholder:text-white/10"
                 />
               </div>
@@ -100,9 +103,15 @@ export default function BlogListingPage() {
         </header>
 
         <section className="mb-40">
-          <Suspense fallback={<div className="grid grid-cols-1 md:grid-cols-3 gap-10 animate-pulse py-20">
-            {[1, 2, 3].map(i => <div key={i} className="h-96 bg-white/5 rounded-3xl" />)}
-          </div>}>
+          <Suspense
+            fallback={
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-10 animate-pulse py-20">
+                {[1, 2, 3].map((i) => (
+                  <div key={i} className="h-96 bg-white/5 rounded-3xl" />
+                ))}
+              </div>
+            }
+          >
             <BlogGrid />
           </Suspense>
         </section>

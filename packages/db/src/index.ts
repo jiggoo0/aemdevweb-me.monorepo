@@ -90,11 +90,8 @@ export const DataRegistry = {
         return {
           data: {
             title: staticNode.title,
-            content: staticNode.description as unknown as Record<string, unknown>,
-            metadata: { description: staticNode.seoDescription } as unknown as Record<
-              string,
-              unknown
-            >,
+            content: staticNode.description, // Correctly assign string description to content
+            metadata: { description: staticNode.seoDescription },
           } as unknown as Record<string, unknown>,
           error: null,
         };
@@ -169,18 +166,19 @@ export const DataRegistry = {
   },
 
   /**
-   * [STRATEGIC]: Verified Node verification data
+   * [STRATEGIC]: Verified Node verification data (Optimized to avoid waterfall)
    */
   async getVerifiedNode(siteId: string) {
-    const { data: verification, error: vError } = await supabase
-      .from("unlink_verification")
-      .select("*")
-      .eq("site_id", siteId)
-      .single();
+    // [OPTIMIZED]: Fetch both in parallel to reduce network round-trips
+    const [verificationResult, projectsResult] = await Promise.all([
+      supabase.from("unlink_verification").select("*").eq("site_id", siteId).single(),
+      supabase.from("projects").select("*").limit(1),
+    ]);
+
+    const { data: verification, error: vError } = verificationResult;
+    const { data: projects } = projectsResult;
 
     if (vError || !verification) return { data: null, error: vError };
-
-    const { data: projects } = await supabase.from("projects").select("*").limit(1);
 
     return {
       data: {

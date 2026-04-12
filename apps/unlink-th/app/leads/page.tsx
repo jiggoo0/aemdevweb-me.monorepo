@@ -58,7 +58,9 @@ export default function LeadsDashboard() {
             <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:border-primary/50 transition-all">
               <ChevronLeft size={20} />
             </div>
-            <span className="font-black uppercase tracking-[0.4em] text-[10px]">Back to Portal</span>
+            <span className="font-black uppercase tracking-[0.4em] text-[10px]">
+              Back to Portal
+            </span>
           </Link>
           <div className="flex items-center gap-8">
             <div className="hidden md:flex gap-6">
@@ -83,7 +85,9 @@ export default function LeadsDashboard() {
               </h1>
               <p className="text-xl md:text-2xl font-light text-white/40 uppercase tracking-[0.2em] max-w-2xl leading-relaxed">
                 ศูนย์กลางการบริหารจัดการข้อมูลลูกค้าเป้าหมาย <br />
-                <span className="text-primary/60 font-mono text-[10px] tracking-[0.4em] uppercase">Multi-Domain Entry Protocol</span>
+                <span className="text-primary/60 font-mono text-[10px] tracking-[0.4em] uppercase">
+                  Multi-Domain Entry Protocol
+                </span>
               </p>
             </div>
 
@@ -94,8 +98,8 @@ export default function LeadsDashboard() {
                     key={f}
                     onClick={() => setFilter(f)}
                     className={`px-8 py-4 rounded-[1.5rem] text-[10px] font-black uppercase tracking-[0.2em] transition-all duration-500 ${
-                      filter === f 
-                        ? "bg-white text-black shadow-[0_15px_40px_rgba(255,255,255,0.1)] scale-[1.05]" 
+                      filter === f
+                        ? "bg-white text-black shadow-[0_15px_40px_rgba(255,255,255,0.1)] scale-[1.05]"
                         : "text-white/30 hover:text-white hover:bg-white/5"
                     }`}
                   >
@@ -115,14 +119,18 @@ export default function LeadsDashboard() {
           {loading && leads.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-40 animate-pulse">
               <div className="w-24 h-24 rounded-full border-2 border-primary/20 border-t-primary animate-spin mb-10" />
-              <p className="text-xs font-black uppercase tracking-[0.5em] text-white/20">Synchronizing Encrypted Data...</p>
+              <p className="text-xs font-black uppercase tracking-[0.5em] text-white/20">
+                Synchronizing Encrypted Data...
+              </p>
             </div>
           ) : filteredLeads.length === 0 ? (
             <div className="p-40 glass-registry rounded-[4rem] flex flex-col items-center justify-center text-center opacity-40">
               <div className="w-32 h-32 rounded-full bg-white/5 border border-white/10 flex items-center justify-center mb-10">
                 <Layers className="text-white/20" size={48} />
               </div>
-              <h3 className="text-3xl font-black mb-4 uppercase tracking-tighter">No Transmission Records</h3>
+              <h3 className="text-3xl font-black mb-4 uppercase tracking-tighter">
+                No Transmission Records
+              </h3>
               <p className="text-white/30 text-base font-light uppercase tracking-widest max-w-md">
                 ยังไม่มีข้อมูลการติดต่อใหม่ที่ถูกส่งเข้ามาในระบบทะเบียนกลาง ณ ขณะนี้
               </p>
@@ -130,7 +138,10 @@ export default function LeadsDashboard() {
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mb-40">
               {filteredLeads.map((lead) => (
-                <div key={lead.id} className="animate-in fade-in slide-in-from-bottom-8 duration-700">
+                <div
+                  key={lead.id}
+                  className="animate-in fade-in slide-in-from-bottom-8 duration-700"
+                >
                   <LeadCard lead={lead} onStatusUpdate={handleStatusUpdate} />
                 </div>
               ))}
