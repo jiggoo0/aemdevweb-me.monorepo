@@ -155,7 +155,7 @@ export const khonKaenNode = defineAreaNode(corporateService, {
     ],
     regionalVisuals: {
       banner: "/images/areas/universal-node.webp",
-      gallery: ["/images/services/local-node.webp", "/images/case-studies/industrial-catalog.webp"],
+      gallery: ["/images/services/local-node.webp", "/images/cases/case-sme-recovery.webp"],
     },
   },
 

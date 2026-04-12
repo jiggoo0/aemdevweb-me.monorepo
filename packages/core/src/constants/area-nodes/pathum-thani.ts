@@ -110,10 +110,7 @@ export const pathumThaniNode = defineAreaNode(corporateService, {
     ],
     regionalVisuals: {
       banner: "/images/areas/universal-node.webp",
-      gallery: [
-        "/images/case-studies/industrial-catalog.webp",
-        "/images/services/corporate-node.webp",
-      ],
+      gallery: ["/images/cases/case-sme-recovery.webp", "/images/services/corporate-node.webp"],
     },
   },
 

@@ -79,10 +79,7 @@ export const nakhonPathomNode = defineAreaNode(seoAgencyService, {
     ],
     regionalVisuals: {
       banner: "/images/areas/universal-node.webp",
-      gallery: [
-        "/images/services/seo-agency-node.webp",
-        "/images/case-studies/industrial-catalog.webp",
-      ],
+      gallery: ["/images/services/seo-agency-node.webp", "/images/cases/case-sme-recovery.webp"],
     },
   },
 

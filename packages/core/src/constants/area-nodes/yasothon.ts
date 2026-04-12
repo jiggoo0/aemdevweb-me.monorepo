@@ -105,10 +105,7 @@ export const yasothonNode = defineAreaNode(localAuthorityService, {
     ],
     regionalVisuals: {
       banner: "/images/areas/universal-node.webp",
-      gallery: [
-        "/images/services/local-node.webp",
-        "/images/case-studies/provincial-domination.webp",
-      ],
+      gallery: ["/images/services/local-node.webp", "/images/cases/case-reputation-cleared.webp"],
     },
   },
 

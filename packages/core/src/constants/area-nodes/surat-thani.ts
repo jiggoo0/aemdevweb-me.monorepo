@@ -83,7 +83,7 @@ export const suratThaniNode = defineAreaNode(hotelResortService, {
       banner: "/images/areas/surat-ratchaprapha.webp",
       gallery: [
         "/images/services/hotel-resort-node.webp",
-        "/images/case-studies/provincial-domination.webp",
+        "/images/cases/case-reputation-cleared.webp",
       ],
     },
   },

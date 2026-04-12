@@ -160,10 +160,7 @@ export const koratNode = defineAreaNode(catalogService, {
     ],
     regionalVisuals: {
       banner: "/images/areas/korat-monolith.webp",
-      gallery: [
-        "/images/case-studies/industrial-catalog.webp",
-        "/images/services/catalog-node.webp",
-      ],
+      gallery: ["/images/cases/case-sme-recovery.webp", "/images/services/catalog-node.webp"],
     },
   },
 

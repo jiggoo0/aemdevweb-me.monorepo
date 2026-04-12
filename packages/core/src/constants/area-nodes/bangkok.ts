@@ -95,9 +95,9 @@ export const bangkokNode = defineAreaNode(corporateService, {
     regionalVisuals: {
       banner: "/images/areas/universal-node.webp",
       gallery: [
-        "/images/case-studies/industrial-catalog.webp",
-        "/images/case-studies/phuket-luxury-seo.webp",
-        "/images/case-studies/provincial-domination.webp",
+        "/images/cases/case-sme-recovery.webp",
+        "/images/cases/case-seo-push.webp",
+        "/images/cases/case-reputation-cleared.webp",
       ],
     },
   },

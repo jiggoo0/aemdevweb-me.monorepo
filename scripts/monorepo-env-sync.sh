@@ -4,7 +4,7 @@
 # Strategy: Single Source of Truth from root .env.local
 
 ROOT_ENV=".env.local"
-APPS=("apps/web" "apps/me" "apps/unlink-th")
+APPS=("apps/web" "apps/unlink-th")
 
 if [ ! -f "$ROOT_ENV" ]; then
     echo "❌ Root .env.local not found!"

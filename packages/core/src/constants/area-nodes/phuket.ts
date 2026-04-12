@@ -163,7 +163,7 @@ export const phuketNode = defineAreaNode(hotelResortService, {
       banner: "/images/areas/universal-node.webp",
       gallery: [
         "/images/templates/hotelresort/hotel-resort-node.webp",
-        "/images/case-studies/provincial-domination.webp",
+        "/images/cases/case-reputation-cleared.webp",
       ],
     },
   },

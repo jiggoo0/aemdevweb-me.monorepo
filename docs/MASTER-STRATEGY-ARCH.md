@@ -1,93 +1,77 @@
-# 🏛 MASTER STRATEGY & ARCHITECTURE: AEMDEVWEB MONOREPO
+# 🏆 แผนแม่บทธุรกิจและสถาปัตยกรรมดิจิทัล: กะเพรารสมือแม่
 
-เอกสารฉบับนี้กำหนดวิสัยทัศน์ทางธุรกิจ (Business Strategy) และโครงสร้างทางสถาปัตยกรรมเทคนิค (Technical Architecture) สำหรับระบบนิเวศ **AEMDEVWEB & UNLINK THAILAND** เพื่อความยั่งยืน ความน่าเชื่อถือ และประสิทธิภาพสูงสุดในระดับ Enterprise
-
----
-
-## 🌟 1. วิสัยทัศน์และข้อกำหนดระบบ (Vision & Requirements)
-
-### 🎯 เป้าหมายหลัก (Core Objective)
-สร้างระบบนิเวศน์ออนไลน์ที่เน้น **"ความเชื่อมั่น (Trust)"** และ **"การเข้าถึงระดับท้องถิ่น (Hyper-Localization)"** ผ่านเทคโนโลยี Modern Web เพื่อให้บริการ SME ทั่วประเทศไทย
-
-### 🛠 ข้อกำหนดหน้าที่ (Functional Requirements)
-- **P-SEO Engine:** ระบบสร้างเนื้อหาและโครงสร้างรองรับ SEO แยกตาม 77 จังหวัดอัตโนมัติ
-- **Entity Linking:** ระบบเชื่อมโยงตัวตนเจ้าของผลงาน (Architect) เข้ากับแบรนด์ธุรกิจ
-- **Multi-Tenant Architecture:** รองรับการทำงานแยกโดเมน (me, web, unlink-th) บนฐานข้อมูลชุดเดียวกัน
-
-### ⚡ ข้อกำหนดคุณภาพ (Non-Functional Requirements)
-- **Performance:** โหลดหน้าเว็บเร็วสูงสุด (LCP < 1.2s) ผ่าน Vercel Edge Runtime
-- **E-E-A-T (Expertise, Authoritativeness, Trustworthiness):** ออกแบบ Schema.org ขั้นสูงเพื่อยืนยันตัวตนกับ Google Search Bot
-- **Scalability:** โครงสร้าง Monorepo ที่รองรับการเพิ่ม Apps และ Packages ใหม่โดยไม่กระทบระบบเดิม
+เอกสารฉบับนี้รวบรวมกลยุทธ์ การตัดสินใจ และโครงสร้างทางเทคนิคทั้งหมดสำหรับธุรกิจซอสสำเร็จรูปและการขยายตัวใน Monorepo
 
 ---
 
-## 🏗 2. สถาปัตยกรรมระบบ (System Architecture)
+## 📂 1. อัตลักษณ์และแบรนด์ (Business Identity)
+**คอนเซปต์หลัก:** "ความอบอุ่นของคำว่าแม่" ผสมผสานกับ "ความเป็นมืออาชีพระดับสากล"
 
-ระบบถูกออกแบบบนโครงสร้าง **Monorepo (Turborepo + pnpm)** เพื่อให้เกิดการใช้ทรัพยากรร่วมกัน (Code Sharing) สูงสุด
-
-### 📱 Applications (The Power Trio)
-1.  **`me.aemdevweb.com` (App: me)**
-    - **Role:** Digital Identity & E-E-A-T Hub
-    - **Focus:** ประวัติ, ความเชี่ยวชาญ, และผลงานในระดับบุคคล (Person Entity)
-2.  **`aemdevweb.com` (App: web)**
-    - **Role:** Business Operations & P-SEO Engine
-    - **Focus:** การบริการรับทำเว็บไซต์, Landing Pages 77 จังหวัด (Organization Entity)
-3.  **`unlink-th.com` (App: unlink-th)**
-    - **Role:** Specialized Utility & Verification
-    - **Focus:** ระบบตรวจสอบ (Registry) และบริการเฉพาะทางของ Unlink Thailand
+- **ชื่อแบรนด์:** กะเพรารสมือแม่ (Krapow Ros Mue Mae)
+- **ทิศทางการออกแบบ (UI/UX):** 
+  - **Warm Glassmorphism:** ใช้ความโปร่งแสงแบบกระจกแต่เน้นโทนสีอุ่น
+  - **Color Palette (OKLCH):** 
+    - `oklch(0.97 0.02 85)` (Warm Sand) - พื้นหลังสื่อถึงความนุ่มนวล
+    - `oklch(0.45 0.12 140)` (Basil Green) - ความสดใหม่ของวัตถุดิบ
+    - `oklch(0.55 0.18 35)` (Chili Red) - ความเผ็ดร้อนและพลังของธุรกิจ
+- **การสื่อสาร:** เน้นการเล่าเรื่อง (Storytelling) ของสูตรลับก้นครัวและการเลือกสรรวัตถุดิบจริง
 
 ---
 
-## 📦 3. โครงสร้างแพ็กเกจส่วนกลาง (Core Packages)
+## 🏗️ 2. สถาปัตยกรรมเทคนิค (Technical Infrastructure)
+**โครงสร้าง:** Monorepo (1 GitHub Repo, Multiple Vercel Projects)
 
-| Package | Responsibility | Key Features |
-| :--- | :--- | :--- |
-| `@repo/core` | **Business Logic** | ข้อมูลจังหวัด (77 Provinces), Site Config, Constant Data |
-| `@repo/db` | **Data Access** | Supabase/PostgreSQL Client, Static Fallback Logic |
-| `@repo/ui` | **Design System** | Tailwind CSS Components, Shared Hooks, Theme Control |
-| `@repo/seo` | **Metadata & Identity** | Schema.org JSON-LD Generators, Entity Signature Mapping |
-| `@repo/trust` | **Validation** | Trust-scoring logic, Integrity Auditing |
-
----
-
-## 🔑 4. ระบบอัตลักษณ์และลายเซ็นดิจิทัล (Identity & Signatures)
-
-เพื่อให้ Google ยืนยันความเชื่อมโยงระหว่าง "บุคคล" และ "องค์กร" ระบบจะฝังลายเซ็นดิจิทัลผ่าน Metadata:
-
-### 🖋️ ลายเซ็นอัตลักษณ์ (Official Signatures)
-- **Lead Architect:** `Alongkorn Yomkerd` (นายอลงกรณ์ ยมเกิด)
-- **Digital Aliases:** `Aemza Macks` (นายเอ็มซ่ามากส์), `9mza`
-- **Brand Entity:** `AEMDEVWEB`, `UNLINK THAILAND`
-
-### 🔗 การเชื่อมโยง (Entity Linking Flow)
-1.  **Apps (web/me)** เรียกใช้ `@repo/seo`
-2.  **SEO Generator** สร้าง Schema `Person` เชื่อมเข้ากับ `Organization`
-3.  **SameAs Tags** เชื่อมโยงไปยัง Social Profiles และ Portfolio เพื่อสร้าง Graph ของความเชื่อมั่น
+- **Apps:**
+  - `apps/web`: (aemdevweb.com) - ธุรกิจหลัก/พอร์ตโฟลิโอ
+  - `apps/unlink-th`: (unlink-th.com) - ระบบตรวจสอบและความปลอดภัย
+  - `apps/test`: (krapowrosmuemae.com) - ธุรกิจซอสสำเร็จรูป
+- **Shared Packages:**
+  - `@repo/ui`: คอมโพเนนต์มาตรฐาน (Button, GlassCard, LeadForm)
+  - `@repo/db`: ระบบจัดการข้อมูลส่วนกลาง (DataRegistry)
+  - `@repo/core`: กฎทางธุรกิจและโมเดลข้อมูล (AreaNodes, Factory)
+- **Build System:** Next.js 16 + Turborepo + Webpack (ARM64 Optimized)
 
 ---
 
-## 🔄 5. ขั้นตอนการประมวลผล (Data & SEO Flow)
+## 🗄️ 3. กลยุทธ์ฐานข้อมูล (Database Strategy)
+**ระบบ:** Supabase (Project: aureolin-horizon)
 
-1.  **Inbound Request:** ผู้ใช้ค้นหา "รับทำเว็บ [จังหวัด]"
-2.  **Dynamic Routing:** Next.js App Router รับค่า Parameter จังหวัด
-3.  **Data Hydration:**
-    - ดึงข้อมูล Static พื้นที่จาก `@repo/core`
-    - ดึงข้อมูลผลงานล่าสุดจาก `@repo/db`
-4.  **SEO Rendering:** `@repo/seo` สร้าง Metadata เฉพาะพื้นที่พร้อมฝัง Identity Signature
-5.  **Edge Delivery:** Vercel ทำการ Cache หน้าผลลัพธ์เพื่อส่งมอบประสบการณ์ที่รวดเร็ว
+- **Single Source of Truth:** ทั้ง 3 เว็บไซต์ใช้ฐานข้อมูลเดียวกันเพื่อแชร์ข้อมูลลูกค้า (Leads) และผลงาน (Projects)
+- **Resilient Client:** ใช้ Proxy-based Lazy Initialization เพื่อป้องกันการ Build ล้มเหลวเมื่อขาด Environment Variables
+- **Data Integrity:** ข้อมูลจังหวัด 77 จังหวัดถูก Seeding ไว้อย่างถูกต้องเพื่อรองรับ Local SEO
+- **Inventory Management:** ออกแบบตาราง `inventory` เพื่อคุมสต็อกสินค้าจากเว็บเดียวและซิงก์ไปยังช่องทางอื่นๆ
 
 ---
 
-## 🛡️ 6. มาตรฐานและความเสถียร (Standards & Stability)
+## ⚖️ 4. กฎหมายและการผลิต (Legal & Production)
+**แนวทาง:** SME Standard Compliance
 
-- **Runtime:** Node.js 22 (LTS)
-- **Framework:** Next.js 15+ (App Router), React 19
-- **Type System:** TypeScript 5.x (Strict Mode)
-- **CSS:** Tailwind CSS 4.x
-- **Quality Control:** 
-    - `pnpm audit` สำหรับตรวจสอบช่องโหว่
-    - `knip` สำหรับล้างโค้ดที่ไม่ได้ใช้
-    - `turborepo` สำหรับจัดการ Build Pipeline
+- **การผลิต (OEM):** จ้างโรงงานที่มีมาตรฐาน GMP/HACCP เพื่อเซฟต้นทุนหลักล้านในการสร้างโรงงานเอง
+- **อย. (FDA):** ขอเลขสารบบอาหารผ่านโรงงาน OEM โดยระบุแบรนด์เราเป็นผู้จัดจำหน่าย (เพิ่มความน่าเชื่อถือระดับสากล)
+- **ความลับทางการค้า:** บังคับใช้สัญญา NDA กับโรงงานเพื่อปกป้อง "สูตรแม่"
+- **PDPA:** ระบบ Footer มีลิงก์ Privacy Policy และ Terms ที่ครอบคลุมการเก็บข้อมูลส่วนบุคคล
 
 ---
-*จัดทำและควบคุมคุณภาพโดย **AEMZA MACKS (Lead Architect)** | ฉบับปรับปรุงปี 2026*
+
+## 💰 5. กลยุทธ์การขายและต้นทุน (Sales & Funnel)
+**แนวทาง:** แพลตฟอร์มหาลูกค้า เว็บไซต์ทำกำไร
+
+- **Shopee/Lazada:** ใช้เป็น "ด่านหน้า" ในการหาลูกค้าใหม่ (แม้เสียค่าธรรมเนียม 15-25%)
+- **D2C (Direct to Consumer):** ใส่ QR Code ในกล่องสินค้าเพื่อดึงลูกค้ามาซื้อซ้ำบนเว็บตัวเอง (รับส่วนลด 10% และสะสมแต้ม)
+- **Wholesale (B2B):** เว็บไซต์เน้นการขายส่งให้ "ร้านอาหาร" ซึ่งมีกำไรสูงและระยะยาวกว่าขายปลีก
+- **Payment:** เริ่มต้นด้วยระบบแนบสลิป (0% Fee) และขยายสู่ Stripe/PromptPay Auto (3-4% Fee)
+
+---
+
+## 📈 6. กลยุทธ์ SEO และความน่าเชื่อถือ (Search Authority)
+**แนวทาง:** Personal Branding + Technical SEO
+
+- **Entity-Based SEO:** ใช้ชื่อ "AEMZA MACKS" เชื่อมโยงทุกธุรกิจเข้าด้วยกันผ่าน Schema Markup เพื่อให้ Google เชื่อใจแบรนด์ใหม่ทันที
+- **E-E-A-T:** แสดงประสบการณ์จริงผ่านหน้า "The Architect" และ "Story of Mae"
+- **Content Power:** สร้างหน้า Recipe Blog (สูตรอาหาร) เพื่อยึด Keyword "ซอสกะเพรา" และ "ซอสอเนกประสงค์"
+- **Technical Performance:** เว็บโหลดเร็วพิเศษ (LCP < 1.2s) เพื่อคะแนนจัดอันดับสูงสุดใน Google
+
+---
+
+**Enforced & Documented by Gemini CLI**
+**Last Updated:** 2026-04-12

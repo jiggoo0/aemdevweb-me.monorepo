@@ -1,0 +1,45 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: oklch(0.97 0.02 85); /* Warm Sand */
+  --color-foreground: oklch(0.2 0.02 20); /* Dark Espresso */
+
+  --color-primary: oklch(0.45 0.12 140); /* Basil Green */
+  --color-primary-foreground: oklch(0.98 0.01 140);
+
+  --color-accent: oklch(0.55 0.18 35); /* Chili Red */
+  --color-accent-foreground: oklch(0.98 0.01 35);
+
+  --color-card: oklch(0.95 0.03 85 / 0.5);
+  --color-card-foreground: oklch(0.2 0.02 20);
+
+  --color-border: oklch(0.9 0.03 85);
+}
+
+@layer base {
+  :root {
+    --font-geist-sans: "Geist Sans", sans-serif;
+    --font-geist-mono: "Geist Mono", monospace;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-geist-sans);
+  }
+}
+
+.warm-glass {
+  background: oklch(0.98 0.01 85 / 0.4);
+  backdrop-filter: blur(24px);
+  border: 1px solid oklch(1 0 0 / 0.1);
+  box-shadow: 0 8px 32px 0 oklch(0 0 0 / 0.05);
+}
+
+.basil-gradient {
+  background: linear-gradient(135deg, oklch(0.45 0.12 140), oklch(0.35 0.1 140));
+}
+
+.chili-glow {
+  box-shadow: 0 0 40px -10px oklch(0.55 0.18 35 / 0.3);
+}

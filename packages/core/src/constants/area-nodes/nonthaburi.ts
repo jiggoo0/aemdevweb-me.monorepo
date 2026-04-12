@@ -81,7 +81,7 @@ export const nonthaburiNode = defineAreaNode(seoAgencyService, {
       banner: "/images/areas/universal-node.webp",
       gallery: [
         "/images/services/seo-agency-node.webp",
-        "/images/case-studies/ecommerce-nextjs-migration.webp",
+        "/images/cases/case-ecommerce-nextjs-migration.webp",
       ],
     },
   },

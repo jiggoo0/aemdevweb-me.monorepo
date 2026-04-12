@@ -19,12 +19,13 @@ import Link from "next/link";
  * [COMPONENT]: IndustryShowcase
  * แสดงตัวอย่างเว็บไซต์ของแต่ละกลุ่มธุรกิจตามมาตรฐาน AEM
  */
+// [IMPROVED]: HERO & SHOWCASE v5.0.0
+
 const INDUSTRIES = [
   {
     id: "corporate",
     name: "Corporate",
     icon: Building2,
-    color: "blue",
     oklch: "oklch(0.546 0.245 262.881)", // Trust Blue
     title: "Global Enterprise Architecture.",
     description:
@@ -37,7 +38,6 @@ const INDUSTRIES = [
     id: "hospitality",
     name: "Hospitality",
     icon: Palmtree,
-    color: "emerald",
     oklch: "oklch(0.627 0.194 149.214)", // Success Emerald
     title: "Ambient Guest Experience.",
     description:
@@ -50,7 +50,6 @@ const INDUSTRIES = [
     id: "industrial",
     name: "Industrial",
     icon: Factory,
-    color: "orange",
     oklch: "oklch(0.6 0.2 45)", // Industrial Orange
     title: "Supply Chain Authority.",
     description:
@@ -63,7 +62,6 @@ const INDUSTRIES = [
     id: "governance",
     name: "Governance",
     icon: Gavel,
-    color: "purple",
     oklch: "oklch(0.5 0.2 300)", // Royal Purple
     title: "Institutional Transparency.",
     description:
@@ -82,92 +80,96 @@ export function HeroAndShowcase() {
 
   return (
     <>
-      {/* 🚀 [HERO_SECTION] */}
-      <section className="container mx-auto px-6 py-32 md:py-48 flex flex-col items-center text-center">
-        <div className="flex flex-wrap justify-center gap-4 mb-12">
-          <StatusIndicator status="SECURE" label="AEM_ENCRYPTED" />
-          <div className="px-4 py-1.5 bg-white/5 border border-white/10 rounded-full flex items-center gap-2">
-            <span className="text-[8px] font-black uppercase tracking-widest text-muted-foreground">
-              Verified by
+      {/* 🌌 [ATMOSPHERIC_HERO] */}
+      <section className="container mx-auto px-6 py-32 md:py-48 flex flex-col items-center text-center relative">
+        {/* Animated Beam Effect */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-64 bg-gradient-to-b from-transparent via-primary/50 to-transparent blur-sm animate-pulse" />
+
+        <div className="flex flex-wrap justify-center gap-4 mb-16">
+          <StatusIndicator status="SECURE" label="AEM_NETWORK_ACTIVE" />
+          <div className="px-5 py-2 bg-white/5 backdrop-blur-xl border border-white/10 rounded-full flex items-center gap-3 shadow-[0_0_20px_rgba(255,255,255,0.03)]">
+            <span className="text-[9px] font-black uppercase tracking-[0.3em] text-muted-foreground">
+              Verified Protocol
             </span>
-            <span className="text-[8px] font-black uppercase tracking-widest text-primary">
-              UNLINK
-            </span>
-          </div>
-          <div className="px-4 py-1.5 bg-white/5 border border-white/10 rounded-full">
-            <span className="text-[8px] font-mono uppercase tracking-widest text-white/30">
-              Ledger ID: AEM-GLOBAL-ENTRY
+            <span className="text-[9px] font-black uppercase tracking-[0.3em] text-primary">
+              v5.0.0
             </span>
           </div>
         </div>
 
-        <div className="inline-flex items-center gap-3 px-5 py-2.5 bg-card border border-border rounded-full mb-12 shadow-xl">
-          <div className="h-2 w-2 rounded-full bg-primary animate-pulse" />
-          <span className="text-[10px] font-black uppercase tracking-[0.25em] text-muted-foreground">
-            {hero.tagline}
-          </span>
-        </div>
-
-        <h1 className="text-6xl md:text-9xl font-black uppercase tracking-tighter leading-[0.85] mb-12 text-foreground">
+        <h1 className="text-7xl md:text-[10rem] font-black uppercase tracking-tighter leading-[0.82] mb-12 text-foreground group">
           {hero.title.split(" ")[0]} <br />{" "}
-          <span className="text-primary italic">{hero.title.split(" ")[1]}</span>
+          <span className="text-transparent bg-clip-text bg-gradient-to-b from-primary via-primary/80 to-primary/40 italic drop-shadow-[0_0_30px_rgba(var(--primary-rgb),0.3)]">
+            {hero.title.split(" ")[1]}
+          </span>
         </h1>
 
-        <p className="max-w-3xl text-xl md:text-2xl text-muted-foreground font-light leading-relaxed mb-16">
+        <p className="max-w-4xl text-2xl md:text-3xl text-white/40 font-light leading-relaxed mb-16 px-4">
           {hero.description}
         </p>
 
-        <div className="flex flex-col sm:flex-row gap-6">
+        <div className="flex flex-col sm:flex-row gap-8">
           <Button
             size="lg"
             variant="neo"
+            className="group/btn relative overflow-hidden h-20 px-16 text-lg"
             asChild
-            aria-label="Book a consultation with our architect"
           >
-            <Link href={SHARED_SITE_CONFIG.links.line} className="flex items-center gap-3 px-12">
-              Deploy Consultation <ArrowRight size={18} aria-hidden="true" />
+            <Link href={SHARED_SITE_CONFIG.links.line}>
+              <span className="relative z-10 flex items-center gap-3">
+                Deploy Manifest{" "}
+                <ArrowRight
+                  size={20}
+                  className="group-hover/btn:translate-x-1 transition-transform"
+                />
+              </span>
+              <div className="absolute inset-0 bg-primary/20 translate-y-full group-hover/btn:translate-y-0 transition-transform duration-500" />
             </Link>
           </Button>
           <Button
             size="lg"
             variant="specialist"
-            className="px-12"
+            className="h-20 px-16 text-lg border-white/5 hover:border-white/20 transition-all"
             asChild
-            aria-label="View our project registry"
           >
             <Link href="/portfolio">Explore Registry</Link>
           </Button>
         </div>
       </section>
 
-      {/* 🖼️ [DYNAMIC_SHOWCASE]: The Real Infrastructure Feel */}
-      <section className="py-32 bg-white/[0.01] border-y border-white/5">
-        <div className="container mx-auto px-6">
-          <div className="text-center mb-20">
-            <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tighter mb-4">
-              Ecosystem Showcases.
-            </h2>
-            <p className="text-white/30 uppercase tracking-[0.3em] text-[10px] font-bold">
-              Experience the Architecture of Every Industry
-            </p>
-          </div>
+      {/* 🖼️ [DYNAMICS_DASHBOARD]: High-Fidelity Infrastructure Preview */}
+      <section className="py-40 relative">
+        <div className="absolute inset-0 tech-grid opacity-20" />
+        <div className="container mx-auto px-6 relative z-10">
+          <div className="flex flex-col md:flex-row justify-between items-end gap-12 mb-24 border-b border-white/5 pb-12">
+            <div>
+              <h2 className="text-5xl md:text-7xl font-black uppercase tracking-tighter leading-none mb-6">
+                Architecture <br /> <span className="text-white/20">of Trust.</span>
+              </h2>
+              <p className="text-white/30 uppercase tracking-[0.4em] text-[11px] font-bold">
+                Multi-Industry Scalable Systems
+              </p>
+            </div>
 
-          {/* Tab Navigation */}
-          <div className="flex flex-wrap justify-center gap-4 mb-16">
-            {INDUSTRIES.map((ind) => (
-              <button
-                key={ind.id}
-                onClick={() => setActiveTab(ind.id)}
-                className={`px-8 py-4 rounded-2xl flex items-center gap-3 transition-all ${
-                  activeTab === ind.id
-                    ? "bg-white text-black shadow-[0_0_30px_rgba(255,255,255,0.2)] scale-105"
-                    : "bg-white/5 text-white/40 hover:bg-white/10"
-                }`}
-              >
-                <ind.icon size={18} />
-                <span className="text-xs font-black uppercase tracking-widest">{ind.name}</span>
-              </button>
-            ))}
+            {/* Tab Navigation - Polished Pill Shape */}
+            <div className="flex flex-wrap gap-2 p-1.5 bg-zinc-950/50 backdrop-blur-2xl border border-white/5 rounded-3xl">
+              {INDUSTRIES.map((ind) => (
+                <button
+                  key={ind.id}
+                  onClick={() => setActiveTab(ind.id)}
+                  className={`px-8 py-4 rounded-2xl flex items-center gap-3 transition-all duration-500 ${
+                    activeTab === ind.id
+                      ? "bg-white text-black shadow-[0_15px_40px_rgba(255,255,255,0.15)] scale-[1.02]"
+                      : "text-white/30 hover:text-white hover:bg-white/5"
+                  }`}
+                >
+                  <ind.icon size={16} />
+                  <span className="text-[10px] font-black uppercase tracking-widest">
+                    {ind.name}
+                  </span>
+                </button>
+              ))}
+            </div>
           </div>
 
           {/* Showcase Display */}

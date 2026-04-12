@@ -80,10 +80,7 @@ export const chachoengsaoNode = defineAreaNode(corporateService, {
     ],
     regionalVisuals: {
       banner: "/images/areas/universal-node.webp",
-      gallery: [
-        "/images/services/corporate-node.webp",
-        "/images/case-studies/industrial-catalog.webp",
-      ],
+      gallery: ["/images/services/corporate-node.webp", "/images/cases/case-sme-recovery.webp"],
     },
   },
 

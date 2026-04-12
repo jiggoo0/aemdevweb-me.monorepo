@@ -42,26 +42,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const dbContent = await getCachedProvinceData(province);
   const strategy = getSEOStrategy(node);
 
-  const seo = strategy.generateMetadata(node, dbContent);
-
-  // 🚀 Creative SEO Enhancement: Localize keywords dynamically
-  const localKeywords = [
-    ...(seo.keywords || []),
-    `รับทำเว็บไซต์ ${node.name_th}`,
-    `SEO ${node.name_th}`,
-    `Digital Architect ${node.name_en}`,
-    `${node.name_th} Web Design`,
-  ];
+  const seo = strategy.generateMetadata(province, dbContent);
 
   return {
     ...seo,
-    keywords: localKeywords,
     alternates: {
       canonical: `/${province}`,
     },
     openGraph: {
-      title: seo.title as string,
-      description: seo.description as string,
+      ...seo.openGraph,
       images: [node.heroImage],
     },
   };

@@ -118,7 +118,7 @@ export const phangNgaNode = defineAreaNode(hotelResortService, {
       banner: "/images/areas/phang-nga.webp",
       gallery: [
         "/images/templates/hotelresort/hotel-resort-node.webp",
-        "/images/case-studies/phuket-luxury-seo.webp",
+        "/images/cases/case-seo-push.webp",
       ],
     },
   },

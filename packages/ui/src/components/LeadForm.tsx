@@ -31,18 +31,23 @@ export function LeadForm({ siteOrigin, metadata = {} }: LeadFormProps) {
         name: formData.name,
         contact: formData.contact,
         message: formData.message,
-        metadata: metadata as any,
+        metadata: metadata as Record<string, string>,
       });
 
       if (error) throw error;
 
       setStatus("success");
       setFormData({ name: "", contact: "", message: "" });
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error("Lead submission error:", err);
       setStatus("error");
-      setErrorMessage(err.message || "Something went wrong. Please try again.");
+      const message =
+        err instanceof Error
+          ? err.message
+          : typeof err === "object" && err !== null && "message" in err
+            ? String((err as { message: unknown }).message)
+            : "Something went wrong. Please try again.";
+      setErrorMessage(message);
     }
   };
 

@@ -19,14 +19,27 @@
 
 ## 📋 สารบัญเอกสาร (Documentation Index)
 
+### 🏛️ ระดับสถาปัตยกรรม (Monorepo Level)
 | ไฟล์ | หัวข้อหลัก | เนื้อหาโดยสรุป |
 | :--- | :--- | :--- |
-| 🏛️ [**MASTER-STRATEGY-ARCH.md**](./MASTER-STRATEGY-ARCH.md) | **ยุทธศาสตร์สถาปัตยกรรม** | วิสัยทัศน์ระบบ, ข้อกำหนด E-E-A-T, และโครงสร้าง Monorepo |
+| 🔄 [**WORKFLOW.md**](./WORKFLOW.md) | **ขั้นตอนการพัฒนา** | มาตรฐานการ Sync, Development, Audit และ Deploy |
+| 🏆 [**MASTER-STRATEGY-ARCH.md**](./MASTER-STRATEGY-ARCH.md) | **ยุทธศาสตร์สถาปัตยกรรม** | วิสัยทัศน์ระบบ, ข้อกำหนด E-E-A-T, และโครงสร้าง Monorepo |
 | 🎨 [**DESIGN.md**](./DESIGN.md) | **ระบบการออกแบบ** | มาตรฐาน OKLCH, Typography Geist, และสไตล์ Glassmorphism |
 | 🧠 [**AI-DIRECTION.md**](./AI-DIRECTION.md) | **ทิศทาง AI** | คู่มือสำหรับ AI Agents ในการจัดการโครงสร้างและ Logic ของระบบ |
 | 📊 [**DATABASE-SCHEMA.md**](./DATABASE-SCHEMA.md) | **พิมพ์เขียวฐานข้อมูล** | รายละเอียดโครงสร้าง Tables ใน Supabase และความสัมพันธ์ของข้อมูล |
 | 📐 [**DESIGN-PATTERNS-ANALYSIS.md**](./DESIGN-PATTERNS-ANALYSIS.md) | **รูปแบบการออกแบบโค้ด** | การใช้ Factory, Facade และ Strategy Patterns ในระบบ |
-| 🗺️ [**WORKSPACE_MAP.txt**](./WORKSPACE_MAP.txt) | **แผนผังพื้นที่ทำงาน** | รายละเอียดโครงสร้างไฟล์และแพ็กเกจทั้งหมดใน Monorepo |
+
+### 🚀 ระดับแอปพลิเคชัน (Application Specific)
+| โฟลเดอร์ | แอปพลิเคชัน | รายละเอียด |
+| :--- | :--- | :--- |
+| 🌐 [**docs/web/**](./web/README.md) | **AEMDEVWEB / Portfolio** | คู่มือการพัฒนาหน้าพอร์ตโฟลิโอและอัตลักษณ์หลัก |
+| 🛡️ [**docs/unlink-th/**](./unlink-th/README.md) | **UNLINK Thailand** | เอกสารระบบตรวจสอบความปลอดภัยและความเชื่อถือ |
+| 🍳 [**docs/test/**](./test/README.md) | **Krapow Ros Mue Mae** | กลยุทธ์ธุรกิจซอสกะเพราและระบบ E-Commerce |
+
+### 🛠️ ทรัพยากรการพัฒนา (Development Resources)
+*   🎨 [**Design References**](./resources/design/) - ตัวอย่างมาตรฐานดีไซน์จาก Apple, Stripe, และ Vercel
+*   ⚡ [**Next.js Best Practices**](./resources/nextjs/) - คู่มือ RSC, Async Patterns, และการแก้ปัญหา Hydration
+*   🤖 [**Gemini CLI Guide**](./resources/gemini-cli/) - วิธีการสร้าง Skills และการใช้งาน Plan Mode สำหรับ AI Automation
 
 ---
 

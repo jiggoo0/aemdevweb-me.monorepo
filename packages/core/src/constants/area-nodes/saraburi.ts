@@ -80,10 +80,7 @@ export const saraburiNode = defineAreaNode(catalogService, {
     ],
     regionalVisuals: {
       banner: "/images/areas/universal-node.webp",
-      gallery: [
-        "/images/services/catalog-node.webp",
-        "/images/case-studies/industrial-catalog.webp",
-      ],
+      gallery: ["/images/services/catalog-node.webp", "/images/cases/case-sme-recovery.webp"],
     },
   },
 

@@ -18,30 +18,51 @@ export type Lead = Database["public"]["Tables"]["leads"]["Row"];
 export type LeadInsert = Database["public"]["Tables"]["leads"]["Insert"];
 
 export type UnlinkVerification = Database["public"]["Tables"]["unlink_verification"]["Row"];
-export type UnlinkVerificationInsert = Database["public"]["Tables"]["unlink_verification"]["Insert"];
+export type UnlinkVerificationInsert =
+  Database["public"]["Tables"]["unlink_verification"]["Insert"];
+
+type SupabaseClientInstance = ReturnType<typeof createClient<Database>>;
+
 /**
  * [MASTER DB CLIENT]: UNLINK-TH Core Supabase Integration (Safe for Build-time)
  */
-let _supabase: any = null;
+let _supabase: SupabaseClientInstance | null = null;
 
-export const supabase = new Proxy({} as any, {
+export const supabase = new Proxy({} as unknown as SupabaseClientInstance, {
   get(target, prop) {
     if (!_supabase) {
       const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.SUPABASE_URL;
-      const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env.SUPABASE_ANON_KEY;
+      const supabaseKey =
+        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env.SUPABASE_ANON_KEY;
 
       if (!supabaseUrl || !supabaseKey) {
-        // Safe fallback during build-time
+        // Safe fallback during build-time (Return an object, not a function)
         if (typeof window === "undefined") {
-          console.warn("[REPO-DB] Supabase URL or Key missing. Using mock client for build safety.");
-          return () => ({ from: () => ({ select: () => ({ limit: () => ({ single: () => Promise.resolve({ data: null, error: null }) }) }) }) });
+          const mockQuery: Record<string, unknown> = {
+            select: () => mockQuery,
+            eq: () => mockQuery,
+            order: () => mockQuery,
+            limit: () => mockQuery,
+            single: () => Promise.resolve({ data: null, error: null }),
+            then: (cb: (res: unknown) => void) => cb({ data: [], error: null }),
+          };
+          const mockClient: Record<string, unknown> = {
+            from: () => mockQuery,
+            auth: {
+              getSession: () => Promise.resolve({ data: { session: null }, error: null }),
+            },
+          };
+          return mockClient[prop as string];
         }
       }
 
-      _supabase = createClient<Database>(supabaseUrl || "https://placeholder.supabase.co", supabaseKey || "placeholder");
+      _supabase = createClient<Database>(
+        supabaseUrl || "https://placeholder.supabase.co",
+        supabaseKey || "placeholder",
+      );
     }
-    return _supabase[prop];
-  }
+    return (_supabase as SupabaseClientInstance)[prop as keyof SupabaseClientInstance];
+  },
 });
 
 /**
@@ -54,7 +75,9 @@ export const DataRegistry = {
   /**
    * [FETCH]: Province content with institutional fallback
    */
-  async getProvinceData(slug: string): Promise<{ data: Record<string, unknown> | null; error: any }> {
+  async getProvinceData(
+    slug: string,
+  ): Promise<{ data: Record<string, unknown> | null; error: unknown }> {
     const { data, error } = await supabase
       .from("provinces_content")
       .select("*")
@@ -85,7 +108,7 @@ export const DataRegistry = {
   /**
    * [FETCH]: Projects for portfolio feed
    */
-  async getProjects(category?: string): Promise<{ data: Project[] | null; error: any }> {
+  async getProjects(category?: string): Promise<{ data: Project[] | null; error: unknown }> {
     let query = supabase.from("projects").select("*");
     if (category) query = query.eq("category", category);
     const { data, error } = await query.order("created_at", { ascending: false });
@@ -95,7 +118,7 @@ export const DataRegistry = {
   /**
    * [FETCH]: Specific project by slug
    */
-  async getProjectBySlug(slug: string): Promise<{ data: Project | null; error: any }> {
+  async getProjectBySlug(slug: string): Promise<{ data: Project | null; error: unknown }> {
     const { data, error } = await supabase.from("projects").select("*").eq("slug", slug).single();
     return { data: data as Project | null, error };
   },
@@ -103,7 +126,7 @@ export const DataRegistry = {
   /**
    * [FETCH]: Blog posts
    */
-  async getPosts(category?: string): Promise<{ data: Post[] | null; error: any }> {
+  async getPosts(category?: string): Promise<{ data: Post[] | null; error: unknown }> {
     let query = supabase.from("posts").select("*").eq("is_published", true);
     if (category) query = query.eq("category", category);
     const { data, error } = await query.order("published_at", { ascending: false });
@@ -113,7 +136,7 @@ export const DataRegistry = {
   /**
    * [FETCH]: Specific blog post by slug
    */
-  async getPostBySlug(slug: string): Promise<{ data: Post | null; error: any }> {
+  async getPostBySlug(slug: string): Promise<{ data: Post | null; error: unknown }> {
     const { data, error } = await supabase.from("posts").select("*").eq("slug", slug).single();
     return { data: data as Post | null, error };
   },
@@ -121,7 +144,7 @@ export const DataRegistry = {
   /**
    * [FETCH]: Leads (Admin)
    */
-  async getLeads(): Promise<{ data: Lead[] | null; error: any }> {
+  async getLeads(): Promise<{ data: Lead[] | null; error: unknown }> {
     const { data, error } = await supabase
       .from("leads")
       .select("*")
@@ -133,14 +156,14 @@ export const DataRegistry = {
    * [MUTATION]: Lead submission
    */
   async submitLead(lead: LeadInsert) {
-    return (supabase.from("leads") as any).insert(lead);
+    return (supabase.from("leads") as ReturnType<SupabaseClientInstance["from"]>).insert(lead);
   },
 
   /**
    * [MUTATION]: Update Lead Status (Admin)
    */
   async updateLeadStatus(id: string, status: string) {
-    return (supabase.from("leads") as any)
+    return (supabase.from("leads") as ReturnType<SupabaseClientInstance["from"]>)
       .update({ status, updated_at: new Date().toISOString() })
       .eq("id", id);
   },
@@ -167,6 +190,18 @@ export const DataRegistry = {
       error: null,
     };
   },
+
+  /**
+   * [HEALTH]: System-wide connectivity check
+   */
+  async checkSystemHealth() {
+    try {
+      const { error } = await supabase.from("provinces_content").select("id").limit(1);
+      return { status: error ? "DEGRADED" : "HEALTHY", error };
+    } catch (err) {
+      return { status: "CRITICAL", error: err };
+    }
+  },
 };
 
 // Backward Compatibility Exports
@@ -179,5 +214,6 @@ export const submitLead = DataRegistry.submitLead;
 export const getLeads = DataRegistry.getLeads;
 export const updateLeadStatus = DataRegistry.updateLeadStatus;
 export const getVerifiedNode = DataRegistry.getVerifiedNode;
+export const checkSystemHealth = DataRegistry.checkSystemHealth;
 
 export type { Database } from "./types";

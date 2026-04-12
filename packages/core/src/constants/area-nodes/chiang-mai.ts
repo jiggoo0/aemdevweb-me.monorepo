@@ -141,7 +141,7 @@ export const chiangMaiNode = defineAreaNode(hotelResortService, {
       banner: "/images/areas/universal-node.webp",
       gallery: [
         "/images/services/hotel-resort-node.webp",
-        "/images/case-studies/provincial-domination.webp",
+        "/images/cases/case-reputation-cleared.webp",
       ],
     },
   },
