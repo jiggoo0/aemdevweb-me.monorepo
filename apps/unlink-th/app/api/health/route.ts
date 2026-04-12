@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { supabase } from "@repo/db";
 
+export const dynamic = "force-dynamic";
+
 /**
  * [API]: ECOSYSTEM_HEALTH_MONITOR v1.0.0
  * [STRATEGY]: System-wide status and connectivity check

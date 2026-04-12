@@ -19,17 +19,34 @@ export type LeadInsert = Database["public"]["Tables"]["leads"]["Insert"];
 
 export type UnlinkVerification = Database["public"]["Tables"]["unlink_verification"]["Row"];
 export type UnlinkVerificationInsert = Database["public"]["Tables"]["unlink_verification"]["Insert"];
-
 /**
- * [MASTER DB CLIENT]: UNLINK-TH Core Supabase Integration
+ * [MASTER DB CLIENT]: UNLINK-TH Core Supabase Integration (Safe for Build-time)
  */
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.SUPABASE_URL;
-const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env.SUPABASE_ANON_KEY;
+let _supabase: any = null;
 
-export const supabase = createClient<Database>(supabaseUrl || "", supabaseKey || "");
+export const supabase = new Proxy({} as any, {
+  get(target, prop) {
+    if (!_supabase) {
+      const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.SUPABASE_URL;
+      const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env.SUPABASE_ANON_KEY;
+
+      if (!supabaseUrl || !supabaseKey) {
+        // Safe fallback during build-time
+        if (typeof window === "undefined") {
+          console.warn("[REPO-DB] Supabase URL or Key missing. Using mock client for build safety.");
+          return () => ({ from: () => ({ select: () => ({ limit: () => ({ single: () => Promise.resolve({ data: null, error: null }) }) }) }) });
+        }
+      }
+
+      _supabase = createClient<Database>(supabaseUrl || "https://placeholder.supabase.co", supabaseKey || "placeholder");
+    }
+    return _supabase[prop];
+  }
+});
 
 /**
  * [FACADE]: DataRegistry
+...
  * Centralized data access layer. Caching is deferred to the App layer to ensure
  * compatibility with different rendering environments in the monorepo.
  */
