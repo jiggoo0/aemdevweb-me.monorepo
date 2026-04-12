@@ -43,3 +43,6 @@ yarn-error.log*
 pnpm-debug.log*
 .env*.local
 .pnpm-store/
+
+.gemini/
+gha-creds-*.json

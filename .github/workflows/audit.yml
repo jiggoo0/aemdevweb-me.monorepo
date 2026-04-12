@@ -37,6 +37,23 @@ jobs:
         run: pnpm turbo lint
 
       - name: "[STANDARDIZATION] Check Version Consistency"
+        id: version_check
         run: |
           chmod +x ./scripts/monorepo-standardizer.sh
           ./scripts/monorepo-standardizer.sh --check
+
+      - name: "Gemini AI Integrity Analysis"
+        if: always()
+        uses: google-github-actions/run-gemini-cli@v0.1.21
+        with:
+          gemini_api_key: ${{ secrets.GEMINI_API_KEY }}
+          gemini_model: ${{ vars.GEMINI_MODEL || 'gemini-2.0-flash' }}
+          prompt: |
+            คุณคือ Senior Monorepo Architect ตรวจสอบผลการรัน audit ของโปรเจกต์ aemdevweb-me.monorepo ต่อไปนี้:
+            1. ตรวจสอบว่ามี Boundary Violation หรือ Circular Dependency หรือไม่?
+            2. ตรวจสอบความถูกต้องของเวอร์ชัน dependencies ใน Monorepo
+            3. สรุปความเสี่ยงและข้อเสนอแนะในการแก้ไข
+
+            วิเคราะห์ข้อมูลจากไฟล์: scripts/monorepo-integrity-auditor.sh และผลการรันที่ผ่านมา (ถ้ามี)
+            เน้นไปที่ความสมบูรณ์ของระบบ (System Integrity) ตามหลักการใน GEMINI.md ของโปรเจกต์นี้
+
