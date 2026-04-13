@@ -66,7 +66,9 @@ export function SafeAnalytics({ gtmId, gaId, enableVercel = true }: SafeAnalytic
       )}
 
       {/* [3] Vercel Analytics */}
-      {enableVercel && <VercelAnalytics />}
+      {enableVercel && process.env.NODE_ENV === "production" && (
+        <VercelAnalytics mode="production" />
+      )}
     </>
   );
 }
