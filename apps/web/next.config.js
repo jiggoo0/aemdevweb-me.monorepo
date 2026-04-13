@@ -12,7 +12,6 @@ const nextConfig = {
   pageExtensions: ["js", "jsx", "md", "mdx", "ts", "tsx"],
 
   // 🛠️ Disable Native SWC Minifier for Termux/Android compatibility
-  swcMinify: false,
 
   // 🛠️ Webpack Configuration for Termux Compatibility
   webpack: (config) => {

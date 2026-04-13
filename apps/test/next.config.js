@@ -2,7 +2,6 @@
 const nextConfig = {
   cacheComponents: true,
   transpilePackages: ["@repo/ui", "@repo/core", "@repo/seo", "@repo/db"],
-  swcMinify: false,
   webpack: (config) => {
     config.cache = false;
     return config;
