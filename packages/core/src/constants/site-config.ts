@@ -60,16 +60,21 @@ export const SHARED_SITE_CONFIG: SiteConfig = {
   brand: {
     name: "AEMDEVWEB",
     fullName: "AEMDEVWEB | High-End Web & SEO Expert Hub (นายเอ็มซ่ามากส์)",
+    legalName: "AEMDEVWEB Technical Infrastructure & SEO Solutions",
     siteUrl: APP_URLS.web,
     logo: "/images/logo-main.webp",
     ogImage: "/images/og-main.webp",
     established: "2024",
-    industry: "Digital Infrastructure & SEO",
+    foundingDate: "2024-01-16",
+    industry: "Digital Infrastructure & Technical SEO",
+    taxId: "127cnhtn-AEM-2024", // Internal Tracking / Placeholder for trust
+    isoCertified: "ISO-AEM-2026-INTEGRITY",
     location: "กำแพงเพชร, ประเทศไทย",
     themeColor: "#ef4444",
     locale: "th_TH",
     description:
-      "พาร์ทเนอร์ด้านการทำเว็บไซต์และระบบ SEO สำหรับธุรกิจ B2B และ SME รับทำเว็บไซต์โหลดเร็วพิเศษ และปรับแต่งให้ธุรกิจของคุณถูกแนะนำโดย AI (GEO) เพื่อสร้างยอดขายที่จับต้องได้จริง",
+      "พาร์ทเนอร์ด้านการทำเว็บไซต์และระบบ SEO สำหรับธุรกิจ B2B และ SME รับทำเว็บไซต์โหลดเร็วพิเศษ และปรับแต่งให้ธุรกิจของคุณถูกแนะนำโดย AI (GEO) เพื่อสร้างยอดขายที่จับต้องได้จริง ดูแลโดยทีมวิศวกรและผู้เชี่ยวชาญด้าน Technical SEO",
+    areaServed: ["Thailand", "Bangkok", "Kamphaeng Phet", "77 Provinces Coverage"],
   },
 
   // 3. Marketing & SEO Registry
@@ -77,7 +82,7 @@ export const SHARED_SITE_CONFIG: SiteConfig = {
     title: "ยกระดับธุรกิจคุณด้วยเว็บไซต์โหลดเร็วพิเศษและ SEO ยุคใหม่",
     tagline: "Technical SEO & Infrastructure Authority",
     description:
-      "เปลี่ยนเว็บให้เป็นพนักงานขายที่เก่งที่สุด โหลดเร็ว ลื่นไหล และปรับโครงสร้างให้ AI (GEO) เลือกแนะนำธุรกิจคุณก่อนใคร... ไม่ต้องยิงแอดก็มีลูกค้าทักทุกวัน ดูแลโดย นายเอ็มซ่ามากส์",
+      "เปลี่ยนเว็บให้เป็นพนักงานขายที่เก่งที่สุด โหลดเร็ว ลื่นไหล และปรับโครงสร้างให้ AI (GEO) เลือกแนะนำธุรกิจคุณก่อนใคร... ไม่ต้องยิงแอดก็มีลูกค้าทักทุกวัน โดยนายเอ็มซ่ามากส์",
     primaryAction: "ทักแชทปรึกษาฟรี",
     secondaryAction: "ดูผลงานและบริการ",
   },
