@@ -28,7 +28,7 @@ export const getPersonSchema = (): Person => ({
     SHARED_SITE_CONFIG.expert.alternateName,
     SHARED_SITE_CONFIG.expert.strategicAlias,
     SHARED_SITE_CONFIG.expert.legalNameEnglish,
-  ],
+  ].filter((v): v is string => !!v),
   url: ECOSYSTEM.identityUrl,
   image: SHARED_SITE_CONFIG.expert.avatar,
   jobTitle: SHARED_SITE_CONFIG.expert.jobTitle,
@@ -41,12 +41,14 @@ export const getPersonSchema = (): Person => ({
     SHARED_SITE_CONFIG.links.facebook,
     SHARED_SITE_CONFIG.links.twitter,
     SHARED_SITE_CONFIG.links.youtube,
-  ],
-  knowsAbout: [
-    ...SHARED_SITE_CONFIG.expert.skills.technical,
-    ...SHARED_SITE_CONFIG.expert.skills.seo,
-    ...SHARED_SITE_CONFIG.expert.skills.governance,
-  ],
+  ].filter((v): v is string => !!v),
+  knowsAbout: SHARED_SITE_CONFIG.expert.skills
+    ? [
+        ...SHARED_SITE_CONFIG.expert.skills.technical,
+        ...SHARED_SITE_CONFIG.expert.skills.seo,
+        ...SHARED_SITE_CONFIG.expert.skills.governance,
+      ]
+    : [],
 });
 
 export const getOrganizationSchema = (): Organization => ({
@@ -79,7 +81,7 @@ export const getOrganizationSchema = (): Organization => ({
       availableLanguage: ["Thai", "English"],
     },
   ],
-  areaServed: (SHARED_SITE_CONFIG.brand as any).areaServed?.map((area: string) => ({
+  areaServed: SHARED_SITE_CONFIG.brand.areaServed?.map((area) => ({
     "@type": "Place",
     name: area,
   })),
@@ -89,7 +91,7 @@ export const getOrganizationSchema = (): Organization => ({
     SHARED_SITE_CONFIG.links.twitter,
     SHARED_SITE_CONFIG.links.youtube,
     SHARED_SITE_CONFIG.links.googleMaps,
-  ],
+  ].filter((v): v is string => !!v),
   memberOf: {
     "@type": "Organization",
     name: "UNLINK-GLOBAL Institutional Network",

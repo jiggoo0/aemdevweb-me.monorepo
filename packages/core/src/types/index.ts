@@ -157,15 +157,20 @@ export interface SiteConfig {
   readonly brand: {
     readonly name: string;
     readonly fullName: string;
+    readonly legalName?: string;
     readonly siteUrl: string;
     readonly logo?: string;
     readonly ogImage?: string;
     readonly established: string;
+    readonly foundingDate?: string;
     readonly industry: string;
+    readonly taxId?: string;
+    readonly isoCertified?: string;
     readonly location: string;
     readonly themeColor: string;
     readonly locale: string;
     readonly description: string;
+    readonly areaServed?: readonly string[];
   };
 
   /** [MARKETING]: Strategic Messaging */
