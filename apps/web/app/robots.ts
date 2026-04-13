@@ -8,8 +8,8 @@ export default function robots(): MetadataRoute.Robots {
   return {
     rules: {
       userAgent: "*",
-      allow: "/",
-      disallow: ["/api/", "/_next/", "/admin/"],
+      allow: ["/", "/_next/static/", "/_next/image/"],
+      disallow: ["/api/", "/admin/"],
     },
     sitemap: `${SHARED_SITE_CONFIG.links.site}/sitemap.xml`,
   };

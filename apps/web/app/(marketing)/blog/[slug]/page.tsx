@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { GlassCard } from "@repo/ui";
 import { ArrowLeft, Calendar, User, Clock } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import { getPostMetadataBySlug, getAllBlogPosts } from "@/lib/mdx";
 import { BlogCard } from "@/components/cards";
 import type { Metadata } from "next";
@@ -124,6 +125,18 @@ async function PostContentWrapper({ slug }: { slug: string }) {
         <h1 className="text-5xl md:text-7xl font-black uppercase tracking-tighter mb-8 leading-[0.9]">
           {post.title}
         </h1>
+
+        {/* 🖼️ Hero Image */}
+        <div className="relative aspect-[21/9] w-full overflow-hidden rounded-[3rem] border border-white/5 mb-16">
+          <Image
+            src={post.thumbnail_url || "/images/blog/default.webp"}
+            alt={post.title}
+            fill
+            className="object-cover"
+            priority
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-background/60 to-transparent" />
+        </div>
 
         <div className="flex items-center gap-6 pt-8 border-t border-white/5">
           <div className="flex items-center gap-2">
