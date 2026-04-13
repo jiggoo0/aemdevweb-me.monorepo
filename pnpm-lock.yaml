@@ -54,6 +54,52 @@ importers:
         specifier: ^8.58.0
         version: 8.58.1(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.2)
 
+  apps/me-aemdevweb:
+    dependencies:
+      "@repo/core":
+        specifier: workspace:*
+        version: link:../../packages/core
+      "@repo/seo":
+        specifier: workspace:*
+        version: link:../../packages/seo
+      "@repo/ui":
+        specifier: workspace:*
+        version: link:../../packages/ui
+      geist:
+        specifier: ^1.7.0
+        version: 1.7.0(next@16.2.3(react-dom@19.2.4(react@19.2.4))(react@19.2.4))
+      lucide-react:
+        specifier: ^0.474.0
+        version: 0.474.0(react@19.2.4)
+      next:
+        specifier: 16.2.3
+        version: 16.2.3(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      react:
+        specifier: 19.2.4
+        version: 19.2.4
+      react-dom:
+        specifier: 19.2.4
+        version: 19.2.4(react@19.2.4)
+    devDependencies:
+      "@repo/typescript-config":
+        specifier: workspace:*
+        version: link:../../packages/typescript-config
+      "@types/node":
+        specifier: ^22.15.3
+        version: 22.19.17
+      "@types/react":
+        specifier: 19.2.14
+        version: 19.2.14
+      "@types/react-dom":
+        specifier: 19.2.2
+        version: 19.2.2(@types/react@19.2.14)
+      tailwindcss:
+        specifier: ^4.2.2
+        version: 4.2.2
+      typescript:
+        specifier: 5.9.2
+        version: 5.9.2
+
   apps/test:
     dependencies:
       "@mdx-js/loader":
@@ -65,6 +111,9 @@ importers:
       "@next/mdx":
         specifier: ^16.2.3
         version: 16.2.3(@mdx-js/loader@3.1.1)(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))
+      "@repo/next-config":
+        specifier: workspace:*
+        version: link:../../packages/next-config
       "@repo/ui":
         specifier: workspace:*
         version: link:../../packages/ui
@@ -114,6 +163,9 @@ importers:
       "@repo/db":
         specifier: workspace:*
         version: link:../../packages/db
+      "@repo/next-config":
+        specifier: workspace:*
+        version: link:../../packages/next-config
       "@repo/seo":
         specifier: workspace:*
         version: link:../../packages/seo
@@ -294,10 +346,19 @@ importers:
       "@repo/core":
         specifier: workspace:*
         version: link:../core
+      "@supabase/ssr":
+        specifier: ^0.10.2
+        version: 0.10.2(@supabase/supabase-js@2.103.0)
       "@supabase/supabase-js":
         specifier: ^2.49.1
         version: 2.103.0
+      next:
+        specifier: 16.2.3
+        version: 16.2.3(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
     devDependencies:
+      "@types/node":
+        specifier: ^22.15.3
+        version: 22.19.17
       typescript:
         specifier: 5.9.2
         version: 5.9.2
@@ -332,7 +393,14 @@ importers:
         specifier: ^2.0.0
         version: 2.9.6(eslint@9.39.4(jiti@2.6.1))(turbo@2.9.6)
 
-  packages/next-config: {}
+  packages/next-config:
+    devDependencies:
+      next:
+        specifier: 16.2.3
+        version: 16.2.3(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      typescript:
+        specifier: 5.9.2
+        version: 5.9.2
 
   packages/seo:
     dependencies:

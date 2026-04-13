@@ -3,13 +3,7 @@
  * [STRATEGY]: Strict Schema Contract | JSON Validation Ready
  */
 
-export type Json =
-  | string
-  | number
-  | boolean
-  | null
-  | { [key: string]: Json | undefined }
-  | Json[];
+export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[];
 
 export type Database = {
   public: {
@@ -215,13 +209,13 @@ export type Database = {
       };
     };
     Views: {
-      [_ in never]: never;
+      [key: string]: unknown;
     };
     Functions: {
-      [_ in never]: never;
+      [key: string]: unknown;
     };
     Enums: {
-      [_ in never]: never;
+      [key: string]: unknown;
     };
   };
 };

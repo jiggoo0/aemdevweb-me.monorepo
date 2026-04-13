@@ -4,10 +4,10 @@
   "private": true,
   "exports": {
     ".": "./src/index.ts",
-    "./components/*": "./src/components/*.tsx"
+    "./components/*": "./src/components/*.tsx",
+    "./styles": "./src/styles/core.css"
   },
   "scripts": {
-    "generate:component": "turbo gen react-component",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {

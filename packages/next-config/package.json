@@ -1,6 +1,13 @@
 {
   "name": "@repo/next-config",
-  "version": "0.0.0",
+  "version": "1.2.0",
   "private": true,
-  "main": "index.js"
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "main": "src/index.ts",
+  "devDependencies": {
+    "next": "16.2.3",
+    "typescript": "5.9.2"
+  }
 }

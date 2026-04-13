@@ -12,7 +12,7 @@ import { SiteConfig } from "../types";
 
 const APP_URLS = {
   web: process.env.NEXT_PUBLIC_WEB_URL || "https://www.aemdevweb.com",
-  me: process.env.NEXT_PUBLIC_WEB_URL || "https://www.aemdevweb.com", // Consolidation into main domain
+  me: process.env.NEXT_PUBLIC_ME_URL || "https://me.aemdevweb.com", // Subdomain Identity Portal
   unlink: process.env.NEXT_PUBLIC_UNLINK_URL || "https://www.unlink-th.com",
 };
 

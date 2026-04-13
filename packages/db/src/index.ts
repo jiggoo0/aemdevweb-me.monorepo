@@ -1,15 +1,17 @@
 /**
- * [DATABASE_PROVIDER]: CENTRALIZED_DATA_FACADE v2.2.0
- * [STRATEGY]: Platform-Agnostic Proxy | Strict Type Safety | Fallback Support
+ * [DATABASE_PROVIDER]: CENTRALIZED_DATA_FACADE v2.4.0
+ * [STRATEGY]: Pure Boundary Alignment | Runtime-Safe Proxy | DNA Synchronized
  * [MAINTAINER]: AEMZA MACKS (Lead Architect)
  */
 
 import { createClient } from "@supabase/supabase-js";
 import { AREA_NODES } from "@repo/core";
 import type { Database } from "./types";
+import { createBrowserClient } from "./client";
 
-// Re-export types for consumer packages
+// Re-export types and CSR factory
 export type { Database, Json } from "./types";
+export * from "./client";
 
 export type Project = Database["public"]["Tables"]["projects"]["Row"];
 export type ProjectInsert = Database["public"]["Tables"]["projects"]["Insert"];
@@ -23,49 +25,38 @@ export type UnlinkVerification = Database["public"]["Tables"]["unlink_verificati
 type SupabaseClientInstance = ReturnType<typeof createClient<Database>>;
 
 /**
- * [INIT]: Lazy-initialized Supabase Client
- * Managed via Proxy to handle build-time environments without crashing
+ * [INIT]: Safe Supabase Proxy
+ * Binds to Browser Client if in window, or a static client if in Node (safe for build)
+ * For dynamic Server features (cookies), use createServerClient() from '@repo/db/server' directly
  */
 let _supabase: SupabaseClientInstance | null = null;
 
 export const supabase = new Proxy({} as unknown as SupabaseClientInstance, {
   get(target, prop) {
+    if (typeof window !== "undefined") {
+      if (!_supabase) _supabase = createBrowserClient();
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      return (_supabase as unknown as Record<string | symbol, any>)[prop];
+    }
+
+    // Node/Build Environment: Provide a non-cookie-dependent client
     if (!_supabase) {
       const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.SUPABASE_URL;
       const supabaseKey =
         process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env.SUPABASE_ANON_KEY;
-
-      if (!supabaseUrl || !supabaseKey) {
-        // Fallback for CI/CD and Build-time
-        if (typeof window === "undefined") {
-          const mockQuery: any = {
-            select: () => mockQuery,
-            eq: () => mockQuery,
-            order: () => mockQuery,
-            limit: () => mockQuery,
-            single: () => Promise.resolve({ data: null, error: null }),
-            then: (cb: any) => cb({ data: [], error: null }),
-          };
-          const mockClient: any = {
-            from: () => mockQuery,
-            auth: { getSession: () => Promise.resolve({ data: { session: null }, error: null }) },
-          };
-          return mockClient[prop as string];
-        }
-      }
 
       _supabase = createClient<Database>(
         supabaseUrl || "https://placeholder.supabase.co",
         supabaseKey || "placeholder",
       );
     }
-    return (_supabase as any)[prop];
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return (_supabase as unknown as Record<string | symbol, any>)[prop];
   },
 });
 
 /**
  * [REGISTRY]: DataRegistry Facade
- * Provides high-level methods for data access across the monorepo
  */
 export const DataRegistry = {
   async getProvinceData(slug: string) {
@@ -93,43 +84,46 @@ export const DataRegistry = {
     return { data, error: null };
   },
 
-  async getProjects(category?: string) {
+  async getProjects(category?: string): Promise<{ data: Project[]; error: unknown }> {
     let query = supabase.from("projects").select("*");
     if (category) query = query.eq("category", category);
     const { data, error } = await query.order("created_at", { ascending: false });
-    return { data: data || [], error };
+    return { data: (data as Project[]) || [], error };
   },
 
-  async getProjectBySlug(slug: string) {
-    return supabase.from("projects").select("*").eq("slug", slug).single();
+  async getProjectBySlug(slug: string): Promise<{ data: Project | null; error: unknown }> {
+    const { data, error } = await supabase.from("projects").select("*").eq("slug", slug).single();
+    return { data: data as Project | null, error };
   },
 
-  async getPosts(category?: string) {
+  async getPosts(category?: string): Promise<{ data: Post[]; error: unknown }> {
     let query = supabase.from("posts").select("*").eq("is_published", true);
     if (category) query = query.eq("category", category);
     const { data, error } = await query.order("published_at", { ascending: false });
-    return { data: data || [], error };
+    return { data: (data as Post[]) || [], error };
   },
 
-  async getPostBySlug(slug: string) {
-    return supabase.from("posts").select("*").eq("slug", slug).single();
+  async getPostBySlug(slug: string): Promise<{ data: Post | null; error: unknown }> {
+    const { data, error } = await supabase.from("posts").select("*").eq("slug", slug).single();
+    return { data: data as Post | null, error };
   },
 
-  async getLeads() {
+  async getLeads(): Promise<{ data: Lead[]; error: unknown }> {
     const { data, error } = await supabase
       .from("leads")
       .select("*")
       .order("created_at", { ascending: false });
-    return { data: data || [], error };
+    return { data: (data as Lead[]) || [], error };
   },
 
   async submitLead(lead: LeadInsert) {
-    return supabase.from("leads").insert(lead);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return (supabase.from("leads") as unknown as Record<string, any>).insert(lead);
   },
 
   async updateLeadStatus(id: string, status: string) {
-    return supabase
-      .from("leads")
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return (supabase.from("leads") as unknown as Record<string, any>)
       .update({ status, updated_at: new Date().toISOString() })
       .eq("id", id);
   },
@@ -147,7 +141,8 @@ export const DataRegistry = {
 
     return {
       data: {
-        ...verification,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        ...(verification as unknown as Record<string, any>),
         linkedProjects: projects || [],
       },
       error: null,
@@ -164,7 +159,6 @@ export const DataRegistry = {
   },
 };
 
-// Simplified Exports
 export const {
   getProvinceData,
   getProjects,

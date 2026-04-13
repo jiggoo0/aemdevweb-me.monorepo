@@ -5,6 +5,17 @@
    Strategy: High-Integrity E-E-A-T Optimized Design
    ========================================================= */
 
+@theme {
+  --color-background: oklch(0.984 0.003 247.858);
+  --color-foreground: oklch(0.21 0.006 285.885);
+  --color-primary: #ef4444;
+  --color-secondary: #3b82f6;
+  --color-card: oklch(1 0 0);
+  --color-card-foreground: oklch(0.21 0.006 285.885);
+  --color-border: oklch(0.922 0 0);
+  --color-muted-foreground: oklch(0.556 0 0);
+}
+
 :root {
   /* 🏛️ The Foundation (Institutional Slate) */
   --background: oklch(0.984 0.003 247.858); /* Slate-50 */
@@ -75,13 +86,10 @@
   }
 
   h1 {
-    @apply text-5xl md:text-7xl mb-8;
   }
   h2 {
-    @apply text-4xl md:text-6xl mb-6;
   }
   h3 {
-    @apply text-2xl md:text-3xl mb-4;
   }
 }
 
@@ -95,22 +103,18 @@
   }
 
   .authority-card {
-    @apply relative overflow-hidden bg-card border border-border p-8 md:p-10 transition-all duration-500;
     border-radius: var(--radius);
     box-shadow: 0 4px 20px -2px oklch(0 0 0 / 0.02);
   }
 
   .authority-card:hover {
-    @apply border-secondary/30 -translate-y-1;
     box-shadow: 0 30px 40px -15px oklch(0 0 0 / 0.06);
   }
 
   .glass-panel {
-    @apply bg-white/70 backdrop-blur-xl border border-white/20;
   }
 
   .glass-liquid {
-    @apply relative overflow-hidden backdrop-blur-2xl border border-white/40;
     background: linear-gradient(
       135deg,
       oklch(1 0 0 / 0.1) 0%,
@@ -123,11 +127,9 @@
   }
 
   .text-gradient-authority {
-    @apply bg-clip-text text-transparent bg-gradient-to-br from-foreground to-foreground/60;
   }
 
   .section-spacing {
-    @apply py-24 md:py-40;
   }
 
   /* 🏨 HOSPITALITY THEME: Cinematic & Elegant */

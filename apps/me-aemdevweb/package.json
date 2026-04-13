@@ -1,0 +1,30 @@
+{
+  "name": "@repo/me",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "next build --webpack",
+    "dev": "next dev -p 3005 --webpack",
+    "lint": "next lint",
+    "start": "next start -p 3005",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@repo/core": "workspace:*",
+    "@repo/seo": "workspace:*",
+    "@repo/ui": "workspace:*",
+    "geist": "^1.7.0",
+    "lucide-react": "^0.474.0",
+    "next": "16.2.3",
+    "react": "19.2.4",
+    "react-dom": "19.2.4"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/node": "^22.15.3",
+    "@types/react": "19.2.14",
+    "@types/react-dom": "19.2.2",
+    "tailwindcss": "^4.2.2",
+    "typescript": "5.9.2"
+  }
+}

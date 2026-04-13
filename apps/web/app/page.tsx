@@ -1,6 +1,7 @@
 import React from "react";
 import { SHARED_SITE_CONFIG } from "@repo/core";
 import { Button, TemplateShowcase } from "@repo/ui";
+import { JsonLd, getGraphSchema } from "@repo/seo";
 import { Shield, Globe, Zap } from "lucide-react";
 import Link from "next/link";
 import { HeroAndShowcase } from "@/components/sections/hero-showcase";
@@ -9,6 +10,9 @@ import { RecentBlogSection } from "@/components/sections/recent-blog";
 export default function FullyLoadedLandingPage() {
   return (
     <main className="min-h-screen bg-background text-foreground selection:bg-primary/20 relative overflow-hidden">
+      {/* 🚀 [SEO_INJECTION] */}
+      <JsonLd data={getGraphSchema()} />
+
       {/* 🌌 [BACKGROUND_LAYER] */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute inset-0 tech-grid" />
@@ -36,17 +40,22 @@ export default function FullyLoadedLandingPage() {
                 </p>
               </div>
 
-              <div className="space-y-6">
-                <div className="w-12 h-12 bg-purple-500/10 rounded-2xl flex items-center justify-center border border-purple-500/20">
-                  <Shield className="text-purple-400" size={24} />
-                </div>
-                <h3 className="text-2xl font-black uppercase tracking-tighter">
-                  Entity Linking Hub.
-                </h3>
-                <p className="text-white/40 leading-relaxed font-light">
-                  การเชื่อมโยงอัตลักษณ์บุคคลและแบรนด์ผ่าน Schema.org ขั้นสูง
-                  เพื่อสร้างความเชื่อมั่นสูงสุดในระดับ E-E-A-T
-                </p>
+              <div className="space-y-6 group cursor-pointer">
+                <Link href={SHARED_SITE_CONFIG.links.me}>
+                  <div className="w-12 h-12 bg-purple-500/10 rounded-2xl flex items-center justify-center border border-purple-500/20 group-hover:border-purple-500/50 transition-colors">
+                    <Shield className="text-purple-400" size={24} />
+                  </div>
+                  <h3 className="text-2xl font-black uppercase tracking-tighter mt-6 group-hover:text-purple-400 transition-colors">
+                    Entity Linking Hub.
+                  </h3>
+                  <p className="text-white/40 leading-relaxed font-light mt-4">
+                    การเชื่อมโยงอัตลักษณ์บุคคลและแบรนด์ผ่าน Schema.org ขั้นสูง
+                    เพื่อสร้างความเชื่อมั่นสูงสุดในระดับ E-E-A-T
+                    <span className="text-purple-400/60 block mt-2 font-bold uppercase text-[10px] tracking-widest">
+                      Led by Chief Architect →
+                    </span>
+                  </p>
+                </Link>
               </div>
 
               <div className="space-y-6">
