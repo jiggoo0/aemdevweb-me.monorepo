@@ -1,30 +1,30 @@
+/**
+ * [DATABASE_PROVIDER]: CENTRALIZED_DATA_FACADE v2.2.0
+ * [STRATEGY]: Platform-Agnostic Proxy | Strict Type Safety | Fallback Support
+ * [MAINTAINER]: AEMZA MACKS (Lead Architect)
+ */
+
 import { createClient } from "@supabase/supabase-js";
 import { AREA_NODES } from "@repo/core";
 import type { Database } from "./types";
 
-/**
- * [TYPES]: Model Definitions derived from Database Schema
- */
+// Re-export types for consumer packages
+export type { Database, Json } from "./types";
+
 export type Project = Database["public"]["Tables"]["projects"]["Row"];
 export type ProjectInsert = Database["public"]["Tables"]["projects"]["Insert"];
-
 export type Post = Database["public"]["Tables"]["posts"]["Row"];
 export type PostInsert = Database["public"]["Tables"]["posts"]["Insert"];
-
 export type ProvinceContent = Database["public"]["Tables"]["provinces_content"]["Row"];
-export type ProvinceContentInsert = Database["public"]["Tables"]["provinces_content"]["Insert"];
-
 export type Lead = Database["public"]["Tables"]["leads"]["Row"];
 export type LeadInsert = Database["public"]["Tables"]["leads"]["Insert"];
-
 export type UnlinkVerification = Database["public"]["Tables"]["unlink_verification"]["Row"];
-export type UnlinkVerificationInsert =
-  Database["public"]["Tables"]["unlink_verification"]["Insert"];
 
 type SupabaseClientInstance = ReturnType<typeof createClient<Database>>;
 
 /**
- * [MASTER DB CLIENT]: UNLINK-TH Core Supabase Integration (Safe for Build-time)
+ * [INIT]: Lazy-initialized Supabase Client
+ * Managed via Proxy to handle build-time environments without crashing
  */
 let _supabase: SupabaseClientInstance | null = null;
 
@@ -36,21 +36,19 @@ export const supabase = new Proxy({} as unknown as SupabaseClientInstance, {
         process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env.SUPABASE_ANON_KEY;
 
       if (!supabaseUrl || !supabaseKey) {
-        // Safe fallback during build-time (Return an object, not a function)
+        // Fallback for CI/CD and Build-time
         if (typeof window === "undefined") {
-          const mockQuery: Record<string, unknown> = {
+          const mockQuery: any = {
             select: () => mockQuery,
             eq: () => mockQuery,
             order: () => mockQuery,
             limit: () => mockQuery,
             single: () => Promise.resolve({ data: null, error: null }),
-            then: (cb: (res: unknown) => void) => cb({ data: [], error: null }),
+            then: (cb: any) => cb({ data: [], error: null }),
           };
-          const mockClient: Record<string, unknown> = {
+          const mockClient: any = {
             from: () => mockQuery,
-            auth: {
-              getSession: () => Promise.resolve({ data: { session: null }, error: null }),
-            },
+            auth: { getSession: () => Promise.resolve({ data: { session: null }, error: null }) },
           };
           return mockClient[prop as string];
         }
@@ -61,23 +59,16 @@ export const supabase = new Proxy({} as unknown as SupabaseClientInstance, {
         supabaseKey || "placeholder",
       );
     }
-    return (_supabase as SupabaseClientInstance)[prop as keyof SupabaseClientInstance];
+    return (_supabase as any)[prop];
   },
 });
 
 /**
- * [FACADE]: DataRegistry
-...
- * Centralized data access layer. Caching is deferred to the App layer to ensure
- * compatibility with different rendering environments in the monorepo.
+ * [REGISTRY]: DataRegistry Facade
+ * Provides high-level methods for data access across the monorepo
  */
 export const DataRegistry = {
-  /**
-   * [FETCH]: Province content with institutional fallback
-   */
-  async getProvinceData(
-    slug: string,
-  ): Promise<{ data: Record<string, unknown> | null; error: unknown }> {
+  async getProvinceData(slug: string) {
     const { data, error } = await supabase
       .from("provinces_content")
       .select("*")
@@ -90,87 +81,60 @@ export const DataRegistry = {
         return {
           data: {
             title: staticNode.title,
-            content: staticNode.description, // Correctly assign string description to content
+            content: staticNode.description,
             metadata: { description: staticNode.seoDescription },
             is_fallback: true,
-          } as unknown as Record<string, unknown>,
+          },
           error: null,
         };
       }
       return { data: null, error };
     }
-
-    return { data: data as Record<string, unknown>, error: null };
+    return { data, error: null };
   },
 
-  /**
-   * [FETCH]: Projects for portfolio feed
-   */
-  async getProjects(category?: string): Promise<{ data: Project[] | null; error: unknown }> {
+  async getProjects(category?: string) {
     let query = supabase.from("projects").select("*");
     if (category) query = query.eq("category", category);
     const { data, error } = await query.order("created_at", { ascending: false });
-    return { data: (data as Project[] | null) || [], error };
+    return { data: data || [], error };
   },
 
-  /**
-   * [FETCH]: Specific project by slug
-   */
-  async getProjectBySlug(slug: string): Promise<{ data: Project | null; error: unknown }> {
-    const { data, error } = await supabase.from("projects").select("*").eq("slug", slug).single();
-    return { data: data as Project | null, error };
+  async getProjectBySlug(slug: string) {
+    return supabase.from("projects").select("*").eq("slug", slug).single();
   },
 
-  /**
-   * [FETCH]: Blog posts
-   */
-  async getPosts(category?: string): Promise<{ data: Post[] | null; error: unknown }> {
+  async getPosts(category?: string) {
     let query = supabase.from("posts").select("*").eq("is_published", true);
     if (category) query = query.eq("category", category);
     const { data, error } = await query.order("published_at", { ascending: false });
-    return { data: (data as Post[] | null) || [], error };
+    return { data: data || [], error };
   },
 
-  /**
-   * [FETCH]: Specific blog post by slug
-   */
-  async getPostBySlug(slug: string): Promise<{ data: Post | null; error: unknown }> {
-    const { data, error } = await supabase.from("posts").select("*").eq("slug", slug).single();
-    return { data: data as Post | null, error };
+  async getPostBySlug(slug: string) {
+    return supabase.from("posts").select("*").eq("slug", slug).single();
   },
 
-  /**
-   * [FETCH]: Leads (Admin)
-   */
-  async getLeads(): Promise<{ data: Lead[] | null; error: unknown }> {
+  async getLeads() {
     const { data, error } = await supabase
       .from("leads")
       .select("*")
       .order("created_at", { ascending: false });
-    return { data: (data as Lead[] | null) || [], error };
+    return { data: data || [], error };
   },
 
-  /**
-   * [MUTATION]: Lead submission
-   */
   async submitLead(lead: LeadInsert) {
-    return (supabase.from("leads") as ReturnType<SupabaseClientInstance["from"]>).insert(lead);
+    return supabase.from("leads").insert(lead);
   },
 
-  /**
-   * [MUTATION]: Update Lead Status (Admin)
-   */
   async updateLeadStatus(id: string, status: string) {
-    return (supabase.from("leads") as ReturnType<SupabaseClientInstance["from"]>)
+    return supabase
+      .from("leads")
       .update({ status, updated_at: new Date().toISOString() })
       .eq("id", id);
   },
 
-  /**
-   * [STRATEGIC]: Verified Node verification data (Optimized to avoid waterfall)
-   */
   async getVerifiedNode(siteId: string) {
-    // [OPTIMIZED]: Fetch both in parallel to reduce network round-trips
     const [verificationResult, projectsResult] = await Promise.all([
       supabase.from("unlink_verification").select("*").eq("site_id", siteId).single(),
       supabase.from("projects").select("*").limit(1),
@@ -183,16 +147,13 @@ export const DataRegistry = {
 
     return {
       data: {
-        ...(verification as object),
-        linkedProjects: (projects as Record<string, unknown>[]) || [],
-      } as Record<string, unknown>,
+        ...verification,
+        linkedProjects: projects || [],
+      },
       error: null,
     };
   },
 
-  /**
-   * [HEALTH]: System-wide connectivity check
-   */
   async checkSystemHealth() {
     try {
       const { error } = await supabase.from("provinces_content").select("id").limit(1);
@@ -203,16 +164,16 @@ export const DataRegistry = {
   },
 };
 
-// Backward Compatibility Exports
-export const getProvinceData = DataRegistry.getProvinceData;
-export const getProjects = DataRegistry.getProjects;
-export const getProjectBySlug = DataRegistry.getProjectBySlug;
-export const getPosts = DataRegistry.getPosts;
-export const getPostBySlug = DataRegistry.getPostBySlug;
-export const submitLead = DataRegistry.submitLead;
-export const getLeads = DataRegistry.getLeads;
-export const updateLeadStatus = DataRegistry.updateLeadStatus;
-export const getVerifiedNode = DataRegistry.getVerifiedNode;
-export const checkSystemHealth = DataRegistry.checkSystemHealth;
-
-export type { Database } from "./types";
+// Simplified Exports
+export const {
+  getProvinceData,
+  getProjects,
+  getProjectBySlug,
+  getPosts,
+  getPostBySlug,
+  submitLead,
+  getLeads,
+  updateLeadStatus,
+  getVerifiedNode,
+  checkSystemHealth,
+} = DataRegistry;

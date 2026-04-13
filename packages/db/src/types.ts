@@ -1,4 +1,15 @@
-export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[];
+/**
+ * [DATABASE_SCHEMA]: GENERATED_SUPABASE_TYPES v2.1.0
+ * [STRATEGY]: Strict Schema Contract | JSON Validation Ready
+ */
+
+export type Json =
+  | string
+  | number
+  | boolean
+  | null
+  | { [key: string]: Json | undefined }
+  | Json[];
 
 export type Database = {
   public: {
@@ -204,13 +215,13 @@ export type Database = {
       };
     };
     Views: {
-      [key: string]: unknown;
+      [_ in never]: never;
     };
     Functions: {
-      [key: string]: unknown;
+      [_ in never]: never;
     };
     Enums: {
-      [key: string]: unknown;
+      [_ in never]: never;
     };
   };
 };

@@ -6,7 +6,7 @@
   "license": "ISC",
   "author": "",
   "scripts": {
-    "audit": "./scripts/monorepo-integrity-auditor.sh",
+    "audit": "pnpm exec tsx scripts/integrity-audit.ts",
     "audit:all": "pnpm run standardize && pnpm run format && pnpm run lint && pnpm run typecheck && pnpm run audit:knip && pnpm run audit",
     "audit:knip": "pnpm exec knip",
     "build": "pnpm -r build",
