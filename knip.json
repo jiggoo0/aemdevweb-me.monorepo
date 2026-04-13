@@ -21,6 +21,7 @@
     "**/*.log"
   ],
   "ignoreDependencies": [
+    "@next/swc-wasm-nodejs",
     "@supabase/ssr",
     "tailwindcss",
     "tailwindcss-animate",

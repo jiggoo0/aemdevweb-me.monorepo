@@ -42,6 +42,21 @@
   --radius-lg: 1.25rem;
   --radius-md: calc(1.25rem - 2px);
   --radius-sm: calc(1.25rem - 4px);
+
+  @keyframes scan-line {
+    0% {
+      transform: translateY(-100%);
+      opacity: 0;
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(1000%);
+      opacity: 0;
+    }
+  }
+  --animate-scan-line: scan-line 4s linear infinite;
 }
 
 @utility tech-grid {

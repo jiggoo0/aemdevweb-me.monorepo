@@ -33,7 +33,8 @@ export class CapitalProvinceStrategy implements SEOStrategy {
   generateMetadata(_slug: string, _data: unknown): Metadata {
     return {
       title: "AEM Digital Solutions Bangkok | ศูนย์กลางบริการเว็บระดับองค์กร",
-      description: "บริการรับทำเว็บไซต์ระดับ Enterprise ในกรุงเทพมหานคร พัฒนาด้วย Next.js 16 ประสิทธิภาพสูงสุด",
+      description:
+        "บริการรับทำเว็บไซต์ระดับ Enterprise ในกรุงเทพมหานคร พัฒนาด้วย Next.js 16 ประสิทธิภาพสูงสุด",
     };
   }
 

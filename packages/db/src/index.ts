@@ -92,6 +92,7 @@ export const DataRegistry = {
             title: staticNode.title,
             content: staticNode.description, // Correctly assign string description to content
             metadata: { description: staticNode.seoDescription },
+            is_fallback: true,
           } as unknown as Record<string, unknown>,
           error: null,
         };

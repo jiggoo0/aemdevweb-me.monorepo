@@ -2,8 +2,9 @@ import type { NextConfig } from "next";
 import createMDX from "@next/mdx";
 
 /**
- * [CONFIG]: NEXT.JS 16 ENTERPRISE CONFIGURATION v4.0.0
+ * [CONFIG]: NEXT.JS 16 ENTERPRISE CONFIGURATION v5.1.0
  * [COMPLIANCE]: Optimized for ARM64/Termux WASM Environment
+ * [STRATEGY]: Technical SEO Mastery | P-SEO Hub
  */
 const nextConfig: NextConfig = {
   // 🚀 Required for Next.js 16 Caching & Partial Prerendering (PPR)
@@ -36,7 +37,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "**", // Allow dynamic province images from various CDNs
+        hostname: "**",
       },
     ],
   },

@@ -45,7 +45,7 @@ export async function getCachedProvinceData(province: string): Promise<ProvinceD
       metadata: {
         description: String(metadata.description || `บริการ SEO ใน ${province}`),
       },
-      source: "database",
+      source: rawData.is_fallback ? "fallback" : "database",
     };
   } catch (err) {
     // 📢 Fallback Monitoring (Simulated)

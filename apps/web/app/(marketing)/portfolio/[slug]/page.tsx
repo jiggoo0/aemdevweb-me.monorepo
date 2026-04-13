@@ -52,7 +52,12 @@ export default async function CaseStudyPage({ params }: CaseStudyProps) {
   const components = useMDXComponents({});
 
   return (
-    <main className={cn("min-h-screen bg-background text-foreground relative overflow-hidden py-24", study.theme)}>
+    <main
+      className={cn(
+        "min-h-screen bg-background text-foreground relative overflow-hidden py-24",
+        study.theme,
+      )}
+    >
       <JsonLd
         data={getGraphSchema([
           getProjectSchema({

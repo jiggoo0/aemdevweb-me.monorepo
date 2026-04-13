@@ -1,5 +1,11 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
+import type { NextConfig } from "next";
+
+/**
+ * [CONFIG]: NEXT.JS 16 UNLINK-TH CONFIGURATION v5.1.0
+ * [COMPLIANCE]: Optimized for ARM64/Termux WASM Environment
+ * [STRATEGY]: Reputation & Verification Hub
+ */
+const nextConfig: NextConfig = {
   // 🚀 Required for Next.js 16 Caching & Partial Prerendering (PPR)
   cacheComponents: true,
 
@@ -21,6 +27,21 @@ const nextConfig = {
     config.cache = false;
     return config;
   },
+
+  // 🖼️ Image Optimization (Standard for Unlink-th)
+  images: {
+    formats: ["image/avif", "image/webp"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "**",
+      },
+    ],
+  },
+
+  // 🔐 Server-side Security & Logic
+  poweredByHeader: false,
+  reactStrictMode: true,
 };
 
-module.exports = nextConfig;
+export default nextConfig;

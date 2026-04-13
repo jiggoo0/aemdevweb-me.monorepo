@@ -116,7 +116,7 @@ async function PostContentWrapper({ slug }: { slug: string }) {
           <div className="flex items-center gap-2 text-muted-foreground">
             <Calendar size={12} />
             <span className="text-[10px] font-mono uppercase">
-              {new Date(post.date).toLocaleDateString("th-TH")}
+              {new Date(post.published_at).toLocaleDateString("th-TH")}
             </span>
           </div>
         </div>

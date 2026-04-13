@@ -2,7 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { ArrowUpRight, Calendar, Clock, MapPin, Search, ShieldCheck } from "lucide-react";
+import { ArrowUpRight, Calendar, Clock, ShieldCheck, User } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { clsx, type ClassValue } from "clsx";
@@ -34,13 +34,6 @@ interface ServiceMetadata {
   description: string;
   icon?: React.ReactNode;
   features?: string[];
-}
-
-interface AreaNodeMetadata {
-  slug: string;
-  name_en: string;
-  name_th: string;
-  seoSignals?: string;
 }
 
 /**
@@ -122,7 +115,7 @@ export const BlogCard = ({ post }: { post: BlogPostMetadata }) => {
             <div className="pt-8 border-t border-white/5 flex items-center justify-between mt-auto">
               <div className="flex items-center gap-3">
                 <div className="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-[10px] font-black">
-                  A
+                  <User size={14} className="text-primary" />
                 </div>
                 <span className="text-[9px] font-bold uppercase tracking-widest text-white/30">
                   AEM ARCHITECT
@@ -142,7 +135,9 @@ export const BlogCard = ({ post }: { post: BlogPostMetadata }) => {
   );
 };
 
-// ... (Rest of components: ServiceCard, AreaCard unchanged)
+/**
+ * 🛠️ [COMPONENT]: ServiceCard
+ */
 export const ServiceCard = ({ service }: { service: ServiceMetadata }) => (
   <GlassWrapper className="p-12 hover:bg-primary/[0.03]">
     <div className="mb-10 w-16 h-16 rounded-3xl bg-primary/10 border border-primary/20 flex items-center justify-center">
@@ -169,36 +164,4 @@ export const ServiceCard = ({ service }: { service: ServiceMetadata }) => (
       Authorize Integration
     </button>
   </GlassWrapper>
-);
-
-export const AreaCard = ({ area }: { area: AreaNodeMetadata }) => (
-  <Link href={`/${area.slug}`} className="block">
-    <motion.div
-      whileHover={{ scale: 1.02 }}
-      className="relative group overflow-hidden rounded-[3rem] aspect-[4/5] bg-zinc-900 border border-white/5"
-    >
-      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent z-10" />
-      <div className="absolute inset-0 opacity-40 group-hover:opacity-60 group-hover:scale-110 transition-all duration-1000 tech-grid" />
-      <div className="absolute inset-0 z-20 p-10 flex flex-col justify-end">
-        <div className="flex items-center gap-2 mb-4">
-          <MapPin size={14} className="text-primary" />
-          <span className="text-[10px] font-black uppercase tracking-[0.3em] text-primary">
-            Regional Hub
-          </span>
-        </div>
-        <h3 className="text-5xl font-black uppercase tracking-tighter text-white mb-6 leading-[0.8]">
-          {area.name_en.split(" ")[0]} <br />
-          <span className="text-2xl text-white/40">{area.name_th}</span>
-        </h3>
-        <div className="flex gap-4 pt-8 border-t border-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-          <div className="flex items-center gap-1.5 text-[9px] font-bold uppercase tracking-widest text-white/40">
-            <Search size={10} /> {area.seoSignals || "842"} Nodes
-          </div>
-          <div className="flex items-center gap-1.5 text-[9px] font-bold uppercase tracking-widest text-white/40">
-            <ShieldCheck size={10} /> Institutional
-          </div>
-        </div>
-      </div>
-    </motion.div>
-  </Link>
 );

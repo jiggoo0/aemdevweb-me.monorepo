@@ -41,13 +41,13 @@ export const TemplateShowcase: React.FC<TemplateShowcaseProps> = ({ templates, c
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent z-10" />
-              
+
               <div className="absolute top-4 left-4 z-20">
                 <span className="px-3 py-1 bg-primary/20 backdrop-blur-xl text-primary text-[10px] font-black uppercase tracking-widest rounded-full border border-primary/30">
                   {template.industry}
                 </span>
               </div>
-              
+
               <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-30">
                 <div className="w-14 h-14 rounded-full bg-white text-black flex items-center justify-center scale-75 group-hover:scale-100 transition-transform duration-500 shadow-2xl">
                   <ArrowUpRight size={28} />

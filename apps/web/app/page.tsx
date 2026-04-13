@@ -78,8 +78,8 @@ export default function FullyLoadedLandingPage() {
                 </h2>
               </div>
               <p className="text-muted-foreground max-w-sm font-light leading-relaxed pb-4">
-                เลือกใช้เทมเพลตที่ออกแบบมาเพื่อธุรกิจเฉพาะทางของคุณ
-                ยกระดับ UI/UX สู่มาตรฐานสากลด้วยเทคโนโลยี Next.js 16
+                เลือกใช้เทมเพลตที่ออกแบบมาเพื่อธุรกิจเฉพาะทางของคุณ ยกระดับ UI/UX
+                สู่มาตรฐานสากลด้วยเทคโนโลยี Next.js 16
               </p>
             </div>
 
@@ -142,7 +142,9 @@ export default function FullyLoadedLandingPage() {
                 <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground mb-6 block">
                   Phase 1.
                 </span>
-                <h3 className="text-3xl font-bold mb-2 uppercase tracking-tighter">Startup Node.</h3>
+                <h3 className="text-3xl font-bold mb-2 uppercase tracking-tighter">
+                  Startup Node.
+                </h3>
                 <div className="text-5xl font-black mb-8">
                   25k<span className="text-sm font-normal text-muted-foreground ml-2">THB+</span>
                 </div>
@@ -169,7 +171,9 @@ export default function FullyLoadedLandingPage() {
                 <span className="text-[10px] font-bold uppercase tracking-widest text-secondary mb-6 block">
                   Phase 2.
                 </span>
-                <h3 className="text-3xl font-bold mb-2 uppercase tracking-tighter">Corporate Hub.</h3>
+                <h3 className="text-3xl font-bold mb-2 uppercase tracking-tighter">
+                  Corporate Hub.
+                </h3>
                 <div className="text-5xl font-black mb-8">
                   65k<span className="text-sm font-normal text-muted-foreground ml-2">THB+</span>
                 </div>
@@ -187,7 +191,10 @@ export default function FullyLoadedLandingPage() {
                     <Zap size={14} className="text-secondary" /> Custom UI/UX Templates
                   </li>
                 </ul>
-                <Button className="w-full bg-secondary text-secondary-foreground hover:bg-secondary/90" asChild>
+                <Button
+                  className="w-full bg-secondary text-secondary-foreground hover:bg-secondary/90"
+                  asChild
+                >
                   <Link href={SHARED_SITE_CONFIG.links.line}>Scale Authority</Link>
                 </Button>
               </div>
@@ -220,7 +227,15 @@ export default function FullyLoadedLandingPage() {
         </section>
 
         {/* 📝 [BLOG_SECTION]: Latest Intelligence Transmissions */}
-        <RecentBlogSection />
+        <React.Suspense
+          fallback={
+            <div className="py-32 container mx-auto px-6 opacity-20 animate-pulse">
+              Loading Intelligence...
+            </div>
+          }
+        >
+          <RecentBlogSection />
+        </React.Suspense>
 
         {/* 🏆 [FINAL_CTA] */}
         <section className="bg-white text-black py-40 rounded-t-[5rem]">

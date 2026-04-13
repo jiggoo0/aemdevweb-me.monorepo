@@ -98,9 +98,9 @@ export function HeroAndShowcase() {
         </div>
 
         <h1 className="text-7xl md:text-[10rem] font-black uppercase tracking-tighter leading-[0.82] mb-12 text-foreground group">
-          {hero.title.split(" ")[0]} <br />{" "}
-          <span className="text-transparent bg-clip-text bg-gradient-to-b from-primary via-primary/80 to-primary/40 italic drop-shadow-[0_0_30px_rgba(var(--primary-rgb),0.3)]">
-            {hero.title.split(" ")[1]}
+          {hero.title.includes(" ") ? hero.title.split(" ")[0] : hero.title} <br />{" "}
+          <span className="text-transparent bg-clip-text bg-gradient-to-b from-primary via-primary/80 to-primary/40 italic drop-shadow-[0_0_30px_oklch(0.55_0.25_263_/_0.3)]">
+            {hero.title.includes(" ") ? hero.title.split(" ").slice(1).join(" ") : ""}
           </span>
         </h1>
 
@@ -216,8 +216,8 @@ export function HeroAndShowcase() {
             {/* Realistic Mockup Window */}
             <div className="lg:col-span-7 relative group/mockup">
               <div
-                className="absolute inset-0 bg-primary/20 blur-[120px] rounded-full opacity-0 group-hover/mockup:opacity-100 transition-opacity duration-1000"
-                style={{ backgroundColor: `${activeIndustry.oklch}20` }}
+                className="absolute inset-0 blur-[120px] rounded-full opacity-0 group-hover/mockup:opacity-100 transition-opacity duration-1000"
+                style={{ backgroundColor: activeIndustry.oklch.replace(")", " / 0.2)") }}
               />
 
               <GlassCard className="p-0 overflow-hidden border-white/10 shadow-2xl rounded-[3rem] bg-black/60 backdrop-blur-3xl relative z-10">
@@ -259,7 +259,7 @@ export function HeroAndShowcase() {
                     <div className="col-span-2 row-span-2 bg-white/5 rounded-3xl border border-white/10" />
                     <div
                       className="col-span-2 row-span-2 bg-primary/10 rounded-3xl border border-primary/20 flex items-center justify-center"
-                      style={{ borderColor: `${activeIndustry.oklch}40` }}
+                      style={{ borderColor: activeIndustry.oklch.replace(")", " / 0.4)") }}
                     >
                       <MousePointer2 className="text-white/40" size={24} />
                     </div>
@@ -268,7 +268,7 @@ export function HeroAndShowcase() {
                   {/* Ambient Glows inside Mockup */}
                   <div
                     className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-1/2 h-1/2 rounded-full blur-[100px] pointer-events-none"
-                    style={{ background: `${activeIndustry.oklch}15` }}
+                    style={{ background: activeIndustry.oklch.replace(")", " / 0.15)") }}
                   />
                 </div>
               </GlassCard>

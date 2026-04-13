@@ -82,11 +82,6 @@ export const getProjectSchema = (study: {
 export const getGraphSchema = (additionalNodes: Thing[] = []): WithContext<Thing> => {
   return {
     "@context": "https://schema.org",
-    "@graph": [
-      getPersonSchema(),
-      getOrganizationSchema(),
-      getWebSiteSchema(),
-      ...additionalNodes,
-    ],
+    "@graph": [getPersonSchema(), getOrganizationSchema(), getWebSiteSchema(), ...additionalNodes],
   } as unknown as WithContext<Thing>;
 };
