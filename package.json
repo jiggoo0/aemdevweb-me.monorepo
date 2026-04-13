@@ -15,8 +15,7 @@
     "db:setup": "pnpm exec tsx scripts/setup-database.ts",
     "db:sync": "pnpm exec tsx scripts/sync-real-assets.ts",
     "db:test": "pnpm exec tsx scripts/test-database-ops.ts",
-    "dev": "NODE_OPTIONS='--max-old-space-size=2048' turbo dev",
-    "dev:termux": "NODE_OPTIONS='--max-old-space-size=2048' pnpm -r --parallel dev",
+    "dev": "NODE_OPTIONS='--max-old-space-size=2048' pnpm -r --parallel dev",
     "dev:unlink": "NODE_OPTIONS='--max-old-space-size=2048' pnpm --filter unlink-th dev",
     "dev:web": "NODE_OPTIONS='--max-old-space-size=2048' pnpm --filter web dev",
     "env:sync": "./scripts/monorepo-env-sync.sh",
@@ -26,15 +25,13 @@
     "lint": "eslint . --max-warnings 0",
     "lint:fix": "eslint . --fix",
     "standardize": "./scripts/monorepo-standardizer.sh",
-    "start": "turbo start",
-    "start:termux": "pnpm -r --parallel start",
+    "start": "pnpm -r --parallel start",
     "typecheck": "pnpm -r run typecheck"
   },
   "dependencies": {
     "@next/swc-wasm-nodejs": "^16.2.3",
     "dotenv": "^17.4.0",
-    "tsx": "^4.21.0",
-    "turbo": "^2.9.3"
+    "tsx": "^4.21.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.4",
