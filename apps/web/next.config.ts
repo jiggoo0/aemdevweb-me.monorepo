@@ -10,6 +10,8 @@ const nextConfig: NextConfig = {
   ...baseConfig,
   // [APP_SPECIFIC]: MDX Support
   pageExtensions: ["js", "jsx", "md", "mdx", "ts", "tsx"],
+  // [VERCEL_OPTIMIZATION]: Standard serverless output
+  output: undefined,
 };
 
 const withMDX = createMDX({});

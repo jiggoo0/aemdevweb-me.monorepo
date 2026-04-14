@@ -7,6 +7,8 @@ import { baseConfig } from "@repo/next-config";
  */
 const nextConfig: NextConfig = {
   ...baseConfig,
+  // [VERCEL_OPTIMIZATION]: Serverless deployment output
+  output: undefined,
 };
 
 export default nextConfig;
