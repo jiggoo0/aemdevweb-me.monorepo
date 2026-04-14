@@ -40,7 +40,7 @@ export default function IdentityHome() {
                   src="/images/profile-mastermind-4x3.webp"
                   alt="AEMZA MACKS"
                   fill
-                  className="object-cover grayscale hover:grayscale-0 transition-all duration-1000 opacity-80 group-hover:opacity-100"
+                  className="object-cover transition-all duration-1000 opacity-90 group-hover:opacity-100"
                   priority
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60" />
@@ -74,17 +74,51 @@ export default function IdentityHome() {
               </p>
 
               <div className="flex flex-wrap gap-4 justify-center md:justify-start font-mono">
-                <button className="flex items-center gap-3 px-8 py-4 bg-primary text-black rounded-xl font-black text-[10px] tracking-[0.2em] uppercase hover:scale-105 transition-all">
-                  Initialize Sync <Terminal size={14} />
-                </button>
                 <Link
-                  href={SHARED_SITE_CONFIG.links.site}
+                  href="/projects"
+                  className="flex items-center gap-3 px-8 py-4 bg-primary text-black rounded-xl font-black text-[10px] tracking-[0.2em] uppercase hover:scale-105 transition-all"
+                >
+                  View Systems <Terminal size={14} />
+                </Link>
+                <Link
+                  href="/blog"
                   className="flex items-center gap-3 px-8 py-4 bg-white/5 border border-white/10 rounded-xl font-black text-[10px] tracking-[0.2em] uppercase hover:bg-white/10 transition-all"
                 >
-                  Business Hub <ArrowUpRight size={14} />
+                  Intelligence Hub <ArrowUpRight size={14} />
                 </Link>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 🚀 [LATEST_INTELLIGENCE]: Preview of Blog */}
+      <section className="relative py-32 px-6 z-10 border-t border-white/5">
+        <div className="container max-w-6xl mx-auto">
+          <div className="flex flex-col md:flex-row items-end justify-between mb-20 gap-8">
+            <div className="max-w-xl">
+               <span className="text-primary text-[10px] font-black uppercase tracking-[0.4em] mb-4 block">Recent Transmissions.</span>
+               <h2 className="text-5xl md:text-7xl font-black uppercase tracking-tighter leading-none mb-6">Latest <br /> <span className="text-white/20">Protocol.</span></h2>
+            </div>
+            <Link href="/blog" className="flex items-center gap-3 text-[10px] font-black uppercase tracking-widest text-white/40 hover:text-primary transition-colors pb-4">
+              Access Full Hub <ArrowUpRight size={16} />
+            </Link>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* We will add a simple placeholder list or just link out for now to keep it clean */}
+            {[1, 2, 3].map((i) => (
+              <div key={i} className="group p-8 rounded-[2rem] border border-white/5 bg-white/[0.01] hover:border-primary/20 transition-all">
+                <div className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center mb-6 text-primary">
+                  <Activity size={16} />
+                </div>
+                <div className="h-4 w-24 bg-white/5 rounded mb-4" />
+                <div className="h-6 w-full bg-white/10 rounded mb-8" />
+                <div className="flex items-center gap-2 text-[9px] font-black uppercase tracking-widest text-white/20 group-hover:text-primary transition-colors">
+                  Read Record <ArrowUpRight size={12} />
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>

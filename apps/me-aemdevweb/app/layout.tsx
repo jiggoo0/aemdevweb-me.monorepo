@@ -6,6 +6,8 @@ import { SafeAnalytics } from "@repo/ui";
 import "@repo/ui/styles";
 import "./globals.css";
 
+import { Navbar, Footer } from "@/components/layout/Navbar";
+
 export const viewport: Viewport = {
   themeColor: "#050505",
   width: "device-width",
@@ -30,7 +32,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="th" className={`${GeistSans.variable} ${GeistMono.variable} dark`}>
       <body className="bg-[#050505] font-sans antialiased selection:bg-primary/30 selection:text-primary">
         <SafeAnalytics enableVercel={true} />
+        <Navbar />
         {children}
+        <Footer />
       </body>
     </html>
   );

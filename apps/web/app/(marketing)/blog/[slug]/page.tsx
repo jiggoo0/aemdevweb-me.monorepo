@@ -4,10 +4,12 @@ import { GlassCard } from "@repo/ui";
 import { ArrowLeft, Calendar, User, Clock } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
-import { getPostMetadataBySlug, getAllBlogPosts } from "@/lib/mdx";
+import { getBlogPostBySlug, getAllBlogPosts } from "@/lib/mdx";
 import { BlogCard } from "@/components/cards";
 import type { Metadata } from "next";
 import { cacheLife, cacheTag } from "next/cache";
+import { MDXRemote } from "next-mdx-remote/rsc";
+import { useMDXComponents } from "@/mdx-components";
 
 /**
  * [TYPE]: PostProps
@@ -21,15 +23,15 @@ interface PostProps {
  */
 export async function generateMetadata({ params }: PostProps): Promise<Metadata> {
   const { slug } = await params;
-  const post = await getPostMetadataBySlug(slug);
+  const post = await getBlogPostBySlug(slug);
 
   if (!post) {
     return { title: "Protocol Not Found | Intelligence Hub" };
   }
 
   return {
-    title: `${post.title} | Intelligence Hub`,
-    description: post.excerpt,
+    title: `${post.metadata.title} | Intelligence Hub`,
+    description: post.metadata.excerpt,
   };
 }
 
@@ -40,7 +42,7 @@ async function getCachedPost(slug: string) {
   "use cache";
   cacheTag(`blog-post-${slug}`);
   cacheLife("days");
-  const post = await getPostMetadataBySlug(slug);
+  const post = await getBlogPostBySlug(slug);
   return { data: post };
 }
 
@@ -57,13 +59,9 @@ export async function generateStaticParams() {
 /**
  * [CONTENT_RENDERER]: MDXContent
  */
-async function MDXContent({ slug }: { slug: string }) {
-  try {
-    const { default: PostContent } = await import(`@/content/blog/${slug}.mdx`);
-    return <PostContent />;
-  } catch {
-    return null;
-  }
+async function MDXContent({ source }: { source: string }) {
+  const components = useMDXComponents({});
+  return <MDXRemote source={source} components={components} />;
 }
 
 /**
@@ -98,12 +96,13 @@ export default async function BlogPostPage({ params }: PostProps) {
 }
 
 async function PostContentWrapper({ slug }: { slug: string }) {
-  const { data: post } = await getCachedPost(slug);
+  const { data: postData } = await getCachedPost(slug);
 
-  if (!post) {
+  if (!postData) {
     notFound();
   }
 
+  const { metadata: post, content } = postData;
   const allPosts = await getAllBlogPosts();
   const relatedPosts = allPosts.filter((p) => p.slug !== slug).slice(0, 2);
 
@@ -145,7 +144,7 @@ async function PostContentWrapper({ slug }: { slug: string }) {
             </div>
             <div className="flex flex-col">
               <span className="text-[10px] font-black uppercase tracking-widest leading-none">
-                AEM ARCHITECT
+                {post.author_id === "AEM_Architect" ? "AEM ARCHITECT" : post.author_id}
               </span>
               <span className="text-[9px] text-muted-foreground uppercase tracking-widest">
                 Protocol Lead
@@ -155,14 +154,14 @@ async function PostContentWrapper({ slug }: { slug: string }) {
           <div className="flex items-center gap-2 text-muted-foreground">
             <Clock size={12} />
             <span className="text-[10px] font-mono uppercase tracking-widest">
-              {post.readingTime || "12 min"} read
+              {post.readingTime ? post.readingTime.replace(/ read$/i, "") : "12 MIN"} READ
             </span>
           </div>
         </div>
       </header>
 
       <GlassCard className="p-8 md:p-16 border-white/5 bg-white/[0.01] prose prose-invert prose-zinc max-w-none mb-24">
-        <MDXContent slug={slug} />
+        <MDXContent source={content} />
       </GlassCard>
 
       {/* Related Posts */}
