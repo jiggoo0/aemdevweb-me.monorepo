@@ -18,6 +18,7 @@
     "@repo/seo": "workspace:*",
     "@repo/ui": "workspace:*",
     "@types/mdx": "^2.0.13",
+    "@vercel/analytics": "^2.0.1",
     "geist": "^1.7.0",
     "gray-matter": "^4.0.3",
     "lucide-react": "^0.474.0",

@@ -3,6 +3,7 @@ import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
 import { SHARED_SITE_CONFIG } from "@repo/core";
 import { SafeAnalytics } from "@repo/ui";
+import { Analytics } from "@vercel/analytics/react";
 import "@repo/ui/styles";
 import "./globals.css";
 
@@ -32,6 +33,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="th" className={`${GeistSans.variable} ${GeistMono.variable} dark`}>
       <body className="bg-[#050505] font-sans antialiased selection:bg-primary/30 selection:text-primary">
         <SafeAnalytics enableVercel={true} />
+        <Analytics />
         <Navbar />
         {children}
         <Footer />
