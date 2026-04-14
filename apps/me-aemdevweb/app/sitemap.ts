@@ -7,7 +7,7 @@ import { getAllContent } from "@/lib/mdx";
  */
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = "https://me.aemdevweb.com";
-  
+
   // 1. Core Pages
   const corePages = ["", "/blog", "/projects"].map((route) => ({
     url: `${baseUrl}${route}`,

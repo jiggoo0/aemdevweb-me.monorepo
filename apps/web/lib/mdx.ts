@@ -174,7 +174,9 @@ export async function getCaseStudyBySlug(slug: string): Promise<CaseStudy | null
 /**
  * [BLOG ENGINE]: getBlogPostBySlug
  */
-export async function getBlogPostBySlug(slug: string): Promise<{ metadata: BlogPostMetadata; content: string } | null> {
+export async function getBlogPostBySlug(
+  slug: string,
+): Promise<{ metadata: BlogPostMetadata; content: string } | null> {
   "use cache";
   cacheTag(`mdx-post-${slug}`);
   cacheLife("days");
@@ -199,29 +201,4 @@ export async function getBlogPostBySlug(slug: string): Promise<{ metadata: BlogP
   };
 
   return { metadata, content };
-}
-
-/**
- * [BLOG ENGINE]: getPostMetadataBySlug
- */
-export async function getPostMetadataBySlug(slug: string): Promise<BlogPostMetadata | null> {
-  "use cache";
-  cacheTag(`mdx-post-${slug}`);
-  cacheLife("days");
-
-  const filePath = path.join(BLOG_PATH, `${slug}.mdx`);
-  if (!fs.existsSync(filePath)) return null;
-
-  const source = await fs.promises.readFile(filePath, "utf8");
-  const { data } = matter(source);
-
-  return {
-    slug,
-    title: data.title || "Untitled Transmission",
-    published_at: data.date || new Date().toISOString(),
-    category: data.category || "General",
-    thumbnail_url: data.thumbnail || "/images/blog/default.webp",
-    author_id: data.author || "AEM_Architect",
-    ...data,
-  } as BlogPostMetadata;
 }

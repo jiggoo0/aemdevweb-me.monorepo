@@ -12,7 +12,7 @@ const nextConfig: NextConfig = {
   // [APP_SPECIFIC]: MDX Support for Content Layers
   pageExtensions: ["js", "jsx", "md", "mdx", "ts", "tsx"],
   // [VERCEL_OPTIMIZATION]: Ensure output is compatible
-  output: undefined, 
+  output: undefined,
 };
 
 const withMDX = createMDX({});

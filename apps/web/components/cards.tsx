@@ -61,7 +61,13 @@ const GlassWrapper = ({
  * 📝 [COMPONENT]: BlogCard
  * [UPGRADE]: Added Image rendering & Data Sync v5.1.0
  */
-export const BlogCard = ({ post }: { post: BlogPostMetadata }) => {
+export const BlogCard = ({
+  post,
+  priority = false,
+}: {
+  post: BlogPostMetadata;
+  priority?: boolean;
+}) => {
   return (
     <Link href={`/blog/${post.slug}`} className="block h-full">
       <motion.div
@@ -77,6 +83,7 @@ export const BlogCard = ({ post }: { post: BlogPostMetadata }) => {
               alt={post.title}
               fill
               className="object-cover transition-transform duration-700 group-hover:scale-110"
+              priority={priority}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent" />
             <div className="absolute top-6 left-6">

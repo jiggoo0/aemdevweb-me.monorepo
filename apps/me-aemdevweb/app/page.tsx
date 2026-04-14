@@ -1,10 +1,11 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { SHARED_SITE_CONFIG } from "@repo/core";
 import { JsonLd, getGraphSchema } from "@repo/seo";
 import { Brain, Terminal, Zap, ArrowUpRight, Activity } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import type { Metadata } from "next";
+import { getAllContent } from "@/lib/mdx";
 
 /**
  * [METADATA]: ARCHITECT IDENTITY PROTOCOL v1.1.0
@@ -14,6 +15,42 @@ export const metadata: Metadata = {
   title: `${SHARED_SITE_CONFIG.expert.displayName} | Chief Digital Architect`,
   description: SHARED_SITE_CONFIG.expert.bio,
 };
+
+/**
+ * [ASYNC_COMPONENT]: LatestTransmissions
+ * ดึงข้อมูลบทความล่าสุดมาแสดงผลแบบ Streaming เพื่อสนับสนุน PPR
+ */
+async function LatestTransmissions() {
+  const posts = await getAllContent("blog");
+  const recentPosts = posts.slice(0, 3);
+
+  if (recentPosts.length === 0) return null;
+
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {recentPosts.map((post) => (
+        <Link
+          key={post.slug}
+          href={`/blog/${post.slug}`}
+          className="group p-8 rounded-[2rem] border border-white/5 bg-white/[0.01] hover:border-primary/20 transition-all flex flex-col h-full"
+        >
+          <div className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center mb-6 text-primary">
+            <Activity size={16} />
+          </div>
+          <span className="text-[10px] font-black uppercase tracking-widest text-primary/40 mb-2">
+            {post.category}
+          </span>
+          <h3 className="text-lg font-bold uppercase tracking-tight mb-8 group-hover:text-primary transition-colors line-clamp-2">
+            {post.title}
+          </h3>
+          <div className="mt-auto flex items-center gap-2 text-[9px] font-black uppercase tracking-widest text-white/20 group-hover:text-primary transition-colors">
+            Read Record <ArrowUpRight size={12} />
+          </div>
+        </Link>
+      ))}
+    </div>
+  );
+}
 
 export default function IdentityHome() {
   return (
@@ -97,29 +134,32 @@ export default function IdentityHome() {
         <div className="container max-w-6xl mx-auto">
           <div className="flex flex-col md:flex-row items-end justify-between mb-20 gap-8">
             <div className="max-w-xl">
-               <span className="text-primary text-[10px] font-black uppercase tracking-[0.4em] mb-4 block">Recent Transmissions.</span>
-               <h2 className="text-5xl md:text-7xl font-black uppercase tracking-tighter leading-none mb-6">Latest <br /> <span className="text-white/20">Protocol.</span></h2>
+              <span className="text-primary text-[10px] font-black uppercase tracking-[0.4em] mb-4 block">
+                Recent Transmissions.
+              </span>
+              <h2 className="text-5xl md:text-7xl font-black uppercase tracking-tighter leading-none mb-6">
+                Latest <br /> <span className="text-white/20">Protocol.</span>
+              </h2>
             </div>
-            <Link href="/blog" className="flex items-center gap-3 text-[10px] font-black uppercase tracking-widest text-white/40 hover:text-primary transition-colors pb-4">
+            <Link
+              href="/blog"
+              className="flex items-center gap-3 text-[10px] font-black uppercase tracking-widest text-white/40 hover:text-primary transition-colors pb-4"
+            >
               Access Full Hub <ArrowUpRight size={16} />
             </Link>
           </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* We will add a simple placeholder list or just link out for now to keep it clean */}
-            {[1, 2, 3].map((i) => (
-              <div key={i} className="group p-8 rounded-[2rem] border border-white/5 bg-white/[0.01] hover:border-primary/20 transition-all">
-                <div className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center mb-6 text-primary">
-                  <Activity size={16} />
-                </div>
-                <div className="h-4 w-24 bg-white/5 rounded mb-4" />
-                <div className="h-6 w-full bg-white/10 rounded mb-8" />
-                <div className="flex items-center gap-2 text-[9px] font-black uppercase tracking-widest text-white/20 group-hover:text-primary transition-colors">
-                  Read Record <ArrowUpRight size={12} />
-                </div>
+
+          <Suspense
+            fallback={
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 opacity-20">
+                {[1, 2, 3].map((i) => (
+                  <div key={i} className="h-64 rounded-[2rem] bg-white/5 animate-pulse" />
+                ))}
               </div>
-            ))}
-          </div>
+            }
+          >
+            <LatestTransmissions />
+          </Suspense>
         </div>
       </section>
 

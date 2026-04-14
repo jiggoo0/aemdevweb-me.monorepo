@@ -10,19 +10,8 @@ export default function robots(): MetadataRoute.Robots {
   return {
     rules: {
       userAgent: "*",
-      allow: [
-        "/",
-        "/blog",
-        "/projects",
-        "/_next/static/",
-        "/_next/image/",
-      ],
-      disallow: [
-        "/api/",
-        "/admin/",
-        "/private/",
-        "/temp/",
-      ],
+      allow: ["/", "/blog", "/projects", "/_next/static/", "/_next/image/"],
+      disallow: ["/api/", "/admin/", "/private/", "/temp/"],
     },
     sitemap: `${baseUrl}/sitemap.xml`,
   };

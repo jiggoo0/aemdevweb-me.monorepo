@@ -58,8 +58,8 @@ export function Footer() {
               Infrastructure is <span className="text-primary italic">Destiny.</span>
             </h3>
             <p className="text-sm font-light text-white/30 max-w-md leading-relaxed mb-8">
-              ผู้ออกแบบและวางรากฐานโครงสร้างพื้นฐานดิจิทัลระดับสถาบัน 
-              เน้นความน่าเชื่อถือ ประสิทธิภาพ และความล้ำสมัยของเทคโนโลยีปี 2026
+              ผู้ออกแบบและวางรากฐานโครงสร้างพื้นฐานดิจิทัลระดับสถาบัน เน้นความน่าเชื่อถือ
+              ประสิทธิภาพ และความล้ำสมัยของเทคโนโลยีปี 2026
             </p>
             <div className="flex gap-4">
               <div className="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-white/40 hover:text-primary hover:border-primary/30 transition-all cursor-pointer">
@@ -70,27 +70,54 @@ export function Footer() {
               </div>
             </div>
           </div>
-          
+
           <div>
-            <h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-white/60 mb-8">Directives</h4>
+            <h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-white/60 mb-8">
+              Directives
+            </h4>
             <ul className="space-y-4">
-              <li><Link href="/projects" className="text-xs text-white/30 hover:text-primary transition-colors uppercase tracking-widest">Architected Systems</Link></li>
-              <li><Link href="/blog" className="text-xs text-white/30 hover:text-primary transition-colors uppercase tracking-widest">Intelligence Hub</Link></li>
-              <li><Link href={SHARED_SITE_CONFIG.links.site} className="text-xs text-white/30 hover:text-primary transition-colors uppercase tracking-widest">Business Portal</Link></li>
+              <li>
+                <Link
+                  href="/projects"
+                  className="text-xs text-white/30 hover:text-primary transition-colors uppercase tracking-widest"
+                >
+                  Architected Systems
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/blog"
+                  className="text-xs text-white/30 hover:text-primary transition-colors uppercase tracking-widest"
+                >
+                  Intelligence Hub
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href={SHARED_SITE_CONFIG.links.site}
+                  className="text-xs text-white/30 hover:text-primary transition-colors uppercase tracking-widest"
+                >
+                  Business Portal
+                </Link>
+              </li>
             </ul>
           </div>
 
           <div>
-             <h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-white/60 mb-8">Status</h4>
-             <div className="p-4 bg-white/[0.02] border border-white/5 rounded-2xl">
-                <div className="flex items-center gap-3 mb-2">
-                   <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-                   <span className="text-[9px] font-black uppercase tracking-widest text-white/40">Protocol: Active</span>
-                </div>
-                <div className="text-[8px] font-mono text-white/20 uppercase tracking-tighter">
-                   Syncing with AEM-GLOBAL-ENTRY v5.3
-                </div>
-             </div>
+            <h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-white/60 mb-8">
+              Status
+            </h4>
+            <div className="p-4 bg-white/[0.02] border border-white/5 rounded-2xl">
+              <div className="flex items-center gap-3 mb-2">
+                <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+                <span className="text-[9px] font-black uppercase tracking-widest text-white/40">
+                  Protocol: Active
+                </span>
+              </div>
+              <div className="text-[8px] font-mono text-white/20 uppercase tracking-tighter">
+                Syncing with AEM-GLOBAL-ENTRY v5.3
+              </div>
+            </div>
           </div>
         </div>
 
@@ -99,8 +126,8 @@ export function Footer() {
             © 2026 AEMZA MACKS // STRATEGIC AUTHORITY
           </p>
           <div className="flex gap-8 text-[9px] font-mono uppercase tracking-[0.4em]">
-             <span>Verified by UNLINK</span>
-             <span>Enforced by Gemini CLI</span>
+            <span>Verified by UNLINK</span>
+            <span>Enforced by Gemini CLI</span>
           </div>
         </div>
       </div>

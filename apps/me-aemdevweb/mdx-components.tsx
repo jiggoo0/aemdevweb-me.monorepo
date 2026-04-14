@@ -14,39 +14,30 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       </h2>
     ),
     h3: ({ children }) => (
-      <h3 className="text-xl font-bold uppercase tracking-wide mb-6 mt-12">
-        {children}
-      </h3>
+      <h3 className="text-xl font-bold uppercase tracking-wide mb-6 mt-12">{children}</h3>
     ),
     p: ({ children }) => (
-      <p className="text-lg md:text-xl font-light leading-relaxed mb-8 text-white/60">
-        {children}
-      </p>
+      <p className="text-lg md:text-xl font-light leading-relaxed mb-8 text-white/60">{children}</p>
     ),
     ul: ({ children }) => (
-      <ul className="list-disc pl-8 mb-8 space-y-4 text-white/40">
-        {children}
-      </ul>
+      <ul className="list-disc pl-8 mb-8 space-y-4 text-white/40">{children}</ul>
     ),
     ol: ({ children }) => (
-      <ol className="list-decimal pl-8 mb-8 space-y-4 text-white/40">
-        {children}
-      </ol>
+      <ol className="list-decimal pl-8 mb-8 space-y-4 text-white/40">{children}</ol>
     ),
-    li: ({ children }) => (
-      <li className="text-lg font-light leading-relaxed italic">
-        {children}
-      </li>
-    ),
+    li: ({ children }) => <li className="text-lg font-light leading-relaxed italic">{children}</li>,
     blockquote: ({ children }) => (
       <blockquote className="border-l-4 border-primary pl-8 py-4 italic text-white/80 bg-white/5 rounded-r-2xl my-12 text-xl font-light">
         {children}
       </blockquote>
     ),
     img: (props) => (
-      <span className="block my-16 rounded-[2.5rem] overflow-hidden border border-white/10 shadow-2xl">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img {...props} alt={props.alt || ""} className="w-full h-auto transition-all duration-1000" />
+      <span className="my-16 block overflow-hidden rounded-[2.5rem] border border-white/10 shadow-2xl">
+        <img
+          {...props}
+          alt={props.alt || ""}
+          className="h-auto w-full transition-all duration-1000"
+        />
       </span>
     ),
     hr: () => <hr className="my-20 border-white/5" />,

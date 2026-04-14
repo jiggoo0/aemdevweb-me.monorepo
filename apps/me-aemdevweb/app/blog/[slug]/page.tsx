@@ -58,7 +58,10 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
           <div className="flex flex-wrap gap-4 mb-8">
             {post.metadata.tags?.map((tag: string) => (
-              <span key={tag} className="px-4 py-1.5 bg-white/5 border border-white/10 rounded-full text-[9px] font-bold uppercase tracking-widest text-primary/80">
+              <span
+                key={tag}
+                className="px-4 py-1.5 bg-white/5 border border-white/10 rounded-full text-[9px] font-bold uppercase tracking-widest text-primary/80"
+              >
                 {tag}
               </span>
             ))}
@@ -70,7 +73,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
           <div className="flex flex-wrap items-center gap-8 text-[10px] font-black uppercase tracking-[0.2em] text-white/30 italic">
             <span className="flex items-center gap-2">
-              <Clock size={12} /> Protocol_Updated: {new Date(post.metadata.date).toLocaleDateString('en-GB')}
+              <Clock size={12} /> Protocol_Updated:{" "}
+              {new Date(post.metadata.date).toLocaleDateString("en-GB")}
             </span>
             <span className="flex items-center gap-2">
               <Tag size={12} /> Status: Verified_Intelligence
@@ -87,15 +91,15 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
         {/* 🚀 [FOOTER_CTA] */}
         <footer className="mt-32 pt-20 border-t border-white/5 text-center">
-            <p className="text-[10px] font-black uppercase tracking-[0.5em] text-white/20 mb-12">
-                Transmission Concluded.
-            </p>
-            <Link
-                href="/blog"
-                className="inline-flex items-center gap-4 px-12 py-6 bg-white text-black rounded-2xl font-black uppercase tracking-[0.3em] text-[10px] hover:scale-105 transition-all"
-            >
-                Return to Hub
-            </Link>
+          <p className="text-[10px] font-black uppercase tracking-[0.5em] text-white/20 mb-12">
+            Transmission Concluded.
+          </p>
+          <Link
+            href="/blog"
+            className="inline-flex items-center gap-4 px-12 py-6 bg-white text-black rounded-2xl font-black uppercase tracking-[0.3em] text-[10px] hover:scale-105 transition-all"
+          >
+            Return to Hub
+          </Link>
         </footer>
       </section>
     </article>
